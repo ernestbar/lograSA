@@ -40,9 +40,9 @@
 			<div class="news-feed">
 				<div class="news-image" style="background-image: url(assets/img/login-bg/fondo_login.jpg)"></div>
 				<div class="news-caption">
-					<h4 class="caption-title"><b>Amas</b>Cuotas</h4>
+					<h4 class="caption-title"><b>Logra</b>SA</h4>
 					<p>
-						Hacemos tus sueños de volar, realidad.
+						Logistica Integral de Carga.
 					</p>
 				</div>
 			</div>
@@ -51,9 +51,9 @@
 			<div class="right-content">
 				<!-- begin login-header -->
 				<div class="login-header">
-					<div class="brand">
-                        <img src="assets/img/logo/logo-admin.png" />
-						<span class="logo"></span> <b>Ingreso</b> AmasCuotas
+					<div>
+                        <img src="assets/img/logo/logo-admin.png" width="400" />
+						<h1><span class="logo"></span> <b>Ingreso</b> Logra SA</h1>
 						<%--<small>responsive bootstrap 3 admin template</small>--%>
 					</div>
 					<div class="icon">
