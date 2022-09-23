@@ -64,7 +64,7 @@
 										<!-- end form-group row -->
 									
 										<!-- begin page-header -->
-											<h1 class="page-header">Parametro <small>Dominio:</small></h1>
+											<h1 class="page-header">Parametro Dominio:</h1>
 											<asp:DropDownList ID="ddlDominio" class="form-control col-md-6" AutoPostBack="true" OnSelectedIndexChanged="ddlDominio_SelectedIndexChanged"  DataSourceID="odsDominiosOnly" DataTextField="dominio" DataValueField="dominio" OnDataBound="ddlDominio_DataBound" runat="server"></asp:DropDownList>
 											<asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="*" ForeColor="Red" ControlToValidate="ddlDominio" InitialValue="SELECCIONAR"  Font-Bold="True"></asp:RequiredFieldValidator>
 											<!-- end page-header -->

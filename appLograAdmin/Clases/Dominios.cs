@@ -3,17 +3,19 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using System.Configuration;
-using Microsoft.Practices.EnterpriseLibrary.Data;
+//using Microsoft.Practices.EnterpriseLibrary.Data;
+using Oracle.ManagedDataAccess.Client;
+
 
 namespace appLograAdmin.Clases
 {
     public class Dominios
     { //Base de datos
-        private static Database db1 = DatabaseFactory.CreateDatabase(ConfigurationManager.AppSettings["conn"]);
+        //private static Database db1 = DatabaseFactory.CreateDatabase(ConfigurationManager.AppSettings["conn"]);
+        private static OracleConnection Conexion = new OracleConnection("User Id=compusoft;Password=LoGa.001;Data Source=200.12.254.22:1521/XE");
 
         #region Propiedades
         //Propiedades privadas
-        private string _PV_TIPO_OPERACION = "";
         private string _PV_DOMINIO = "";
         private string _PV_CODIGO = "";
         private string _PV_DESCRIPCION = "";
@@ -26,7 +28,6 @@ namespace appLograAdmin.Clases
         private string _PV_DESCRIPCIONPR = "";
         private string _PV_ERROR = "";
         //Propiedades públicas
-        public string PV_TIPO_OPERACION { get { return _PV_TIPO_OPERACION; } set { _PV_TIPO_OPERACION = value; } }
         public string PV_DOMINIO { get { return _PV_DOMINIO; } set { _PV_DOMINIO = value; } }
         public string PV_CODIGO { get { return _PV_CODIGO; } set { _PV_CODIGO = value; } }
         public string PV_DESCRIPCION { get { return _PV_DESCRIPCION; } set { _PV_DESCRIPCION = value; } }
@@ -47,11 +48,10 @@ namespace appLograAdmin.Clases
             _PV_CODIGO = pV_CODIGO;
             RecuperarDatos();
         }
-        public Dominios(string pV_TIPO_OPERACION, string pV_DOMINIO, string pV_CODIGO,
+        public Dominios(string pV_DOMINIO, string pV_CODIGO,
          string pV_DESCRIPCION, string pV_VALOR_CARACTER, int pV_VALOR_NUMERICO,
          DateTime pV_VALOR_DATE, string pV_USUARIO)
         {
-            _PV_TIPO_OPERACION = pV_TIPO_OPERACION;
             _PV_DOMINIO = pV_DOMINIO;
             _PV_CODIGO = pV_CODIGO;
             _PV_DESCRIPCION = pV_DESCRIPCION;
@@ -64,69 +64,50 @@ namespace appLograAdmin.Clases
 
         #region Métodos que NO requieren constructor
 
-        public static DataTable Lista(string PV_DOMINIO)
+        public static DataTable PR_PAR_GET_DOMINIOS(string pV_DOMINIO)
         {
             try
             {
+                if (Conexion.State.ToString().ToUpper() == "CLOSED")
+                    Conexion.Open();
 
-                DbCommand cmd = db1.GetStoredProcCommand("PR_PAR_GET_DOMINIO");
-
-                db1.AddInParameter(cmd, "PV_DOMINIO", DbType.String, PV_DOMINIO);
-                cmd.CommandTimeout = int.Parse(ConfigurationManager.AppSettings["CommandTimeout"]);
-                return db1.ExecuteDataSet(cmd).Tables[0];
+                OracleCommand cmd = new OracleCommand("PAQ_LOG_DOMINIO.PR_PAR_GET_DOMINIOS", Conexion);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("PV_DOMINIO", OracleDbType.Varchar2, ParameterDirection.Input).Value = pV_DOMINIO;
+                cmd.Parameters.Add("po_tabla", OracleDbType.RefCursor, ParameterDirection.Output);
+                cmd.ExecuteNonQuery();
+                DataSet ds = new DataSet();
+                OracleDataAdapter da = new OracleDataAdapter(cmd);
+                da.Fill(ds);
+                Conexion.Close();
+                return ds.Tables[0];
             }
             catch (Exception ex)
             {
+                Conexion.Close();
                 ex.ToString();
                 DataTable dt = new DataTable();
                 return dt;
             }
 
         }
-        public static DataTable PR_PAR_GET_DOMINIOS(string PV_DOMINIO)
-        {
-            try
-            {
 
-                DbCommand cmd = db1.GetStoredProcCommand("PR_PAR_GET_DOMINIOS");
-
-                db1.AddInParameter(cmd, "PV_DOMINIO", DbType.String, PV_DOMINIO);
-                cmd.CommandTimeout = int.Parse(ConfigurationManager.AppSettings["CommandTimeout"]);
-                return db1.ExecuteDataSet(cmd).Tables[0];
-            }
-            catch (Exception ex)
-            {
-                ex.ToString();
-                DataTable dt = new DataTable();
-                return dt;
-            }
-
-        }
-        public static DataTable PR_PAR_GET_PROCESOS(string PV_PROCESO_ASOCIADO)
-        {
-            try
-            {
-                DbCommand cmd = db1.GetStoredProcCommand("PR_PAR_GET_PROCESOS");
-                db1.AddInParameter(cmd, "PV_DOMINIO", DbType.String, "PROCESO DETALLE");
-                db1.AddInParameter(cmd, "PV_VALOR_CARACTER", DbType.String, PV_PROCESO_ASOCIADO);
-                cmd.CommandTimeout = int.Parse(ConfigurationManager.AppSettings["CommandTimeout"]);
-                return db1.ExecuteDataSet(cmd).Tables[0];
-            }
-            catch (Exception ex)
-            {
-                ex.ToString();
-                DataTable dt = new DataTable();
-                return dt;
-            }
-
-        }
         public static DataTable PR_PAR_GET_ONLY_DOMINIOS()
         {
             try
             {
-                DbCommand cmd = db1.GetStoredProcCommand("PR_PAR_GET_ONLY_DOMINIOS");
-                cmd.CommandTimeout = int.Parse(ConfigurationManager.AppSettings["CommandTimeout"]);
-                return db1.ExecuteDataSet(cmd).Tables[0];
+                if (Conexion.State.ToString().ToUpper() == "CLOSED")
+                 Conexion.Open(); 
+                    
+                OracleCommand cmd = new OracleCommand("PAQ_LOG_DOMINIO.PR_PAR_GET_ONLY_DOMINIOS", Conexion);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("po_tabla", OracleDbType.RefCursor, ParameterDirection.Output);
+                cmd.ExecuteNonQuery();
+                DataSet ds = new DataSet();
+                OracleDataAdapter da = new OracleDataAdapter(cmd);
+                da.Fill(ds);
+                Conexion.Close();
+                return ds.Tables[0];
             }
             catch (Exception ex)
             {
@@ -137,54 +118,85 @@ namespace appLograAdmin.Clases
 
         }
 
-        public static bool VerificarPlazo(decimal PD_PLAZO)
+        public static DataTable PR_GET_DATOS_DOMINIOS(string pV_DOMINIO)
         {
             try
             {
-                bool verifica = false;
-                decimal valor1 = 1;
-                decimal valor2 = 24;
-                DbCommand cmd = db1.GetStoredProcCommand("PR_GET_DATOS_DOMINIOS");
-                db1.AddInParameter(cmd, "PV_DOMINIO", DbType.String, "PLAZO");
-                cmd.CommandTimeout = int.Parse(ConfigurationManager.AppSettings["CommandTimeout"]);
-                DataTable veri = db1.ExecuteDataSet(cmd).Tables[0];
-                foreach (DataRow dr in veri.Rows)
-                {
-                    valor1 = decimal.Parse(dr["valor_caracter"].ToString());
-                    valor2 = (decimal)dr["valor_numerico"];
-                }
-                if (PD_PLAZO >= valor1 & PD_PLAZO <= valor2)
-                {
-                    verifica = true;
-                }
-                return verifica;
+                if (Conexion.State.ToString().ToUpper() == "CLOSED")
+                    Conexion.Open();
+
+                OracleCommand cmd = new OracleCommand("PAQ_LOG_DOMINIO.PR_GET_DATOS_DOMINIOS", Conexion);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("PV_DOMINIO", OracleDbType.Varchar2, ParameterDirection.Input).Value = pV_DOMINIO;
+                cmd.Parameters.Add("po_tabla", OracleDbType.RefCursor, ParameterDirection.Output);
+                cmd.ExecuteNonQuery();
+                DataSet ds = new DataSet();
+                OracleDataAdapter da = new OracleDataAdapter(cmd);
+                da.Fill(ds);
+                Conexion.Close();
+                return ds.Tables[0];
             }
             catch (Exception ex)
             {
+                Conexion.Close();
                 ex.ToString();
                 DataTable dt = new DataTable();
-                return false;
+                return dt;
             }
-            //try
-            //{
-            //    string verifica = "";
-            //    //Database db = DatabaseFactory.CreateDatabase();
-            //    string SQL_FU = "select dbo.FU_getPlazo("+PD_PLAZO+") as campo1";
-            //    //string SQL_FU = "select dbo.FU_getPlazo(0) as campo1";
-            //    DbCommand cmd = db1.GetSqlStringCommand(SQL_FU);
-            //    //db1.AddInParameter(cmd, "PD_PLAZO", DbType.Decimal, PD_PLAZO);
-            //    //cmd.CommandTimeout = int.Parse(ConfigurationManager.AppSettings["CommandTimeout"]);
-            //    //verifica = db1.ExecuteNonQuery(cmd).ToString();
-            //    DataTable veri = db1.ExecuteDataSet(cmd).Tables[0];
 
-            //    return verifica;
-            //}
-            //catch (Exception ex)
-            //{
-            //    ex.ToString();
-            //    //DataTable dt = new DataTable();
-            //    return "";
-            //}
+        }
+        public static DataTable PR_GET_DATOS_DOMINIOS_PADRE()
+        {
+            try
+            {
+                if (Conexion.State.ToString().ToUpper() == "CLOSED")
+                    Conexion.Open();
+
+                OracleCommand cmd = new OracleCommand("PAQ_LOG_DOMINIO.PR_GET_DATOS_DOMINIOS_PADRE", Conexion);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("po_tabla", OracleDbType.RefCursor, ParameterDirection.Output);
+                cmd.ExecuteNonQuery();
+                DataSet ds = new DataSet();
+                OracleDataAdapter da = new OracleDataAdapter(cmd);
+                da.Fill(ds);
+                Conexion.Close();
+                return ds.Tables[0];
+            }
+            catch (Exception ex)
+            {
+                Conexion.Close();
+                ex.ToString();
+                DataTable dt = new DataTable();
+                return dt;
+            }
+
+        }
+
+        public static DataTable PR_GET_LISTA_DOMINIO_DATA(string pV_DOMINIO)
+        {
+            try
+            {
+                if (Conexion.State.ToString().ToUpper() == "CLOSED")
+                    Conexion.Open();
+
+                OracleCommand cmd = new OracleCommand("PAQ_LOG_DOMINIO.PR_GET_LISTA_DOMINIO_DATA", Conexion);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("PV_DOMINIO", OracleDbType.Varchar2, ParameterDirection.Input).Value = pV_DOMINIO;
+                cmd.Parameters.Add("po_tabla", OracleDbType.RefCursor, ParameterDirection.Output);
+                cmd.ExecuteNonQuery();
+                DataSet ds = new DataSet();
+                OracleDataAdapter da = new OracleDataAdapter(cmd);
+                da.Fill(ds);
+                Conexion.Close();
+                return ds.Tables[0];
+            }
+            catch (Exception ex)
+            {
+                Conexion.Close();
+                ex.ToString();
+                DataTable dt = new DataTable();
+                return dt;
+            }
 
         }
 
@@ -196,48 +208,40 @@ namespace appLograAdmin.Clases
         {
             try
             {
-                DbCommand cmd = db1.GetStoredProcCommand("PR_PAR_GET_DOMINIOS_IND");
-                db1.AddInParameter(cmd, "PV_DOMINIO", DbType.String, _PV_DOMINIO);
-                db1.AddInParameter(cmd, "PV_CODIGO", DbType.String, _PV_CODIGO);
-                cmd.CommandTimeout = int.Parse(ConfigurationManager.AppSettings["CommandTimeout"]);
+                if (Conexion.State.ToString().ToUpper() == "CLOSED")
+                    Conexion.Open();
+
+                OracleCommand cmd = new OracleCommand("PAQ_LOG_DOMINIO.PR_PAR_GET_DOMINIOS_IND", Conexion);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("PV_DOMINIO", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PV_DOMINIO;
+                cmd.Parameters.Add("PV_CODIGO", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PV_CODIGO;
+                cmd.Parameters.Add("po_tabla", OracleDbType.RefCursor, ParameterDirection.Output);  
+                cmd.ExecuteNonQuery();
+                DataSet ds = new DataSet();
+                OracleDataAdapter da = new OracleDataAdapter(cmd);
+                da.Fill(ds);
                 DataTable dt = new DataTable();
-                dt = db1.ExecuteDataSet(cmd).Tables[0];
+                dt = ds.Tables[0];
                 if (dt.Rows.Count > 0)
                 {
                     foreach (DataRow dr in dt.Rows)
                     {
-                        if (string.IsNullOrEmpty(dr["dominio"].ToString()))
-                        { _PV_DOMINIO = ""; }
-                        else
-                        { _PV_DOMINIO = (string)dr["dominio"]; }
+                        _PV_DESCRIPCION = (string)dr["descripcion"];
 
-
-                        if (string.IsNullOrEmpty(dr["codigo"].ToString()))
-                        { _PV_CODIGO = ""; }
-                        else
-                        { _PV_CODIGO = (string)dr["codigo"]; }
-
-                        if (string.IsNullOrEmpty(dr["descripcion"].ToString()))
-                        { _PV_DESCRIPCION = ""; }
-                        else
-                        { _PV_DESCRIPCION = (string)dr["descripcion"]; }
-
-                        if (string.IsNullOrEmpty(dr["valor_caracter"].ToString()))
+                        if (string.IsNullOrEmpty(dr["VALOR_CARACTER"].ToString()))
                         { _PV_VALOR_CARACTER = ""; }
                         else
-                        { _PV_VALOR_CARACTER = (string)dr["valor_caracter"]; }
+                        { _PV_VALOR_CARACTER = (string)dr["VALOR_CARACTER"]; }
 
-                        if (string.IsNullOrEmpty(dr["valor_numerico"].ToString()))
+                        if (string.IsNullOrEmpty(dr["VALOR_NUMERICO"].ToString()))
                         { _PV_VALOR_NUMERICO = 0; }
                         else
-                        { _PV_VALOR_NUMERICO = (int)dr["valor_numerico"]; }
+                        { _PV_VALOR_NUMERICO = int.Parse(dr["VALOR_NUMERICO"].ToString()); }
 
-                        if (string.IsNullOrEmpty(dr["valor_date"].ToString()))
+                        if (string.IsNullOrEmpty(dr["VALOR_DATE"].ToString()))
                         { _PV_VALOR_DATE = DateTime.Now; }
                         else
-                        { _PV_VALOR_DATE = (DateTime)dr["valor_date"]; }
-
-
+                        { _PV_VALOR_DATE = DateTime.Parse(dr["VALOR_DATE"].ToString()); }
 
                     }
 
@@ -251,41 +255,44 @@ namespace appLograAdmin.Clases
 
 
 
-        public string ABM()
+        public string ABM_I()
         {
             string resultado = "";
             try
             {
-                // verificar_vacios();
-                DbCommand cmd = db1.GetStoredProcCommand("PR_ABM_DOMINIOS");
-                db1.AddInParameter(cmd, "PV_TIPO_OPERACION", DbType.String, _PV_TIPO_OPERACION);
-                db1.AddInParameter(cmd, "PV_DOMINIO", DbType.String, _PV_DOMINIO);
-                db1.AddInParameter(cmd, "PV_CODIGO", DbType.String, _PV_CODIGO);
-                db1.AddInParameter(cmd, "PV_DESCRIPCION", DbType.String, _PV_DESCRIPCION);
-                db1.AddInParameter(cmd, "PV_VALOR_CARACTER", DbType.String, null);
-                if (_PV_TIPO_OPERACION == "D")
-                    db1.AddInParameter(cmd, "PV_VALOR_DATE", DbType.DateTime, DateTime.Now);
-                else
-                    db1.AddInParameter(cmd, "PV_VALOR_DATE", DbType.DateTime, null);
-                db1.AddInParameter(cmd, "PV_VALOR_NUMERICO", DbType.Int32, null);
-                db1.AddInParameter(cmd, "PV_USUARIO", DbType.String, _PV_USUARIO);
-                db1.AddOutParameter(cmd, "PV_ESTADOPR", DbType.String, 30);
-                db1.AddOutParameter(cmd, "PV_DESCRIPCIONPR", DbType.String, 250);
-                db1.AddOutParameter(cmd, "PV_ERROR", DbType.String, 250);
-                db1.ExecuteNonQuery(cmd);
-                if (String.IsNullOrEmpty(db1.GetParameterValue(cmd, "PV_ESTADOPR").ToString()))
+
+                if (Conexion.State.ToString().ToUpper() == "CLOSED")
+                    Conexion.Open();
+                OracleCommand cmd = new OracleCommand("PAQ_LOG_DOMINIO.PR_I_DOMINIO", Conexion);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("PV_DOMINIO", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PV_DOMINIO;
+                cmd.Parameters.Add("PV_CODIGO", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PV_CODIGO;
+                cmd.Parameters.Add("PV_DESCRIPCION", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PV_DESCRIPCION;
+                cmd.Parameters.Add("PV_VALOR_CARACTER", OracleDbType.Varchar2, ParameterDirection.Input).Value = null;
+                cmd.Parameters.Add("PV_VALOR_NUMERICO", OracleDbType.Int32, ParameterDirection.Input).Value = null;
+                cmd.Parameters.Add("PV_VALOR_DATE", OracleDbType.Date, ParameterDirection.Input).Value = null;
+                cmd.Parameters.Add("PV_USUARIO", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PV_USUARIO;
+                cmd.Parameters.Add("PV_ESTADOPR", OracleDbType.Varchar2, 32767).Direction = ParameterDirection.Output;
+                cmd.Parameters.Add("PV_DESCRIPCIONPR", OracleDbType.Varchar2, 32767).Direction = ParameterDirection.Output;
+                cmd.Parameters.Add("PV_ERROR", OracleDbType.Varchar2, 32767).Direction = ParameterDirection.Output;
+                cmd.ExecuteNonQuery();
+               
+                Conexion.Close();
+
+                if (String.IsNullOrEmpty(cmd.Parameters["PV_ESTADOPR"].Value.ToString()))
                     PV_ESTADOPR = "";
                 else
-                    PV_ESTADOPR = (string)db1.GetParameterValue(cmd, "PV_ESTADOPR");
-                if (String.IsNullOrEmpty(db1.GetParameterValue(cmd, "PV_DESCRIPCIONPR").ToString()))
+                    PV_ESTADOPR = cmd.Parameters["PV_ESTADOPR"].Value.ToString();
+
+                if (String.IsNullOrEmpty(cmd.Parameters["PV_DESCRIPCIONPR"].Value.ToString()))
                     PV_DESCRIPCIONPR = "";
                 else
-                    PV_DESCRIPCIONPR = (string)db1.GetParameterValue(cmd, "PV_DESCRIPCIONPR");
-                if (String.IsNullOrEmpty(db1.GetParameterValue(cmd, "PV_ERROR").ToString()))
+                    PV_DESCRIPCIONPR = cmd.Parameters["PV_DESCRIPCIONPR"].Value.ToString();
+
+                if (String.IsNullOrEmpty(cmd.Parameters["PV_ERROR"].Value.ToString()))
                     PV_ERROR = "";
                 else
-                    PV_ERROR = (string)db1.GetParameterValue(cmd, "PV_ERROR");
-
+                    PV_ERROR = cmd.Parameters["PV_ERROR"].Value.ToString();
 
                 resultado = PV_ESTADOPR + "|" + PV_DESCRIPCIONPR + "|" + PV_ERROR;
                 return resultado;
@@ -298,6 +305,99 @@ namespace appLograAdmin.Clases
             }
         }
 
+        public string ABM_U()
+        {
+            string resultado = "";
+            try
+            {
+                if (Conexion.State.ToString().ToUpper() == "CLOSED")
+                    Conexion.Open();
+                OracleCommand cmd = new OracleCommand("PAQ_LOG_DOMINIO.PR_U_DOMINIO", Conexion);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("PV_DOMINIO", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PV_DOMINIO;
+                cmd.Parameters.Add("PV_CODIGO", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PV_CODIGO;
+                cmd.Parameters.Add("PV_DESCRIPCION", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PV_DESCRIPCION;
+                cmd.Parameters.Add("PV_VALOR_CARACTER", OracleDbType.Varchar2, ParameterDirection.Input).Value = null;
+                cmd.Parameters.Add("PV_VALOR_NUMERICO", OracleDbType.Int32, ParameterDirection.Input).Value = null;
+                cmd.Parameters.Add("PV_VALOR_DATE", OracleDbType.Date, ParameterDirection.Input).Value = null;
+                cmd.Parameters.Add("PV_USUARIO", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PV_USUARIO;
+                cmd.Parameters.Add("PV_ESTADOPR", OracleDbType.Varchar2, 32767).Direction = ParameterDirection.Output;
+                cmd.Parameters.Add("PV_DESCRIPCIONPR", OracleDbType.Varchar2, 32767).Direction = ParameterDirection.Output;
+                cmd.Parameters.Add("PV_ERROR", OracleDbType.Varchar2, 32767).Direction = ParameterDirection.Output;
+                cmd.ExecuteNonQuery();
+
+                Conexion.Close();
+
+                if (String.IsNullOrEmpty(cmd.Parameters["PV_ESTADOPR"].Value.ToString()))
+                    PV_ESTADOPR = "";
+                else
+                    PV_ESTADOPR = cmd.Parameters["PV_ESTADOPR"].Value.ToString();
+
+                if (String.IsNullOrEmpty(cmd.Parameters["PV_DESCRIPCIONPR"].Value.ToString()))
+                    PV_DESCRIPCIONPR = "";
+                else
+                    PV_DESCRIPCIONPR = cmd.Parameters["PV_DESCRIPCIONPR"].Value.ToString();
+
+                if (String.IsNullOrEmpty(cmd.Parameters["PV_ERROR"].Value.ToString()))
+                    PV_ERROR = "";
+                else
+                    PV_ERROR = cmd.Parameters["PV_ERROR"].Value.ToString();
+
+                resultado = PV_ESTADOPR + "|" + PV_DESCRIPCIONPR + "|" + PV_ERROR;
+                return resultado;
+            }
+            catch (Exception ex)
+            {
+                //_error = ex.Message;
+                resultado = "Se produjo un error al registrar";
+                return resultado;
+            }
+        }
+
+        public string ABM_D()
+        {
+            string resultado = "";
+            try
+            {
+                if (Conexion.State.ToString().ToUpper() == "CLOSED")
+                    Conexion.Open();
+                OracleCommand cmd = new OracleCommand("PAQ_LOG_DOMINIO.PR_D_DOMINIO", Conexion);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("PV_DOMINIO", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PV_DOMINIO;
+                cmd.Parameters.Add("PV_CODIGO", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PV_CODIGO;
+                cmd.Parameters.Add("PV_USUARIO", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PV_USUARIO;
+                cmd.Parameters.Add("PV_ESTADOPR", OracleDbType.Varchar2, 32767).Direction = ParameterDirection.Output;
+                cmd.Parameters.Add("PV_DESCRIPCIONPR", OracleDbType.Varchar2, 32767).Direction = ParameterDirection.Output;
+                cmd.Parameters.Add("PV_ERROR", OracleDbType.Varchar2, 32767).Direction = ParameterDirection.Output;
+                cmd.ExecuteNonQuery();
+
+                Conexion.Close();
+
+                if (String.IsNullOrEmpty(cmd.Parameters["PV_ESTADOPR"].Value.ToString()))
+                    PV_ESTADOPR = "";
+                else
+                    PV_ESTADOPR = cmd.Parameters["PV_ESTADOPR"].Value.ToString();
+
+                if (String.IsNullOrEmpty(cmd.Parameters["PV_DESCRIPCIONPR"].Value.ToString()))
+                    PV_DESCRIPCIONPR = "";
+                else
+                    PV_DESCRIPCIONPR = cmd.Parameters["PV_DESCRIPCIONPR"].Value.ToString();
+
+                if (String.IsNullOrEmpty(cmd.Parameters["PV_ERROR"].Value.ToString()))
+                    PV_ERROR = "";
+                else
+                    PV_ERROR = cmd.Parameters["PV_ERROR"].Value.ToString();
+
+                resultado = PV_ESTADOPR + "|" + PV_DESCRIPCIONPR + "|" + PV_ERROR;
+                return resultado;
+            }
+            catch (Exception ex)
+            {
+                //_error = ex.Message;
+                resultado = "Se produjo un error al registrar";
+                return resultado;
+            }
+        }
         #endregion
     }
 }

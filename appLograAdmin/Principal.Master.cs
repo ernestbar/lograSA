@@ -13,12 +13,12 @@ namespace appLograAdmin
         {
             if (!Page.IsPostBack)
             {
-                if (Session["usuario"] == null)
-                { Response.Redirect("login.aspx"); }
-                else
-                {
-                    lblUsuario.Text = Session["usuario"].ToString();
-                }
+                //if (Session["usuario"] == null)
+                //{ Response.Redirect("login.aspx"); }
+                //else
+                //{
+                //    lblUsuario.Text = Session["usuario"].ToString();
+                //}
             }
 
         }
