@@ -104,7 +104,7 @@ namespace appLograAdmin.Clases
                 if (Conexion.State.ToString().ToUpper() == "CLOSED")
                     Conexion.Open();
 
-                OracleCommand cmd = new OracleCommand("PAQ_LOG_DOMINIO.PR_PAR_GET_SUCURSALES_IND", Conexion);
+                OracleCommand cmd = new OracleCommand("PAQ_CLI_SUCURSALES.PR_PAR_GET_SUCURSALES_IND", Conexion);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("PV_COD_SUCURSAL", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PV_CODIGO_SUCURSAL;
                 cmd.Parameters.Add("po_tabla", OracleDbType.RefCursor, ParameterDirection.Output);
@@ -159,7 +159,7 @@ namespace appLograAdmin.Clases
 
                 if (Conexion.State.ToString().ToUpper() == "CLOSED")
                     Conexion.Open();
-                OracleCommand cmd = new OracleCommand("PAQ_LOG_DOMINIO.PR_I_DOMINIO", Conexion);
+                OracleCommand cmd = new OracleCommand("PAQ_CLI_SUCURSALES.PR_I_SUCURSALES", Conexion);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("PV_COD_CLIENTE", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PV_CODIGO_CLIENTE;
                 cmd.Parameters.Add("PV_NOMBRE_SUCURSAL", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PV_NOMBRE_SUCURSAL;
@@ -209,7 +209,7 @@ namespace appLograAdmin.Clases
             {
                 if (Conexion.State.ToString().ToUpper() == "CLOSED")
                     Conexion.Open();
-                OracleCommand cmd = new OracleCommand("PAQ_LOG_DOMINIO.PR_U_DOMINIO", Conexion);
+                OracleCommand cmd = new OracleCommand("PAQ_CLI_SUCURSALES.PR_U_DOMINIO", Conexion);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("PV_DOMINIO", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PV_DOMINIO;
                 cmd.Parameters.Add("PV_CODIGO", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PV_CODIGO;
@@ -258,7 +258,7 @@ namespace appLograAdmin.Clases
             {
                 if (Conexion.State.ToString().ToUpper() == "CLOSED")
                     Conexion.Open();
-                OracleCommand cmd = new OracleCommand("PAQ_LOG_DOMINIO.PR_D_DOMINIO", Conexion);
+                OracleCommand cmd = new OracleCommand("PAQ_CLI_SUCURSALES.PR_D_DOMINIO", Conexion);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("PV_DOMINIO", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PV_DOMINIO;
                 cmd.Parameters.Add("PV_CODIGO", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PV_CODIGO;
