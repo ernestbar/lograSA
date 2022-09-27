@@ -112,27 +112,27 @@ namespace appLograAdmin
             try
             {
                 
-                if (lblCodSucursal.Text == "")
-                {
-                    Clases.Sucursales cli = new Clases.Sucursales("I",txtCodigo.Text, txtNombreSucursal.Text,txtDireccion.Text,ddlPais.SelectedValue,ddlCiudad.SelectedValue, txtLatitud.Text, txtLongitud.Text, lblUsuario.Text);
-                    string resultado = cli.ABM();
-                    string[] aux = resultado.Split('|');
-                    lblAviso.Text = aux[1];
-                    Repeater1.DataBind();
-                    MultiView1.ActiveViewIndex = 0;
-                    ScriptManager.RegisterStartupScript(Page, Page.GetType(), "showError", "alert('" + aux[1] + "');", true);
-                }
-                else
-                {
+                //if (lblCodSucursal.Text == "")
+                //{
+                //    Clases.Sucursales cli = new Clases.Sucursales("I",txtCodigo.Text, txtNombreSucursal.Text,txtDireccion.Text,ddlPais.SelectedValue,ddlCiudad.SelectedValue, txtLatitud.Text, txtLongitud.Text, lblUsuario.Text);
+                //    string resultado = cli.ABM();
+                //    string[] aux = resultado.Split('|');
+                //    lblAviso.Text = aux[1];
+                //    Repeater1.DataBind();
+                //    MultiView1.ActiveViewIndex = 0;
+                //    ScriptManager.RegisterStartupScript(Page, Page.GetType(), "showError", "alert('" + aux[1] + "');", true);
+                //}
+                //else
+                //{
 
-                    Clases.Sucursales cli = new Clases.Sucursales("U", lblCodSucursal.Text, txtNombreSucursal.Text, txtDireccion.Text, ddlPais.SelectedValue, ddlCiudad.SelectedValue, txtLatitud.Text, txtLongitud.Text, lblUsuario.Text);
-                    string resultado = cli.ABM();
-                    string[] aux = resultado.Split('|');
-                    lblAviso.Text = aux[1];
-                    Repeater1.DataBind();
-                    MultiView1.ActiveViewIndex = 0;
-                    ScriptManager.RegisterStartupScript(Page, Page.GetType(), "showError", "alert('" + aux[1] + "');", true);
-                }
+                //    Clases.Sucursales cli = new Clases.Sucursales("U", lblCodSucursal.Text, txtNombreSucursal.Text, txtDireccion.Text, ddlPais.SelectedValue, ddlCiudad.SelectedValue, txtLatitud.Text, txtLongitud.Text, lblUsuario.Text);
+                //    string resultado = cli.ABM();
+                //    string[] aux = resultado.Split('|');
+                //    lblAviso.Text = aux[1];
+                //    Repeater1.DataBind();
+                //    MultiView1.ActiveViewIndex = 0;
+                //    ScriptManager.RegisterStartupScript(Page, Page.GetType(), "showError", "alert('" + aux[1] + "');", true);
+                //}
                 
             }
             catch (Exception ex)
@@ -150,27 +150,27 @@ namespace appLograAdmin
         {
             try
             {
-                lblAviso.Text = "";
-                string id = "";
-                Button obj = (Button)sender;
-                id = obj.CommandArgument.ToString();
-                string[] datos = id.Split('|');
-                if (datos[1] == "ACTIVO")
-                {
-                    Clases.Sucursales mcc = new Clases.Sucursales("D", datos[0],"","","","","","", lblUsuario.Text);
-                    string resultado = mcc.ABM();
-                    string[] aux = resultado.Split('|');
-                    lblAviso.Text = aux[1];
-                    Repeater1.DataBind();
-                }
-                else
-                {
-                    Clases.Sucursales mcc = new Clases.Sucursales("A", datos[0], "", "", "", "", "", "", lblUsuario.Text);
-                    string resultado = mcc.ABM();
-                    string[] aux = resultado.Split('|');
-                    lblAviso.Text = aux[1];
-                    Repeater1.DataBind();
-                }
+                //lblAviso.Text = "";
+                //string id = "";
+                //Button obj = (Button)sender;
+                //id = obj.CommandArgument.ToString();
+                //string[] datos = id.Split('|');
+                //if (datos[1] == "ACTIVO")
+                //{
+                //    Clases.Sucursales mcc = new Clases.Sucursales("D", datos[0],"","","","","","", lblUsuario.Text);
+                //    string resultado = mcc.ABM();
+                //    string[] aux = resultado.Split('|');
+                //    lblAviso.Text = aux[1];
+                //    Repeater1.DataBind();
+                //}
+                //else
+                //{
+                //    Clases.Sucursales mcc = new Clases.Sucursales("A", datos[0], "", "", "", "", "", "", lblUsuario.Text);
+                //    string resultado = mcc.ABM();
+                //    string[] aux = resultado.Split('|');
+                //    lblAviso.Text = aux[1];
+                //    Repeater1.DataBind();
+                //}
             }
             catch (Exception ex)
             {

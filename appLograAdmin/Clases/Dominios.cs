@@ -12,7 +12,7 @@ namespace appLograAdmin.Clases
     public class Dominios
     { //Base de datos
         //private static Database db1 = DatabaseFactory.CreateDatabase(ConfigurationManager.AppSettings["conn"]);
-        private static OracleConnection Conexion = new OracleConnection("User Id=compusoft;Password=LoGa.001;Data Source=200.12.254.22:1521/XE");
+        private static OracleConnection Conexion = new OracleConnection("User Id=seguridad;Password=segu123;Data Source=200.12.254.22:1521/XE");
 
         #region Propiedades
         //Propiedades privadas
@@ -71,7 +71,7 @@ namespace appLograAdmin.Clases
                 if (Conexion.State.ToString().ToUpper() == "CLOSED")
                     Conexion.Open();
 
-                OracleCommand cmd = new OracleCommand("PAQ_LOG_DOMINIO.PR_PAR_GET_DOMINIOS", Conexion);
+                OracleCommand cmd = new OracleCommand("PAQ_DOMINIOS.PR_PAR_GET_DOMINIOS", Conexion);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("PV_DOMINIO", OracleDbType.Varchar2, ParameterDirection.Input).Value = pV_DOMINIO;
                 cmd.Parameters.Add("po_tabla", OracleDbType.RefCursor, ParameterDirection.Output);
@@ -99,7 +99,7 @@ namespace appLograAdmin.Clases
                 if (Conexion.State.ToString().ToUpper() == "CLOSED")
                  Conexion.Open(); 
                     
-                OracleCommand cmd = new OracleCommand("PAQ_LOG_DOMINIO.PR_PAR_GET_ONLY_DOMINIOS", Conexion);
+                OracleCommand cmd = new OracleCommand("PAQ_DOMINIOS.PR_PAR_GET_ONLY_DOMINIOS", Conexion);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("po_tabla", OracleDbType.RefCursor, ParameterDirection.Output);
                 cmd.ExecuteNonQuery();
@@ -125,7 +125,7 @@ namespace appLograAdmin.Clases
                 if (Conexion.State.ToString().ToUpper() == "CLOSED")
                     Conexion.Open();
 
-                OracleCommand cmd = new OracleCommand("PAQ_LOG_DOMINIO.PR_GET_DATOS_DOMINIOS", Conexion);
+                OracleCommand cmd = new OracleCommand("PAQ_DOMINIOS.PR_GET_DATOS_DOMINIOS", Conexion);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("PV_DOMINIO", OracleDbType.Varchar2, ParameterDirection.Input).Value = pV_DOMINIO;
                 cmd.Parameters.Add("po_tabla", OracleDbType.RefCursor, ParameterDirection.Output);
@@ -152,7 +152,7 @@ namespace appLograAdmin.Clases
                 if (Conexion.State.ToString().ToUpper() == "CLOSED")
                     Conexion.Open();
 
-                OracleCommand cmd = new OracleCommand("PAQ_LOG_DOMINIO.PR_GET_DATOS_DOMINIOS_PADRE", Conexion);
+                OracleCommand cmd = new OracleCommand("PAQ_DOMINIOS.PR_GET_DATOS_DOMINIOS_PADRE", Conexion);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("po_tabla", OracleDbType.RefCursor, ParameterDirection.Output);
                 cmd.ExecuteNonQuery();
@@ -179,7 +179,7 @@ namespace appLograAdmin.Clases
                 if (Conexion.State.ToString().ToUpper() == "CLOSED")
                     Conexion.Open();
 
-                OracleCommand cmd = new OracleCommand("PAQ_LOG_DOMINIO.PR_GET_LISTA_DOMINIO_DATA", Conexion);
+                OracleCommand cmd = new OracleCommand("PAQ_DOMINIOS.PR_GET_LISTA_DOMINIO_DATA", Conexion);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("PV_DOMINIO", OracleDbType.Varchar2, ParameterDirection.Input).Value = pV_DOMINIO;
                 cmd.Parameters.Add("po_tabla", OracleDbType.RefCursor, ParameterDirection.Output);
@@ -211,7 +211,7 @@ namespace appLograAdmin.Clases
                 if (Conexion.State.ToString().ToUpper() == "CLOSED")
                     Conexion.Open();
 
-                OracleCommand cmd = new OracleCommand("PAQ_LOG_DOMINIO.PR_PAR_GET_DOMINIOS_IND", Conexion);
+                OracleCommand cmd = new OracleCommand("PAQ_DOMINIOS.PR_PAR_GET_DOMINIOS_IND", Conexion);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("PV_DOMINIO", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PV_DOMINIO;
                 cmd.Parameters.Add("PV_CODIGO", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PV_CODIGO;
@@ -263,7 +263,7 @@ namespace appLograAdmin.Clases
 
                 if (Conexion.State.ToString().ToUpper() == "CLOSED")
                     Conexion.Open();
-                OracleCommand cmd = new OracleCommand("PAQ_LOG_DOMINIO.PR_I_DOMINIO", Conexion);
+                OracleCommand cmd = new OracleCommand("PAQ_DOMINIOS.PR_I_DOMINIOS", Conexion);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("PV_DOMINIO", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PV_DOMINIO;
                 cmd.Parameters.Add("PV_CODIGO", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PV_CODIGO;
@@ -312,7 +312,7 @@ namespace appLograAdmin.Clases
             {
                 if (Conexion.State.ToString().ToUpper() == "CLOSED")
                     Conexion.Open();
-                OracleCommand cmd = new OracleCommand("PAQ_LOG_DOMINIO.PR_U_DOMINIO", Conexion);
+                OracleCommand cmd = new OracleCommand("PAQ_DOMINIOS.PR_U_DOMINIOS", Conexion);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("PV_DOMINIO", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PV_DOMINIO;
                 cmd.Parameters.Add("PV_CODIGO", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PV_CODIGO;
@@ -361,7 +361,7 @@ namespace appLograAdmin.Clases
             {
                 if (Conexion.State.ToString().ToUpper() == "CLOSED")
                     Conexion.Open();
-                OracleCommand cmd = new OracleCommand("PAQ_LOG_DOMINIO.PR_D_DOMINIO", Conexion);
+                OracleCommand cmd = new OracleCommand("PAQ_DOMINIOS.PR_D_DOMINIOS", Conexion);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("PV_DOMINIO", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PV_DOMINIO;
                 cmd.Parameters.Add("PV_CODIGO", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PV_CODIGO;
