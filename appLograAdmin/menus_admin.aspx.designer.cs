@@ -24,6 +24,15 @@ namespace appLograAdmin
         protected global::System.Web.UI.WebControls.ObjectDataSource odsMenus;
 
         /// <summary>
+        /// odsSistema control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ObjectDataSource odsSistema;
+
+        /// <summary>
         /// lblUsuario control.
         /// </summary>
         /// <remarks>
@@ -87,6 +96,15 @@ namespace appLograAdmin
         protected global::System.Web.UI.WebControls.Button btnNuevo;
 
         /// <summary>
+        /// ddlSistema control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlSistema;
+
+        /// <summary>
         /// Repeater1 control.
         /// </summary>
         /// <remarks>
@@ -112,6 +130,24 @@ namespace appLograAdmin
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlMenuPadre;
+
+        /// <summary>
+        /// txtSistema control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtSistema;
+
+        /// <summary>
+        /// lblCodSistema control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblCodSistema;
 
         /// <summary>
         /// txtDescripcion control.

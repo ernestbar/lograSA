@@ -200,7 +200,9 @@
 							<li><a href="opcion_menu_rol_admin.aspx">Asignar opciones a menu rol</a></li>
 						</ul>
 					</li>--%>
-					<asp:ObjectDataSource ID="odsMenuPadre" runat="server" SelectMethod="PR_SEG_GET_MENUS_PADRE_ROL" TypeName="appLograAdmin.Clases.Usuarios">
+
+
+					<%--<asp:ObjectDataSource ID="odsMenuPadre" runat="server" SelectMethod="PR_SEG_GET_MENUS_PADRE_ROL" TypeName="appLograAdmin.Clases.Usuarios">
                     <SelectParameters>
                         <asp:ControlParameter ControlID="lblUsuario" Name="PV_USUARIO" Type="String" />
                     </SelectParameters>
@@ -226,7 +228,9 @@
 						            </ul>
 					            </li>
                         </ItemTemplate>
-                    </asp:Repeater>
+                    </asp:Repeater>--%>
+
+
 					<!-- begin sidebar minify button -->
 					<li><a href="javascript:;" class="sidebar-minify-btn" data-click="sidebar-minify"><i class="fa fa-angle-double-left"></i></a></li>
 					<!-- end sidebar minify button -->

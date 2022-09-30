@@ -56,7 +56,6 @@ C:\GITHUB2\LograSA\appLograAdmin\bin\Microsoft.Practices.EnterpriseLibrary.Commo
 C:\GITHUB2\LograSA\appLograAdmin\bin\Microsoft.Practices.EnterpriseLibrary.Data.dll
 C:\GITHUB2\LograSA\appLograAdmin\bin\Microsoft.Practices.ObjectBuilder.dll
 C:\GITHUB2\LograSA\appLograAdmin\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-C:\GITHUB2\LograSA\appLograAdmin\obj\Debug\appLograAdmin.csproj.AssemblyReference.cache
 C:\GITHUB2\LograSA\appLograAdmin\obj\Debug\appLograAdmin.csproj.CoreCompileInputs.cache
 C:\GITHUB2\LograSA\appLograAdmin\obj\Debug\appLograAdmin.csproj.CopyComplete
 C:\GITHUB2\LograSA\appLograAdmin\obj\Debug\appLograAdmin.dll
@@ -80,3 +79,4 @@ C:\GITHUB2\LOGRASA\appLograAdmin\bin\System.Text.Encodings.Web.xml
 C:\GITHUB2\LOGRASA\appLograAdmin\bin\System.Text.Json.xml
 C:\GITHUB2\LOGRASA\appLograAdmin\bin\System.Threading.Tasks.Extensions.xml
 C:\GITHUB2\LOGRASA\appLograAdmin\bin\System.ValueTuple.xml
+C:\GITHUB2\LograSA\appLograAdmin\obj\Debug\appLograAdmin.csproj.AssemblyReference.cache

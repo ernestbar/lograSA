@@ -3395,6 +3395,7 @@
     <Compile Include="Clases\Opciones_Menu_Rol.cs" />
     <Compile Include="Clases\OraDbHelper.cs" />
     <Compile Include="Clases\Paises.cs" />
+    <Compile Include="Clases\Personal.cs" />
     <Compile Include="Clases\Roles.cs" />
     <Compile Include="Clases\Sucursales.cs" />
     <Compile Include="Clases\Usuarios.cs" />

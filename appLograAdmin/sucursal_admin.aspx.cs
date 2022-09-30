@@ -17,38 +17,39 @@ namespace appLograAdmin
         {
             if (!Page.IsPostBack)
             {
-                if (Session["usuario"] == null)
-                {
-                    Response.Redirect("login.aspx");
-                }
-                else
-                {
-                    lblUsuario.Text = Session["usuario"].ToString();
-                    //btnNuevoCliente.Visible = false;
-                    btnNuevoCliente.Visible = true;
-                    //lblCodMenuRol.Text = Request.QueryString["RME"].ToString();
-                    //DataTable dt = Clases.Usuarios.PR_SEG_GET_OPCIONES_ROLES(lblUsuario.Text, Int64.Parse(lblCodMenuRol.Text));
-                    //if (dt.Rows.Count > 0)
-                    //{
-                    //    foreach (DataRow dr in dt.Rows)
-                    //    {
-                    //        if (dr["OPC_DESCRIPCION"].ToString().ToUpper() == "NUEVO")
-                    //            btnNuevoCliente.Visible = true;
-                    //    }
+                //if (Session["usuario"] == null)
+                //{
+                //    Response.Redirect("login.aspx");
+                //}
+                //else
+                //{
 
-                    //}
-                    MultiView1.ActiveViewIndex = 0;
-                    limpiar_controles();
+                //    lblUsuario.Text = Session["usuario"].ToString();
+                //    btnNuevo.Visible = false;
+                //    lblCodMenuRol.Text = Request.QueryString["RME"].ToString();
+                //    DataTable dt = Clases.Usuarios.PR_SEG_GET_OPCIONES_ROLES(lblUsuario.Text, Int64.Parse(lblCodMenuRol.Text));
+                //    if (dt.Rows.Count > 0)
+                //    {
+                //        foreach (DataRow dr in dt.Rows)
+                //        {
+                //            if (dr["DESCRIPCION"].ToString().ToUpper() == "NUEVO")
+                //                btnNuevo.Visible = true;
+                //        }
 
-                }
+                //    }
+                //    MultiView1.ActiveViewIndex = 0;
+                //}
+                lblUsuario.Text = "admin";
+                MultiView1.ActiveViewIndex = 0;
+
             }
         }
         public void limpiar_controles()
         {
+            lblCodCliente.Text = "";
             lblAviso.Text = "";
             lblCodSucursal.Text = "";
-            txtCodigo.Text = "";
-            txtCodigo.Enabled = true;
+            txtCliente.Text = "";
             txtNombreSucursal.Text = "";
             txtDireccion.Text = "";
             txtLongitud.Text = "";
@@ -59,6 +60,8 @@ namespace appLograAdmin
         protected void btnNuevoCliente_Click(object sender, EventArgs e)
         {
             limpiar_controles();
+            txtCliente.Text = ddlClientes.SelectedItem.Text;
+            lblCodCliente.Text = ddlClientes.SelectedValue;
             MultiView1.ActiveViewIndex = 1;
         }
         
@@ -81,9 +84,9 @@ namespace appLograAdmin
                 Button obj = (Button)sender;
                 id = obj.CommandArgument.ToString();
                 lblCodSucursal.Text = id;
-                txtCodigo.Text = id;
-                txtCodigo.Enabled = false;
                 Clases.Sucursales cli = new Clases.Sucursales(lblCodSucursal.Text);
+                txtCliente.Text = ddlClientes.SelectedItem.Text;
+                lblCodCliente.Text = cli.PV_COD_CLIENTE;
                 txtNombreSucursal.Text = cli.PV_NOMBRE_SUCURSAL;
                 txtDireccion.Text = cli.PV_DIRECCION;
                 txtLatitud.Text = cli.PV_LATITUD;
@@ -111,29 +114,28 @@ namespace appLograAdmin
         {
             try
             {
-                
-                //if (lblCodSucursal.Text == "")
-                //{
-                //    Clases.Sucursales cli = new Clases.Sucursales("I",txtCodigo.Text, txtNombreSucursal.Text,txtDireccion.Text,ddlPais.SelectedValue,ddlCiudad.SelectedValue, txtLatitud.Text, txtLongitud.Text, lblUsuario.Text);
-                //    string resultado = cli.ABM();
-                //    string[] aux = resultado.Split('|');
-                //    lblAviso.Text = aux[1];
-                //    Repeater1.DataBind();
-                //    MultiView1.ActiveViewIndex = 0;
-                //    ScriptManager.RegisterStartupScript(Page, Page.GetType(), "showError", "alert('" + aux[1] + "');", true);
-                //}
-                //else
-                //{
 
-                //    Clases.Sucursales cli = new Clases.Sucursales("U", lblCodSucursal.Text, txtNombreSucursal.Text, txtDireccion.Text, ddlPais.SelectedValue, ddlCiudad.SelectedValue, txtLatitud.Text, txtLongitud.Text, lblUsuario.Text);
-                //    string resultado = cli.ABM();
-                //    string[] aux = resultado.Split('|');
-                //    lblAviso.Text = aux[1];
-                //    Repeater1.DataBind();
-                //    MultiView1.ActiveViewIndex = 0;
-                //    ScriptManager.RegisterStartupScript(Page, Page.GetType(), "showError", "alert('" + aux[1] + "');", true);
-                //}
-                
+                if (lblCodSucursal.Text == "")
+                {
+                    Clases.Sucursales cli = new Clases.Sucursales("",lblCodCliente.Text, txtNombreSucursal.Text, txtDireccion.Text, ddlPais.SelectedValue, ddlCiudad.SelectedValue, txtLatitud.Text, txtLongitud.Text, lblUsuario.Text);
+                    string resultado = cli.ABM_I();
+                    string[] aux = resultado.Split('|');
+                    lblAviso.Text = resultado.Replace("|", "").Replace("0", "").Replace("null", "");
+                    Repeater1.DataBind();
+                    MultiView1.ActiveViewIndex = 0;
+                    //ScriptManager.RegisterStartupScript(Page, Page.GetType(), "showError", "alert('" + aux[1] + "');", true);
+                }
+                else
+                {
+
+                    Clases.Sucursales cli = new Clases.Sucursales(lblCodSucursal.Text, lblCodCliente.Text, txtNombreSucursal.Text, txtDireccion.Text, ddlPais.SelectedValue, ddlCiudad.SelectedValue, txtLatitud.Text, txtLongitud.Text, lblUsuario.Text);
+                    string resultado = cli.ABM_U();
+                    string[] aux = resultado.Split('|');
+                    lblAviso.Text = resultado.Replace("|", "").Replace("0", "").Replace("null", "");
+                    Repeater1.DataBind();
+                    MultiView1.ActiveViewIndex = 0;
+                }
+
             }
             catch (Exception ex)
             {
@@ -150,27 +152,25 @@ namespace appLograAdmin
         {
             try
             {
-                //lblAviso.Text = "";
-                //string id = "";
-                //Button obj = (Button)sender;
-                //id = obj.CommandArgument.ToString();
-                //string[] datos = id.Split('|');
-                //if (datos[1] == "ACTIVO")
-                //{
-                //    Clases.Sucursales mcc = new Clases.Sucursales("D", datos[0],"","","","","","", lblUsuario.Text);
-                //    string resultado = mcc.ABM();
-                //    string[] aux = resultado.Split('|');
-                //    lblAviso.Text = aux[1];
-                //    Repeater1.DataBind();
-                //}
-                //else
-                //{
-                //    Clases.Sucursales mcc = new Clases.Sucursales("A", datos[0], "", "", "", "", "", "", lblUsuario.Text);
-                //    string resultado = mcc.ABM();
-                //    string[] aux = resultado.Split('|');
-                //    lblAviso.Text = aux[1];
-                //    Repeater1.DataBind();
-                //}
+                lblAviso.Text = "";
+                string id = "";
+                Button obj = (Button)sender;
+                id = obj.CommandArgument.ToString();
+                string[] datos = id.Split('|');
+                if (datos[1] == "ACTIVO")
+                {
+                    Clases.Sucursales mcc = new Clases.Sucursales(datos[0],"", "", "", "", "", "", "", lblUsuario.Text);
+                    string resultado = mcc.ABM_D();
+                    lblAviso.Text = resultado.Replace("|", "").Replace("0", "").Replace("null", "");
+                    Repeater1.DataBind();
+                }
+                else
+                {
+                    Clases.Sucursales mcc = new Clases.Sucursales(datos[0], "", "", "", "", "", "", "", lblUsuario.Text);
+                    string resultado = mcc.ABM_A();
+                    lblAviso.Text = resultado.Replace("|", "").Replace("0", "").Replace("null", "");
+                    Repeater1.DataBind();
+                }
             }
             catch (Exception ex)
             {
@@ -265,6 +265,16 @@ namespace appLograAdmin
 
 
             }
+        }
+
+        protected void ddlCliente_DataBound(object sender, EventArgs e)
+        {
+            ddlClientes.Items.Insert(0, "SELECCIONAR");
+        }
+
+        protected void ddlClientes_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Repeater1.DataBind();
         }
 
         protected void btnVerUbi_Click(object sender, EventArgs e)

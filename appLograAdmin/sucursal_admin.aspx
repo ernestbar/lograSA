@@ -37,16 +37,21 @@
     
 	<asp:ObjectDataSource ID="odsPais" runat="server" SelectMethod="PR_PAR_GET_DOMINIOS" TypeName="appLograAdmin.Clases.Dominios">
         <SelectParameters>
-            <asp:Parameter DefaultValue="pais" Name="PV_DOMINIO" Type="String" />
+            <asp:Parameter DefaultValue="PAIS" Name="pV_DOMINIO" Type="String" />
         </SelectParameters>
     </asp:ObjectDataSource>
 	<asp:ObjectDataSource ID="odsCiudad" runat="server" SelectMethod="PR_PAR_GET_DOMINIOS" TypeName="appLograAdmin.Clases.Dominios">
         <SelectParameters>
-            <asp:Parameter DefaultValue="ciudad" Name="PV_DOMINIO" Type="String" />
+            <asp:Parameter DefaultValue="CIUDAD" Name="pV_DOMINIO" Type="String" />
         </SelectParameters>
     </asp:ObjectDataSource>
     <asp:ObjectDataSource ID="odsSucursales" runat="server" SelectMethod="PR_PAR_GET_SUCURSALES" TypeName="appLograAdmin.Clases.Sucursales">
+		 <SelectParameters>
+            <asp:ControlParameter ControlID="ddlClientes" Name="pV_COD_CLIENTE" DefaultValue="" />
+        </SelectParameters>
 	</asp:ObjectDataSource>    
+	<asp:ObjectDataSource ID="odsClientesTodos" runat="server" SelectMethod="PR_GET_CLIENTE_ALL" TypeName="appLograAdmin.Clases.Clientes">
+		</asp:ObjectDataSource>
 	<!-- begin #content -->
     <%--<asp:UpdatePanel ID="UpdatePanel1" runat="server">
 		<Triggers>
@@ -57,7 +62,7 @@
 		
 		<div id="content" class="content">
 			<asp:Label ID="lblUsuario" runat="server" Visible="false" Text=""></asp:Label> 
-			<asp:Label ID="lblCliente" runat="server" Text="0" Visible="false"></asp:Label>
+			<asp:Label ID="lblCodCliente" runat="server" Text="" Visible="false"></asp:Label>
 			<asp:Label ID="lblCodSucursal" runat="server" Text="" Visible="false"></asp:Label>
 			<asp:Label ID="lblCodSucursalPadre" runat="server" Text="" Visible="false"></asp:Label>
 			<asp:Label ID="lblAviso" runat="server" ForeColor="Blue" Font-Size="Medium" Text=""></asp:Label>
@@ -72,7 +77,15 @@
 											</div>
 										</div>
 										<!-- end form-group row -->
-									
+									  <!-- begin form-group row -->
+									<div class="form-group row m-b-10">
+										<label class="col-md-2 text-md-right col-form-label">Seleccione Cliente:</label>
+										<div class="col-md-6">
+												<asp:DropDownList ID="ddlClientes" class="form-control"  OnDataBound="ddlCliente_DataBound" OnSelectedIndexChanged="ddlClientes_SelectedIndexChanged" AutoPostBack="true"  DataSourceID="odsClientesTodos" DataTextField="DESC_RAZONSOCIAL" DataValueField="cod_cliente" ForeColor="Black" runat="server"></asp:DropDownList>
+												<asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ErrorMessage="*" ForeColor="Red" ControlToValidate="ddlClientes" InitialValue="SELECCIONAR" Font-Bold="True"></asp:RequiredFieldValidator>
+										</div>  
+									</div>
+									<!-- end form-group row -->  
 										<!-- begin page-header -->
 											<h1 class="page-header">Sucursales <small></small></h1>
           
@@ -149,10 +162,10 @@
 					<legend class="no-border f-w-700 p-b-0 m-t-0 m-b-20 f-s-16 text-inverse">Datos Sucursal</legend>
                     <!-- begin form-group row -->
 					<div class="form-group row m-b-10">
-						<label class="col-md-3 text-md-right col-form-label">Codigo Sucursal:</label>
+						<label class="col-md-3 text-md-right col-form-label">Cliente:</label>
 						<div class="col-md-6">
-                            <asp:TextBox ID="txtCodigo" class="form-control" style="text-transform:uppercase" runat="server"></asp:TextBox>
-							<asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="*" ControlToValidate="txtCodigo" Font-Bold="True"></asp:RequiredFieldValidator>
+                            <asp:TextBox ID="txtCliente" class="form-control" style="text-transform:uppercase" runat="server"></asp:TextBox>
+							<asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="*" ControlToValidate="txtCliente" Font-Bold="True"></asp:RequiredFieldValidator>
 						</div>
 					</div>
 					<!-- end form-group row -->

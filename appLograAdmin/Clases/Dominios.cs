@@ -12,7 +12,7 @@ namespace appLograAdmin.Clases
     public class Dominios
     { //Base de datos
         //private static Database db1 = DatabaseFactory.CreateDatabase(ConfigurationManager.AppSettings["conn"]);
-        private static OracleConnection Conexion = new OracleConnection("User Id=seguridad;Password=segu123;Data Source=200.12.254.22:1521/XE");
+        private static OracleConnection Conexion = new OracleConnection("User Id=sigal;Password=siga123;Data Source=200.12.254.22:1521/XE");
 
         #region Propiedades
         //Propiedades privadas

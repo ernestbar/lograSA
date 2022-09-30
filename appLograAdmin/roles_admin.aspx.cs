@@ -16,28 +16,30 @@ namespace appLograAdmin
         {
             if (!Page.IsPostBack)
             {
-                if (Session["usuario"] == null)
-                {
-                    Response.Redirect("login.aspx");
-                }
-                else
-                {
-                    lblUsuario.Text = Session["usuario"].ToString();
-                    btnNuevo.Visible = false;
-                    lblCodMenuRol.Text = Request.QueryString["RME"].ToString();
-                    DataTable dt = Clases.Usuarios.PR_SEG_GET_OPCIONES_ROLES(lblUsuario.Text, Int64.Parse(lblCodMenuRol.Text));
-                    if (dt.Rows.Count > 0)
-                    {
-                        foreach (DataRow dr in dt.Rows)
-                        {
-                            if (dr["DESCRIPCION"].ToString().ToUpper() == "NUEVO")
-                                btnNuevo.Visible = true;
-                        }
+                //if (Session["usuario"] == null)
+                //{
+                //    Response.Redirect("login.aspx");
+                //}
+                //else
+                //{
 
-                    }
-                    MultiView1.ActiveViewIndex = 0;
+                //    lblUsuario.Text = Session["usuario"].ToString();
+                //    btnNuevo.Visible = false;
+                //    lblCodMenuRol.Text = Request.QueryString["RME"].ToString();
+                //    DataTable dt = Clases.Usuarios.PR_SEG_GET_OPCIONES_ROLES(lblUsuario.Text, Int64.Parse(lblCodMenuRol.Text));
+                //    if (dt.Rows.Count > 0)
+                //    {
+                //        foreach (DataRow dr in dt.Rows)
+                //        {
+                //            if (dr["DESCRIPCION"].ToString().ToUpper() == "NUEVO")
+                //                btnNuevo.Visible = true;
+                //        }
 
-                }
+                //    }
+                //    MultiView1.ActiveViewIndex = 0;
+                //}
+                lblUsuario.Text = "admin";
+                MultiView1.ActiveViewIndex = 0;
             }
         }
 
@@ -49,15 +51,15 @@ namespace appLograAdmin
             {
                 if (lblCodRol.Text == "")
                 {
-                    Clases.Roles obj = new Clases.Roles("I",txtCodRol.Text, txtDescripcion.Text, lblUsuario.Text);
-                    lblAviso.Text = obj.ABM().Replace("0", "").Replace("|", "").Replace("1", "");
+                    Clases.Roles obj = new Clases.Roles(txtCodRol.Text, txtDescripcion.Text, lblUsuario.Text);
+                    lblAviso.Text = obj.ABM_I().Replace("|", "").Replace("0", "").Replace("null", "");
                     MultiView1.ActiveViewIndex = 0;
                     Repeater1.DataBind();
                 }
                 else
                 {
-                    Clases.Roles obj = new Clases.Roles("U", lblCodRol.Text, txtDescripcion.Text, lblUsuario.Text);
-                    lblAviso.Text = obj.ABM().Replace("0", "").Replace("|", "").Replace("1", "");
+                    Clases.Roles obj = new Clases.Roles( lblCodRol.Text, txtDescripcion.Text, lblUsuario.Text);
+                    lblAviso.Text = obj.ABM_U().Replace("|", "").Replace("0", "").Replace("null", "");
                     MultiView1.ActiveViewIndex = 0;
                     Repeater1.DataBind();
                 }
@@ -105,7 +107,7 @@ namespace appLograAdmin
                 id = obj.CommandArgument.ToString();
                 lblCodRol.Text = id;
                 txtCodRol.Text = id;
-                txtCodRol.Enabled = false;
+                txtCodRol.Enabled = true;
                 Clases.Roles obj_m = new Clases.Roles(id);
                 txtDescripcion.Text = obj_m.PV_NOMBRE_ROL;
                 MultiView1.ActiveViewIndex = 1;
@@ -135,13 +137,13 @@ namespace appLograAdmin
                 lblCodRol.Text = datos[0];
                 if (datos[1] == "ACTIVO")
                 { 
-                    Clases.Roles obj_m = new Clases.Roles("D", lblCodRol.Text, "", lblUsuario.Text);
-                    lblAviso.Text = obj_m.ABM().Replace("0","").Replace("|","").Replace("1", "");
+                    Clases.Roles obj_m = new Clases.Roles(lblCodRol.Text, "", lblUsuario.Text);
+                    lblAviso.Text = obj_m.ABM_D().Replace("0","").Replace("|","").Replace("1", "");
                 }
                 else
                 {
-                    Clases.Roles obj_m = new Clases.Roles("A", lblCodRol.Text, "", lblUsuario.Text);
-                    lblAviso.Text = obj_m.ABM().Replace("0", "").Replace("|", "").Replace("1", "");
+                    Clases.Roles obj_m = new Clases.Roles( lblCodRol.Text, "", lblUsuario.Text);
+                    lblAviso.Text = obj_m.ABM_A().Replace("0", "").Replace("|", "").Replace("1", "");
                 }
 
                 Repeater1.DataBind();
@@ -164,22 +166,22 @@ namespace appLograAdmin
             if (e.Item.ItemType == ListItemType.Item ||
                e.Item.ItemType == ListItemType.AlternatingItem)
             {
-                Button bEdit = (Button)e.Item.FindControl("btnEditar");
-                Button bEliminar = (Button)e.Item.FindControl("btnEliminar");
-                bEdit.Visible = false;
-                bEliminar.Visible = false;
-                DataTable dt = Clases.Usuarios.PR_SEG_GET_OPCIONES_ROLES(lblUsuario.Text, Int64.Parse(lblCodMenuRol.Text));
-                if (dt.Rows.Count > 0)
-                {
-                    foreach (DataRow dr in dt.Rows)
-                    {
-                        if (dr["DESCRIPCION"].ToString().ToUpper() == "EDITAR")
-                            bEdit.Visible = true;
-                        if (dr["DESCRIPCION"].ToString().ToUpper() == "ELIMINAR")
-                            bEliminar.Visible = true;
-                    }
+                //Button bEdit = (Button)e.Item.FindControl("btnEditar");
+                //Button bEliminar = (Button)e.Item.FindControl("btnEliminar");
+                //bEdit.Visible = false;
+                //bEliminar.Visible = false;
+                //DataTable dt = Clases.Usuarios.PR_SEG_GET_OPCIONES_ROLES(lblUsuario.Text, Int64.Parse(lblCodMenuRol.Text));
+                //if (dt.Rows.Count > 0)
+                //{
+                //    foreach (DataRow dr in dt.Rows)
+                //    {
+                //        if (dr["DESCRIPCION"].ToString().ToUpper() == "EDITAR")
+                //            bEdit.Visible = true;
+                //        if (dr["DESCRIPCION"].ToString().ToUpper() == "ELIMINAR")
+                //            bEliminar.Visible = true;
+                //    }
 
-                }
+                //}
 
 
             }

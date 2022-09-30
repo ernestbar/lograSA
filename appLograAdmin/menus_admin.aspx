@@ -1,8 +1,15 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Principal.Master" AutoEventWireup="true" CodeBehind="menus_admin.aspx.cs" Inherits="appLograAdmin.menus_admin" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 	<asp:ObjectDataSource ID="odsMenus" runat="server" SelectMethod="PR_SEG_GET_MENUS" TypeName="appLograAdmin.Clases.Menus">
+		<SelectParameters>
+            <asp:ControlParameter ControlID="ddlSistema" Name="pV_SISTEMA" DefaultValue="" />
+        </SelectParameters>
 	</asp:ObjectDataSource>
-	
+	<asp:ObjectDataSource ID="odsSistema" runat="server" SelectMethod="PR_PAR_GET_DOMINIOS" TypeName="appLograAdmin.Clases.Dominios">
+			<SelectParameters>
+				<asp:Parameter DefaultValue="SISTEMA" Name="PV_DOMINIO" Type="String" />
+			</SelectParameters>
+		 </asp:ObjectDataSource>
 	<style type="text/css">
         body
         {
@@ -55,6 +62,14 @@
 											<h1 class="page-header">Administración de menús <small></small></h1>
 										
 										<!-- end page-header -->
+									<!-- begin form-group row -->
+											<div class="form-group row m-b-10">
+												<label class="col-md-3 text-md-right col-form-label">Sistema:</label>
+												<div class="col-md-6">
+													 <asp:DropDownList ID="ddlSistema" class="form-control col-md-6" DataSourceID="odsSistema" AutoPostBack="true" OnSelectedIndexChanged="ddlSistema_SelectedIndexChanged" DataTextField="descripcion" DataValueField="codigo" OnDataBound="ddlSistema_DataBound" runat="server"></asp:DropDownList>
+												</div>
+											</div>
+											<!-- end form-group row -->
 											<!-- begin panel -->
 											<div class="panel panel-inverse">
 												<!-- begin panel-heading -->
@@ -134,13 +149,12 @@
 					</div>
 					<!-- end form-group row -->
 					<!-- begin form-group row -->
-					<%--<div class="form-group row m-b-10">
-						<label class="col-md-3 text-md-right col-form-label">Orden:</label>
+					<div class="form-group row m-b-10">
+						<label class="col-md-3 text-md-right col-form-label">Sistema:</label>
 						<div class="col-md-6">
-                             <asp:TextBox ID="txtOrden" class="form-control" runat="server"></asp:TextBox>
-							<asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ErrorMessage="*" ForeColor="Red" ControlToValidate="txtOrden" Font-Bold="True"></asp:RequiredFieldValidator>
+                             <asp:TextBox ID="txtSistema" class="form-control" runat="server"></asp:TextBox><asp:Label ID="lblCodSistema" runat="server" Text="" Visible="false"></asp:Label>
 						</div>
-					</div>--%>
+					</div>
 					<!-- end form-group row -->
 					<!-- begin form-group row -->
 					<div class="form-group row m-b-10">

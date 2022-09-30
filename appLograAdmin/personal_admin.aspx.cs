@@ -17,28 +17,30 @@ namespace appLograAdmin
         {
             if (!Page.IsPostBack)
             {
-                if (Session["usuario"] == null)
-                {
-                    Response.Redirect("login.aspx");
-                }
-                else
-                {
-                    lblUsuario.Text = Session["usuario"].ToString();
-                    btnNuevo.Visible = false;
-                    lblCodMenuRol.Text = Request.QueryString["RME"].ToString();
-                    DataTable dt = Clases.Usuarios.PR_SEG_GET_OPCIONES_ROLES(lblUsuario.Text, Int64.Parse(lblCodMenuRol.Text));
-                    if (dt.Rows.Count > 0)
-                    {
-                        foreach (DataRow dr in dt.Rows)
-                        {
-                            if (dr["DESCRIPCION"].ToString().ToUpper() == "NUEVO")
-                                btnNuevo.Visible = true;
-                        }
+                //if (Session["usuario"] == null)
+                //{
+                //    Response.Redirect("login.aspx");
+                //}
+                //else
+                //{
 
-                    }
-                    MultiView1.ActiveViewIndex = 0;
+                //    lblUsuario.Text = Session["usuario"].ToString();
+                //    btnNuevo.Visible = false;
+                //    lblCodMenuRol.Text = Request.QueryString["RME"].ToString();
+                //    DataTable dt = Clases.Usuarios.PR_SEG_GET_OPCIONES_ROLES(lblUsuario.Text, Int64.Parse(lblCodMenuRol.Text));
+                //    if (dt.Rows.Count > 0)
+                //    {
+                //        foreach (DataRow dr in dt.Rows)
+                //        {
+                //            if (dr["DESCRIPCION"].ToString().ToUpper() == "NUEVO")
+                //                btnNuevo.Visible = true;
+                //        }
 
-                }
+                //    }
+                //    MultiView1.ActiveViewIndex = 0;
+                //}
+                lblUsuario.Text = "admin";
+                MultiView1.ActiveViewIndex = 0;
 
             }
         }
@@ -48,26 +50,26 @@ namespace appLograAdmin
             if (e.Item.ItemType == ListItemType.Item ||
                e.Item.ItemType == ListItemType.AlternatingItem)
             {
-                Button bEliminar = (Button)e.Item.FindControl("btnEliminar");
-                Button bEdit = (Button)e.Item.FindControl("btnEditar");
-                Button bUsuarios = (Button)e.Item.FindControl("btnUsuarios");
-                bEdit.Visible = false;
-                bUsuarios.Visible = false;
-                bEliminar.Visible = false;
-                DataTable dt = Clases.Usuarios.PR_SEG_GET_OPCIONES_ROLES(lblUsuario.Text, Int64.Parse(lblCodMenuRol.Text));
-                if (dt.Rows.Count > 0)
-                {
-                    foreach (DataRow dr in dt.Rows)
-                    {
-                        if (dr["DESCRIPCION"].ToString().ToUpper() == "EDITAR")
-                            bEdit.Visible = true;
-                        if (dr["DESCRIPCION"].ToString().ToUpper() == "USUARIOS")
-                            bUsuarios.Visible = true;
-                        if (dr["DESCRIPCION"].ToString().ToUpper() == "ELIMINAR")
-                            bEliminar.Visible = true;
-                    }
+                //Button bEliminar = (Button)e.Item.FindControl("btnEliminar");
+                //Button bEdit = (Button)e.Item.FindControl("btnEditar");
+                //Button bUsuarios = (Button)e.Item.FindControl("btnUsuarios");
+                //bEdit.Visible = false;
+                //bUsuarios.Visible = false;
+                //bEliminar.Visible = false;
+                //DataTable dt = Clases.Usuarios.PR_SEG_GET_OPCIONES_ROLES(lblUsuario.Text, Int64.Parse(lblCodMenuRol.Text));
+                //if (dt.Rows.Count > 0)
+                //{
+                //    foreach (DataRow dr in dt.Rows)
+                //    {
+                //        if (dr["DESCRIPCION"].ToString().ToUpper() == "EDITAR")
+                //            bEdit.Visible = true;
+                //        if (dr["DESCRIPCION"].ToString().ToUpper() == "USUARIOS")
+                //            bUsuarios.Visible = true;
+                //        if (dr["DESCRIPCION"].ToString().ToUpper() == "ELIMINAR")
+                //            bEliminar.Visible = true;
+                //    }
 
-                }
+                //}
 
 
             }
@@ -86,6 +88,7 @@ namespace appLograAdmin
             ddlTipoDocumento.DataBind();
             ddlCargo.DataBind();
             ddlSupervisor.DataBind();
+            ddlSucursal.DataBind();
 
         }
         protected void btnNuevo_Click(object sender, EventArgs e)
@@ -105,24 +108,20 @@ namespace appLograAdmin
                 Button obj = (Button)sender;
                 id = obj.CommandArgument.ToString();
                 lblCodPersonal.Text = id;
-                Clases.Usuarios cli = new Clases.Usuarios("",lblCodPersonal.Text);
+                Clases.Personal cli = new Clases.Personal("",lblCodPersonal.Text);
                 txtCelular.Text = cli.PN_CELULAR.ToString();
                 txtEmail.Text = cli.PV_EMAIL;
                 txtNombres.Text = cli.PV_NOMBRE_COMPLETO;
                 txtNumeroDocumento.Text = cli.PV_NUMERO_DOCUMENTO;
                 txtFijo.Text = cli.PN_FIJO.ToString();
                 txtInterno.Text = cli.PN_INTERNO.ToString();
-                ddlExpedido.DataBind();
                 ddlExpedido.SelectedValue = cli.PV_EXPEDIDO.ToString();
-                ddlCargo.DataBind();
                 ddlCargo.SelectedValue = cli.PV_COD_CARGO;
-                ddlSucursal.DataBind();
                 ddlSucursal.SelectedValue = cli.PV_COD_SUCURSAL;
-                ddlTipoDocumento.DataBind();
                 ddlTipoDocumento.SelectedValue = cli.PV_TIPO_DOCUMENTO;
 
                 DataTable dt = new DataTable();
-                dt = Clases.Usuarios.PR_PAR_GET_USUARIOS(lblCodPersonal.Text);
+                dt = Clases.Personal.PR_PAR_GET_USUARIOS(lblCodPersonal.Text);
                 if (dt.Rows.Count > 0)
                 {
                     foreach (DataRow dr in dt.Rows)
@@ -164,13 +163,13 @@ namespace appLograAdmin
                 string[] dat = id.Split('|');
                 if (dat[1] == "ACTIVO")
                 {
-                    Clases.Usuarios cli = new Clases.Usuarios("D",id,"","","","","","","",0,0,0,"","","","","",DateTime.Now,DateTime.Now,"", lblUsuario.Text);
-                    string resultado = cli.ABM();
+                    Clases.Personal cli = new Clases.Personal("", dat[0], "","","","","","","",0,0,0,"","","","","",DateTime.Now,DateTime.Now,"", lblUsuario.Text);
+                    string resultado = cli.ABM_D();
                 }
                 else
                 {
-                    Clases.Usuarios cli = new Clases.Usuarios("A", id, "", "", "", "", "", "", "", 0, 0, 0, "", "", "", "", "", DateTime.Now, DateTime.Now, "", lblUsuario.Text);
-                    string resultado = cli.ABM();
+                    Clases.Personal cli = new Clases.Personal("", dat[0], "", "", "", "", "", "", "", 0, 0, 0, "", "", "", "", "", DateTime.Now, DateTime.Now, "", lblUsuario.Text);
+                    string resultado = cli.ABM_A();
                 }
 
                 Repeater1.DataBind();
@@ -224,16 +223,19 @@ namespace appLograAdmin
                 string fecha_retorno = "01/01/3000";
                 if (hfFechaRetorno.Value != "")
                     fecha_retorno = hfFechaRetorno.Value;
+                string fecha_salida = "01/01/3000";
+                if (hfFechaSalida.Value != "")
+                    fecha_salida = hfFechaRetorno.Value;
 
                 string[] datos_cargo = ddlCargo.SelectedValue.Split('&');
                 string aux = "";
                 if (lblCodPersonal.Text == "")
                 {
-                    Clases.Usuarios per = new Clases.Usuarios("I","",ddlSupervisor.SelectedValue,ddlSucursal.SelectedValue, txtNombres.Text,
+                    Clases.Personal per = new Clases.Personal(ddlClientes.SelectedValue,"",ddlSupervisor.SelectedValue,ddlSucursal.SelectedValue, txtNombres.Text,
                         ddlTipoDocumento.SelectedValue, txtNumeroDocumento.Text, ddlExpedido.SelectedValue,
-                        ddlCargo.SelectedValue,int.Parse(txtCelular.Text),int.Parse(txtFijo.Text),int.Parse(txtInterno.Text),
-                        txtEmail.Text,txtUsuario.Text,"","", txtDescripcion.Text, DateTime.Parse(hfFechaSalida.Value),DateTime.Parse(fecha_retorno),ddlRol.SelectedValue,lblUsuario.Text);
-                    aux = per.ABM();
+                        ddlCargo.SelectedValue,int.Parse(txtCelular.Text), Int64.Parse(txtFijo.Text), Int64.Parse(txtInterno.Text),
+                        txtEmail.Text,txtUsuario.Text,"","", txtDescripcion.Text, DateTime.Parse(fecha_salida),DateTime.Parse(fecha_retorno),ddlRol.SelectedValue,lblUsuario.Text);
+                    aux = per.ABM_I();
                 }
                 else
                 {
@@ -247,15 +249,15 @@ namespace appLograAdmin
                     { fecha_hasta = lblFechaHasta.Text; }
                     else
                     { fecha_hasta = hfFechaRetorno.Value; }
-                    Clases.Usuarios per = new Clases.Usuarios("U", lblCodPersonal.Text, ddlSupervisor.SelectedValue, ddlSucursal.SelectedValue, txtNombres.Text,
-                        ddlTipoDocumento.SelectedValue, txtNumeroDocumento.Text, ddlExpedido.SelectedValue,
-                        ddlCargo.SelectedValue, int.Parse(txtCelular.Text), int.Parse(txtFijo.Text), int.Parse(txtInterno.Text),
-                        txtEmail.Text, txtUsuario.Text, "", "", txtDescripcion.Text, DateTime.Parse(fecha_desde), DateTime.Parse(fecha_hasta), ddlRol.SelectedValue, lblUsuario.Text);
-                    aux = per.ABM();
+                    Clases.Personal per = new Clases.Personal(ddlClientes.SelectedValue, lblCodPersonal.Text, ddlSupervisor.SelectedValue, ddlSucursal.SelectedValue, txtNombres.Text,
+                         ddlTipoDocumento.SelectedValue, txtNumeroDocumento.Text, ddlExpedido.SelectedValue,
+                         ddlCargo.SelectedValue, int.Parse(txtCelular.Text), Int64.Parse(txtFijo.Text), Int64.Parse(txtInterno.Text),
+                         txtEmail.Text, txtUsuario.Text, "", "", txtDescripcion.Text, DateTime.Parse(fecha_desde), DateTime.Parse(fecha_retorno), ddlRol.SelectedValue, lblUsuario.Text);
+                    aux = per.ABM_U();
                 }
 
                 string[] datos = aux.Split('|');
-                lblAviso.Text = datos[3];
+                lblAviso.Text = aux.Replace("|", "").Replace("0", "").Replace("null", "");
                 MultiView1.ActiveViewIndex = 0;
                 Repeater1.DataBind();
             }
@@ -297,7 +299,15 @@ namespace appLograAdmin
         {
             ddlSucursal.Items.Insert(0,"SELECCIONAR");
         }
+        protected void ddlCliente_DataBound(object sender, EventArgs e)
+        {
+            ddlClientes.Items.Insert(0, "SELECCIONAR");
+        }
 
+        protected void ddlClientes_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Repeater1.DataBind();
+        }
         protected void btnUsuarios_Click(object sender, EventArgs e)
         {
             try
@@ -330,17 +340,17 @@ namespace appLograAdmin
                 string id = "";
                 Button obj = (Button)sender;
                 id = obj.CommandArgument.ToString();
-                Clases.Usuarios per = new Clases.Usuarios("R", "","", "", "","", "", "","", 0, 0, 0,
+                Clases.Personal per = new Clases.Personal("","","", "", "","", "", "","", 0, 0, 0,
                         "", id, "", "", "", DateTime.Now, DateTime.Now, "", lblUsuario.Text);
-                string[] datos = per.ABM().Split('|');
-                if (datos[2] == "PASSWORD CORRECTAMENTE REGISTRADO")
-                {
-                    ScriptManager.RegisterStartupScript(this, GetType(), "showalert", "alert('Su password se reseteo correctamente a 123');", true);
-                }
-                else
-                {
-                    ScriptManager.RegisterStartupScript(this, GetType(), "showalert", "alert('Su password NO se reseteo correctamente a 123');", true);
-                }
+                lblAviso.Text = per.ABM_R().Replace("|", "").Replace("0", "").Replace("null", "");
+                //if (datos[2] == "PASSWORD CORRECTAMENTE RESETEADO")
+                //{
+                //    ScriptManager.RegisterStartupScript(this, GetType(), "showalert", "alert('Su password se reseteo correctamente a 123');", true);
+                //}
+                //else
+                //{
+                //    ScriptManager.RegisterStartupScript(this, GetType(), "showalert", "alert('Su password NO se reseteo correctamente a 123');", true);
+                //}
 
                 //PASSWORD CORRECTAMENTE REGISTRADO
 
@@ -383,18 +393,9 @@ namespace appLograAdmin
         {
             try
             {
-                Clases.Usuarios per = new Clases.Usuarios("C", "", "", "", "", "", "", "", "", 0, 0, 0,
+                Clases.Personal per = new Clases.Personal("", "", "", "", "", "", "", "", "", 0, 0, 0,
                        "", lblCodUsuarioI.Text, txtPassword.Text, txtPasswordAnterior.Text, "", DateTime.Now, DateTime.Now, "", lblUsuario.Text);
-                string[] datos = per.ABM().Split('|');
-                if (datos[2] == "PASSWORD CORRECTAMENTE REGISTRADO")
-                {
-                    ScriptManager.RegisterStartupScript(this, GetType(), "showalert", "alert('Su password SI se cambio correctamente.');", true);
-                    MultiView1.ActiveViewIndex = 2;
-                }
-                else
-                {
-                    ScriptManager.RegisterStartupScript(this, GetType(), "showalert", "alert('Su password NO se cambio correctamente.');", true);
-                }
+                lblAviso.Text = per.ABM_C().Replace("|", "").Replace("0", "").Replace("null", "");
             }
             catch (Exception ex)
             {
@@ -422,26 +423,31 @@ namespace appLograAdmin
             if (e.Item.ItemType == ListItemType.Item ||
                e.Item.ItemType == ListItemType.AlternatingItem)
             {
-                Button bRestear = (Button)e.Item.FindControl("btnResetear");
-                Button bCambiarPassword = (Button)e.Item.FindControl("btnCambiarPassword");
-                bRestear.Visible = false;
-                bCambiarPassword.Visible = false;
-                DataTable dt = Clases.Usuarios.PR_SEG_GET_OPCIONES_ROLES(lblUsuario.Text, Int64.Parse(lblCodMenuRol.Text));
-                if (dt.Rows.Count > 0)
-                {
-                    foreach (DataRow dr in dt.Rows)
-                    {
-                        if (dr["DESCRIPCION"].ToString().ToUpper() == "RESET")
-                            bRestear.Visible = true;
-                        if (dr["DESCRIPCION"].ToString().ToUpper() == "CHANGE")
-                            bCambiarPassword.Visible = true;
+                //Button bRestear = (Button)e.Item.FindControl("btnResetear");
+                //Button bCambiarPassword = (Button)e.Item.FindControl("btnCambiarPassword");
+                //bRestear.Visible = false;
+                //bCambiarPassword.Visible = false;
+                //DataTable dt = Clases.Usuarios.PR_SEG_GET_OPCIONES_ROLES(lblUsuario.Text, Int64.Parse(lblCodMenuRol.Text));
+                //if (dt.Rows.Count > 0)
+                //{
+                //    foreach (DataRow dr in dt.Rows)
+                //    {
+                //        if (dr["DESCRIPCION"].ToString().ToUpper() == "RESET")
+                //            bRestear.Visible = true;
+                //        if (dr["DESCRIPCION"].ToString().ToUpper() == "CHANGE")
+                //            bCambiarPassword.Visible = true;
                         
-                    }
+                //    }
 
-                }
+                //}
 
 
             }
+        }
+
+        protected void ddlRol_DataBound(object sender, EventArgs e)
+        {
+            ddlRol.Items.Insert(0, "SELECCIONAR");
         }
     }
 }

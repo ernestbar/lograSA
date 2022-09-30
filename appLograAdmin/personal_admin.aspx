@@ -1,10 +1,13 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Principal.Master" AutoEventWireup="true" CodeBehind="personal_admin.aspx.cs" Inherits="appLograAdmin.personal_admin" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-	<asp:ObjectDataSource ID="odsPersonalClientes" runat="server" SelectMethod="PR_PAR_GET_PERSONAL" TypeName="appLograAdmin.Clases.Usuarios">
+	<asp:ObjectDataSource ID="odsPersonalClientes" runat="server" SelectMethod="PR_PAR_GET_PERSONAL" TypeName="appLograAdmin.Clases.Personal">
+		 <SelectParameters>
+            <asp:ControlParameter ControlID="ddlClientes" Name="pV_COD_CLIENTE" DefaultValue="" />
+        </SelectParameters>
 		</asp:ObjectDataSource>
-	<asp:ObjectDataSource ID="odsUsuarios" runat="server" SelectMethod="PR_PAR_GET_USUARIOS" TypeName="appLograAdmin.Clases.Usuarios">
+	<asp:ObjectDataSource ID="odsUsuarios" runat="server" SelectMethod="PR_PAR_GET_USUARIOS" TypeName="appLograAdmin.Clases.Personal">
 		<SelectParameters>
-			<asp:ControlParameter ControlID="lblCodPersonal" Name="PV_COD_PERSONAL" Type="String" />
+			<asp:ControlParameter ControlID="lblCodPersonal" Name="pV_COD_PERSONAL" Type="String" />
 		</SelectParameters>
 		</asp:ObjectDataSource>
 	<asp:ObjectDataSource ID="odsRoles" runat="server" SelectMethod="PR_GET_ROLES" TypeName="appLograAdmin.Clases.Roles">
@@ -16,21 +19,28 @@
 		 </asp:ObjectDataSource>
 	<asp:ObjectDataSource ID="odsCargo" runat="server" SelectMethod="PR_PAR_GET_DOMINIOS" TypeName="appLograAdmin.Clases.Dominios">
 			<SelectParameters>
-				<asp:Parameter DefaultValue="cargo" Name="PV_DOMINIO" Type="String" />
+				<asp:Parameter DefaultValue="CARGO" Name="PV_DOMINIO" Type="String" />
 			</SelectParameters>
 		 </asp:ObjectDataSource>
+	<asp:ObjectDataSource ID="odsPais" runat="server" SelectMethod="PR_PAR_GET_DOMINIOS" TypeName="appLograAdmin.Clases.Dominios">
+			<SelectParameters>
+				<asp:Parameter DefaultValue="PAIS" Name="PV_DOMINIO" Type="String" />
+			</SelectParameters>
+		 </asp:ObjectDataSource>
+	
 	<asp:ObjectDataSource ID="odsExpedido" runat="server" SelectMethod="PR_PAR_GET_DOMINIOS" TypeName="appLograAdmin.Clases.Dominios">
 			<SelectParameters>
-				<asp:Parameter DefaultValue="EXPEDIDO" Name="PV_DOMINIO" Type="String" />
+				<asp:Parameter DefaultValue="CIUDAD" Name="PV_DOMINIO" Type="String" />
 			</SelectParameters>
 		 </asp:ObjectDataSource>
 	
-	
-	<asp:ObjectDataSource ID="odsPais" runat="server" SelectMethod="Lista" TypeName="appLograAdmin.Clases.Paises">
-		 </asp:ObjectDataSource>
-	<asp:ObjectDataSource ID="odsSucursal" runat="server" SelectMethod="PR_PAR_GET_SUCURSALES" TypeName="appLograAdmin.Clases.Sucursales">
-		 </asp:ObjectDataSource>
-	
+	<asp:ObjectDataSource ID="odsClientesTodos" runat="server" SelectMethod="PR_GET_CLIENTE_ALL" TypeName="appLograAdmin.Clases.Clientes">
+		</asp:ObjectDataSource>
+	 <asp:ObjectDataSource ID="odsSucursal" runat="server" SelectMethod="PR_PAR_GET_SUCURSALES" TypeName="appLograAdmin.Clases.Sucursales">
+		 <SelectParameters>
+            <asp:ControlParameter ControlID="ddlClientes" Name="pV_COD_CLIENTE" DefaultValue="" />
+        </SelectParameters>
+	</asp:ObjectDataSource>    
 	<%--<asp:ObjectDataSource ID="odsCiudad" runat="server" SelectMethod="Lista" TypeName="appRRHHadmin.Clases.Ciudades">
 			<SelectParameters>
 				<asp:ControlParameter Name="PI_ID_PAIS" ControlID="ddlPaisRes" DefaultValue="0" />
@@ -85,7 +95,15 @@
 											</div>
 										</div>
 										<!-- end form-group row -->
-									
+										  <!-- begin form-group row -->
+									<div class="form-group row m-b-10">
+										<label class="col-md-2 text-md-right col-form-label">Seleccione Cliente:</label>
+										<div class="col-md-6">
+												<asp:DropDownList ID="ddlClientes" class="form-control"  OnDataBound="ddlCliente_DataBound" OnSelectedIndexChanged="ddlClientes_SelectedIndexChanged" AutoPostBack="true"  DataSourceID="odsClientesTodos" DataTextField="DESC_RAZONSOCIAL" DataValueField="cod_cliente" ForeColor="Black" runat="server"></asp:DropDownList>
+												<asp:RequiredFieldValidator ID="RequiredFieldValidator9" runat="server" ErrorMessage="*" ForeColor="Red" ControlToValidate="ddlClientes" InitialValue="SELECCIONAR" Font-Bold="True"></asp:RequiredFieldValidator>
+										</div>  
+									</div>
+									<!-- end form-group row -->  
 										<!-- begin page-header -->
 											<h1 class="page-header">Registro de Personal<small></small></h1>
 												<!-- begin form-group row -->
@@ -176,7 +194,7 @@
 					<div class="form-group row m-b-10">
 						<label class="col-md-3 text-md-right col-form-label">Supervisor inmediato:</label>
 						<div class="col-md-6">
-                           <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="*" ForeColor="Red" ControlToValidate="ddlSupervisor" InitialValue="SELECCIONAR" Font-Bold="True"></asp:RequiredFieldValidator>
+                           <%--<asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="*" ForeColor="Red" ControlToValidate="ddlSupervisor" InitialValue="SELECCIONAR" Font-Bold="True"></asp:RequiredFieldValidator>--%>
 						   <asp:DropDownList ID="ddlSupervisor" DataSourceID="odsPersonalClientes" DataTextField="nombre_completo" OnDataBound="ddlSupervisor_DataBound" DataValueField="cod_personal"  ForeColor="Black" class="form-control" runat="server"></asp:DropDownList>  
 						</div>
 					</div>
@@ -298,7 +316,7 @@
 						<label class="col-md-3 text-md-right col-form-label">Rol:</label>
 						<div class="col-md-6">
                               <asp:RequiredFieldValidator ID="RequiredFieldValidator13" runat="server" ErrorMessage="*" ForeColor="Red" ControlToValidate="ddlRol" InitialValue="SELECCIONAR" Font-Bold="True"></asp:RequiredFieldValidator>
-						    <asp:DropDownList ID="ddlRol"  ForeColor="Black" DataSourceID="odsRoles" OnDataBound="ddlSucursal_DataBound" DataTextField="DESCRIPCION" DataValueField="ROL" class="form-control" runat="server"></asp:DropDownList>
+						    <asp:DropDownList ID="ddlRol"  ForeColor="Black" DataSourceID="odsRoles" OnDataBound="ddlRol_DataBound" DataTextField="DESCRIPCION" DataValueField="ROL" class="form-control" runat="server"></asp:DropDownList>
 						</div>
                         
 					</div>

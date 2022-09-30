@@ -89,7 +89,6 @@ namespace appLograAdmin.Clases
 
                 OracleCommand cmd = new OracleCommand("PAQ_CLI_CLIENTES.PR_GET_CLIENTE", Conexion);
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.Add("PV_COD_CLIENTE", OracleDbType.Varchar2, ParameterDirection.Input).Value = null;
                 cmd.Parameters.Add("po_tabla", OracleDbType.RefCursor, ParameterDirection.Output);
                 cmd.ExecuteNonQuery();
                 DataSet ds = new DataSet();
@@ -119,7 +118,7 @@ namespace appLograAdmin.Clases
                 if (Conexion.State.ToString().ToUpper() == "CLOSED")
                     Conexion.Open();
 
-                OracleCommand cmd = new OracleCommand("PAQ_CLI_CLIENTES.PR_GET_CLIENTE", Conexion);
+                OracleCommand cmd = new OracleCommand("PAQ_CLI_CLIENTES.PR_GET_CLIENTE_IND", Conexion);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("PV_COD_CLIENTE", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PV_COD_CLIENTE;
                 cmd.Parameters.Add("po_tabla", OracleDbType.RefCursor, ParameterDirection.Output);
@@ -239,7 +238,7 @@ namespace appLograAdmin.Clases
 
                 Conexion.Close();
 
-                resultado = PV_ESTADOPR + "|" + PV_DESCRIPCIONPR + "|" + PV_ERROR + "|" + PV_COD_CLIENTE;
+                resultado = PV_ESTADOPR + "|" + PV_DESCRIPCIONPR + " ID: |" + PV_ERROR + "|" + PV_COD_CLIENTE;
                 return resultado;
             }
             catch (Exception ex)
@@ -286,6 +285,7 @@ namespace appLograAdmin.Clases
                 cmd.Parameters.Add("PV_ESTADOPR", OracleDbType.Varchar2, 32767).Direction = ParameterDirection.Output;
                 cmd.Parameters.Add("PV_DESCRIPCIONPR", OracleDbType.Varchar2, 32767).Direction = ParameterDirection.Output;
                 cmd.Parameters.Add("PV_ERROR", OracleDbType.Varchar2, 32767).Direction = ParameterDirection.Output;
+                cmd.Parameters.Add("PV_COD_CLIENTE", OracleDbType.Varchar2, 32767).Direction = ParameterDirection.Output;
                 cmd.ExecuteNonQuery();
 
 
@@ -304,7 +304,11 @@ namespace appLograAdmin.Clases
                     PV_ERROR = "";
                 else
                     PV_ERROR = cmd.Parameters["PV_ERROR"].Value.ToString();
-
+                
+                if (String.IsNullOrEmpty(cmd.Parameters["PV_COD_CLIENTE"].Value.ToString()))
+                    PV_COD_CLIENTE = "";
+                else
+                    PV_COD_CLIENTE = cmd.Parameters["PV_COD_CLIENTE"].Value.ToString();
 
                 Conexion.Close();
 
@@ -334,6 +338,7 @@ namespace appLograAdmin.Clases
                 cmd.Parameters.Add("PV_ESTADOPR", OracleDbType.Varchar2, 32767).Direction = ParameterDirection.Output;
                 cmd.Parameters.Add("PV_DESCRIPCIONPR", OracleDbType.Varchar2, 32767).Direction = ParameterDirection.Output;
                 cmd.Parameters.Add("PV_ERROR", OracleDbType.Varchar2, 32767).Direction = ParameterDirection.Output;
+                cmd.Parameters.Add("PV_COD_CLIENTE", OracleDbType.Varchar2, 32767).Direction = ParameterDirection.Output;
                 cmd.ExecuteNonQuery();
 
 
@@ -382,6 +387,7 @@ namespace appLograAdmin.Clases
                 cmd.Parameters.Add("PV_ESTADOPR", OracleDbType.Varchar2, 32767).Direction = ParameterDirection.Output;
                 cmd.Parameters.Add("PV_DESCRIPCIONPR", OracleDbType.Varchar2, 32767).Direction = ParameterDirection.Output;
                 cmd.Parameters.Add("PV_ERROR", OracleDbType.Varchar2, 32767).Direction = ParameterDirection.Output;
+                cmd.Parameters.Add("PV_COD_CLIENTE", OracleDbType.Varchar2, 32767).Direction = ParameterDirection.Output;
                 cmd.ExecuteNonQuery();
 
                 if (String.IsNullOrEmpty(cmd.Parameters["PV_ESTADOPR"].Value.ToString()))

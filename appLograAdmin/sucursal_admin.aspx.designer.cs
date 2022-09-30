@@ -42,6 +42,15 @@ namespace appLograAdmin
         protected global::System.Web.UI.WebControls.ObjectDataSource odsSucursales;
 
         /// <summary>
+        /// odsClientesTodos control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ObjectDataSource odsClientesTodos;
+
+        /// <summary>
         /// lblUsuario control.
         /// </summary>
         /// <remarks>
@@ -51,13 +60,13 @@ namespace appLograAdmin
         protected global::System.Web.UI.WebControls.Label lblUsuario;
 
         /// <summary>
-        /// lblCliente control.
+        /// lblCodCliente control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblCliente;
+        protected global::System.Web.UI.WebControls.Label lblCodCliente;
 
         /// <summary>
         /// lblCodSucursal control.
@@ -123,6 +132,24 @@ namespace appLograAdmin
         protected global::System.Web.UI.WebControls.Button btnNuevoCliente;
 
         /// <summary>
+        /// ddlClientes control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlClientes;
+
+        /// <summary>
+        /// RequiredFieldValidator3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator3;
+
+        /// <summary>
         /// Repeater1 control.
         /// </summary>
         /// <remarks>
@@ -141,13 +168,13 @@ namespace appLograAdmin
         protected global::System.Web.UI.WebControls.View View2;
 
         /// <summary>
-        /// txtCodigo control.
+        /// txtCliente control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtCodigo;
+        protected global::System.Web.UI.WebControls.TextBox txtCliente;
 
         /// <summary>
         /// RequiredFieldValidator1 control.

@@ -27,14 +27,14 @@ namespace appLograAdmin
             if (e.Item.ItemType == ListItemType.Item ||
                  e.Item.ItemType == ListItemType.AlternatingItem)
             {
-                Label id = (Label)e.Item.FindControl("lblCodPadre");
-                if (id != null)
-                {
-                    string consulta = "id_datos='" + id.Text + "'";
-                    Repeater rSegmentos = (Repeater)e.Item.FindControl("Repeater2");
-                    rSegmentos.DataSource = Clases.Usuarios.PR_SEG_GET_MENUS_ROL(lblUsuario.Text, Int64.Parse(id.Text));
-                    rSegmentos.DataBind();
-                }
+                //Label id = (Label)e.Item.FindControl("lblCodPadre");
+                //if (id != null)
+                //{
+                //    string consulta = "id_datos='" + id.Text + "'";
+                //    Repeater rSegmentos = (Repeater)e.Item.FindControl("Repeater2");
+                //    rSegmentos.DataSource = Clases.Usuarios.PR_SEG_GET_MENUS_ROL(lblUsuario.Text, Int64.Parse(id.Text));
+                //    rSegmentos.DataBind();
+                //}
 
             }
         }
