@@ -95,6 +95,7 @@
 			</ul>
 			<!-- end header navigation right -->
 		</div>
+		<asp:Label ID="lblSistema" runat="server" Visible="false" Text="SEGURIDAD"></asp:Label>
 		<!-- end #header -->
 		<!-- begin #sidebar -->
 		<div id="sidebar" class="sidebar">
@@ -202,9 +203,10 @@
 					</li>--%>
 
 
-					<%--<asp:ObjectDataSource ID="odsMenuPadre" runat="server" SelectMethod="PR_SEG_GET_MENUS_PADRE_ROL" TypeName="appLograAdmin.Clases.Usuarios">
+					<asp:ObjectDataSource ID="odsMenuPadre" runat="server" SelectMethod="PR_SEG_GET_MENUS_PADRE_ROL" TypeName="appLograAdmin.Clases.Utilitarios">
                     <SelectParameters>
-                        <asp:ControlParameter ControlID="lblUsuario" Name="PV_USUARIO" Type="String" />
+                        <asp:ControlParameter ControlID="lblUsuario" Name="pv_usuario" Type="String" />
+						<asp:ControlParameter ControlID="lblSistema" Name="PV_SISTEMA" Type="String" />
                     </SelectParameters>
                 </asp:ObjectDataSource>
 					<asp:Repeater ID="Repeater1" DataSourceID="odsMenuPadre" OnItemDataBound="Repeater1_ItemDataBound" runat="server">
@@ -228,7 +230,7 @@
 						            </ul>
 					            </li>
                         </ItemTemplate>
-                    </asp:Repeater>--%>
+                    </asp:Repeater>
 
 
 					<!-- begin sidebar minify button -->

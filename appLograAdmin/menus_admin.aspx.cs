@@ -57,14 +57,14 @@ namespace appLograAdmin
                 if (lblCodMenu.Text == "")
                 {
                     Clases.Menus obj = new Clases.Menus("",cod_menu_padre, txtDescripcion.Text, txtDetalle.Text, ddlSistema.SelectedValue,lblUsuario.Text);
-                    lblAviso.Text = obj.ABM_I().Replace("0", "").Replace("|", "").Replace("1", ""); 
+                    lblAviso.Text = obj.ABM_I().Replace("0", "").Replace("|", "").Replace("1", "").Replace("null", ""); 
                     MultiView1.ActiveViewIndex = 0;
                     Repeater1.DataBind();
                 }
                 else
                 {
                     Clases.Menus obj = new Clases.Menus(lblCodMenu.Text, cod_menu_padre, txtDescripcion.Text, txtDetalle.Text, ddlSistema.SelectedValue, lblUsuario.Text);
-                    lblAviso.Text = obj.ABM_U().Replace("0", "").Replace("|", "").Replace("1", ""); 
+                    lblAviso.Text = obj.ABM_U().Replace("0", "").Replace("|", "").Replace("1", "").Replace("null", "");
                     MultiView1.ActiveViewIndex = 0;
                     Repeater1.DataBind();
                 }
@@ -116,7 +116,7 @@ namespace appLograAdmin
                 txtDescripcion.Text = obj_m.PV_DESCRIPCIONMEN;
                 txtDetalle.Text = obj_m.PV_DETALLE;
                 ddlMenuPadre.DataBind();
-                ddlSistema.SelectedValue = obj_m.PV_SISTEMAS;
+                //ddlSistema.SelectedValue = obj_m.PV_SISTEMAS;
                 // txtOrden.Text = obj_m.PI_ORDEN.ToString();
                 txtSistema.Text = ddlSistema.SelectedItem.Text;
                 lblCodSistema.Text = ddlSistema.SelectedValue;
@@ -150,12 +150,12 @@ namespace appLograAdmin
                 if (datos[1] == "ACTIVO")
                 {
                     Clases.Menus obj_m = new Clases.Menus(lblCodMenu.Text,"", "", "", "", lblUsuario.Text);
-                    lblAviso.Text = obj_m.ABM_D().Replace("0", "").Replace("|", "").Replace("1", ""); 
+                    lblAviso.Text = obj_m.ABM_D().Replace("0", "").Replace("|", "").Replace("1", "").Replace("null", ""); 
                 }
                 else
                 {
                     Clases.Menus obj_m = new Clases.Menus( lblCodMenu.Text,"", "", "", "", lblUsuario.Text);
-                    lblAviso.Text = obj_m.ABM_A().Replace("0", "").Replace("|", "").Replace("1", ""); 
+                    lblAviso.Text = obj_m.ABM_A().Replace("0", "").Replace("|", "").Replace("1", "").Replace("null", "");
                 }
                   
 

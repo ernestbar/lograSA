@@ -46,22 +46,36 @@ namespace appLograAdmin
 
         protected void btnIngresar_Click(object sender, EventArgs e)
         {
-            //lblAviso.Text = "";
-            //string[] datos= Clases.Usuarios.Ingreso_usuario(txtUsuario.Text, txtPassword.Text).Split('|');
-            //if (datos[1] == "Login correcto")
-            //{
-            //    //Clases.enviar_correo objC = new Clases.enviar_correo();
-            //    //string resp_email = objC.enviar("ernesto.barron@gmail.com", "Confirmacion de requisitos", "Pruebas de envio de correo.", "");
+            lblAviso.Text = "";
+            string[] datos = Clases.Utilitarios.PR_INGRESO_APP(txtUsuario.Text, txtPassword.Text).Split('|');
+            if (datos[1] == "Login correcto")
+            {
+                //if (datos[2] == "1")
+                //{
+                //    Session["usuario"] = txtUsuario.Text;
+                //    Response.Redirect("cambio_password.aspx");
+                //}
+                //else
+                //{
+                //    Session["cod_cliente"]= datos[3];
+                //    Session["es_master"] = datos[4];
+                //    Session["usuario"] = txtUsuario.Text;
+                //    Response.Redirect("dashboard.aspx");
+                //    lblAviso.Text = "";
+                //}
 
-            //    Session["usuario"] = txtUsuario.Text;
-            //    Response.Redirect("dashboard.aspx");
-            //    lblAviso.Text = "";
-                
-            //}
-            //else
-            //{ lblAviso.Text = "Usuario y contraseña incorrectas!"; txtUsuario.Focus(); }
-            
-            
+                Session["cod_cliente"] = datos[3];
+                Session["es_master"] = datos[4];
+                Session["usuario"] = txtUsuario.Text;
+                Response.Redirect("dashboard.aspx");
+                lblAviso.Text = "";
+
+
+            }
+            else
+            { lblAviso.Text = "Usuario y contraseña incorrectas!"; txtUsuario.Focus(); }
+
+
         }
 
         protected void btnReset_Click(object sender, EventArgs e)

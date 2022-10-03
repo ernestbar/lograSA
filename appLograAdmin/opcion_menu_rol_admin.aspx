@@ -6,24 +6,32 @@
 	
 	<asp:ObjectDataSource ID="odsOpcionRolAsignado" runat="server" SelectMethod="PR_SEG_GET_OPCIONES_ASIGNADOS" TypeName="appLograAdmin.Clases.Opciones_Menu_rol">
 		<SelectParameters>
-            <asp:ControlParameter ControlID="ddlMenuRol" Name="PD_MEN_COD_MENU" Type="String" />
-			<asp:ControlParameter ControlID="ddlRol" Name="PB_ROL_ID_ROL" Type="String" />
+            <asp:ControlParameter ControlID="ddlMenuRol" Name="pD_MEN_COD_MENU" Type="String" />
+			<asp:ControlParameter ControlID="ddlRol" Name="pB_ROL_ID_ROL" Type="String" />
 			
         </SelectParameters>
 		</asp:ObjectDataSource>
 	<asp:ObjectDataSource ID="odsOpcionRolNoAsignado" runat="server" SelectMethod="PR_SEG_GET_OPCIONES_A_ASIGNAR" TypeName="appLograAdmin.Clases.Opciones_Menu_rol">
 		<SelectParameters>
-            <asp:ControlParameter ControlID="ddlMenuRol" Name="PD_MEN_COD_MENU" Type="String" />
-			<asp:ControlParameter ControlID="ddlRol" Name="PB_ROL_ID_ROL" Type="String" />
+            <asp:ControlParameter ControlID="ddlMenuRol" Name="pD_MEN_COD_MENU" Type="String" />
+			<asp:ControlParameter ControlID="ddlRol" Name="pB_ROL_ID_ROL" Type="String" />
 			
         </SelectParameters>
 		</asp:ObjectDataSource>
 
-	<asp:ObjectDataSource ID="odsMenusAsignado" runat="server" SelectMethod="PR_SEG_GET_MENUS_ASIGNADOS" TypeName="appLograAdmin.Clases.Menus_roles">
+<asp:ObjectDataSource ID="odsMenusAsignado" runat="server" SelectMethod="PR_SEG_GET_MENUS_ASIGNADOS" TypeName="appLograAdmin.Clases.Menus_roles">
 		<SelectParameters>
-			<asp:ControlParameter ControlID="ddlRol" Name="PB_ROL_ID_ROL" Type="String" />
+			<asp:ControlParameter ControlID="ddlRol" Name="pB_ROL_ID_ROL" Type="String" />
+			<asp:ControlParameter ControlID="ddlSistema" Name="pV_SISTEMA" Type="String" />
         </SelectParameters>
 		</asp:ObjectDataSource>
+	<asp:ObjectDataSource ID="odsSistema" runat="server" SelectMethod="PR_PAR_GET_DOMINIOS" TypeName="appLograAdmin.Clases.Dominios">
+			<SelectParameters>
+				<asp:Parameter DefaultValue="SISTEMA" Name="PV_DOMINIO" Type="String" />
+			</SelectParameters>
+		 </asp:ObjectDataSource>
+
+
 	
 	<style type="text/css">
         body
@@ -77,6 +85,9 @@
 											Rol:
 											<asp:DropDownList ID="ddlRol" class="form-control col-md-6" AutoPostBack="true" OnSelectedIndexChanged="ddlRol_SelectedIndexChanged"  DataSourceID="odsRolesActivos" DataTextField="DESCRIPCION" DataValueField="ROL" OnDataBound="ddlRol_DataBound" runat="server"></asp:DropDownList>
 											<asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ErrorMessage="*" ForeColor="Red" ControlToValidate="ddlRol" InitialValue="SELECCIONAR"  Font-Bold="True"></asp:RequiredFieldValidator>	
+											Sistema:
+											<asp:DropDownList ID="ddlSistema" class="form-control col-md-6" DataSourceID="odsSistema" AutoPostBack="true" OnSelectedIndexChanged="ddlSistema_SelectedIndexChanged" DataTextField="descripcion" DataValueField="codigo" OnDataBound="ddlSistema_DataBound" runat="server"></asp:DropDownList>
+											<asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="*" ForeColor="Red" ControlToValidate="ddlSistema" InitialValue="SELECCIONAR"  Font-Bold="True"></asp:RequiredFieldValidator>	
 											Menú Asignado al Rol:
 											<asp:DropDownList ID="ddlMenuRol" class="form-control col-md-6" AutoPostBack="true" OnSelectedIndexChanged="ddlMenuRol_SelectedIndexChanged"  DataSourceID="odsMenusAsignado" DataTextField="DESCRIPCION" DataValueField="ROL_MENU" OnDataBound="ddlMenuRol_DataBound" runat="server"></asp:DropDownList>
 											<asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ErrorMessage="*" ForeColor="Red" ControlToValidate="ddlRol" InitialValue="SELECCIONAR"  Font-Bold="True"></asp:RequiredFieldValidator>	

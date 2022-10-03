@@ -3,18 +3,18 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using System.Configuration;
-using Microsoft.Practices.EnterpriseLibrary.Data;
+//using Microsoft.Practices.EnterpriseLibrary.Data;
+using Oracle.ManagedDataAccess.Client;
 
 namespace appLograAdmin.Clases
 {
     public class Opciones
     {
         //Base de datos
-        private static Database db1 = DatabaseFactory.CreateDatabase(ConfigurationManager.AppSettings["conn"]);
+        private static OracleConnection Conexion = new OracleConnection("User Id=sigal;Password=siga123;Data Source=200.12.254.22:1521/XE");
 
         #region Propiedades
         //Propiedades privadas
-        private string _PV_TIPO_OPERACION = "";
         private string _PB_COD_MENU = "";
         private string _PB_COD_OPCION = "";
         private string _PV_DESCRIPCIONMEN = "";
@@ -26,7 +26,6 @@ namespace appLograAdmin.Clases
         private string _PV_ERROR = "";
 
         //Propiedades públicas
-        public string PV_TIPO_OPERACION { get { return _PV_TIPO_OPERACION; } set { _PV_TIPO_OPERACION = value; } }
         public string PB_COD_MENU { get { return _PB_COD_MENU; } set { _PB_COD_MENU = value; } }
         public string PB_COD_OPCION { get { return _PB_COD_OPCION; } set { _PB_COD_OPCION = value; } }
         public string PV_DESCRIPCIONMEN { get { return _PV_DESCRIPCIONMEN; } set { _PV_DESCRIPCIONMEN = value; } }
@@ -44,10 +43,9 @@ namespace appLograAdmin.Clases
             _PB_COD_OPCION = pB_COD_OPCION;
             RecuperarDatos();
         }
-        public Opciones(string pV_TIPO_OPERACION, string pB_COD_OPCION, string pB_COD_MENU,
+        public Opciones(string pB_COD_OPCION, string pB_COD_MENU,
             string pV_DESCRIPCIONMEN, string pV_DETALLE, string pV_USUARIO)
         {
-            _PV_TIPO_OPERACION = pV_TIPO_OPERACION;
             _PB_COD_MENU = pB_COD_MENU;
             _PB_COD_OPCION = pB_COD_OPCION;
             _PV_DESCRIPCIONMEN = pV_DESCRIPCIONMEN;
@@ -57,20 +55,27 @@ namespace appLograAdmin.Clases
         #endregion
 
         #region Métodos que NO requieren constructor
-        public static DataTable PR_SEG_GET_OPCIONES(string PD_MEN_COD_MENU)
+        public static DataTable PR_SEG_GET_OPCIONES(string pD_MEN_COD_MENU)
         {
             try
             {
-                DbCommand cmd = db1.GetStoredProcCommand("PR_SEG_GET_OPCIONES");
-                cmd.CommandTimeout = int.Parse(ConfigurationManager.AppSettings["CommandTimeout"]);
-                if (PD_MEN_COD_MENU == "SELECCIONAR")
-                    db1.AddInParameter(cmd, "PD_MEN_COD_MENU", DbType.Int64, null);
-                else
-                    db1.AddInParameter(cmd, "PD_MEN_COD_MENU", DbType.Int64, PD_MEN_COD_MENU);
-                return db1.ExecuteDataSet(cmd).Tables[0];
+                if (Conexion.State.ToString().ToUpper() == "CLOSED")
+                    Conexion.Open();
+
+                OracleCommand cmd = new OracleCommand("PAQ_CLI_OPCIONES.PR_SEG_GET_OPCIONES", Conexion);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("PD_MEN_COD_MENU", OracleDbType.Varchar2, ParameterDirection.Input).Value = pD_MEN_COD_MENU;
+                cmd.Parameters.Add("po_tabla", OracleDbType.RefCursor, ParameterDirection.Output);
+                cmd.ExecuteNonQuery();
+                DataSet ds = new DataSet();
+                OracleDataAdapter da = new OracleDataAdapter(cmd);
+                da.Fill(ds);
+                Conexion.Close();
+                return ds.Tables[0];
             }
             catch (Exception ex)
             {
+                Conexion.Close();
                 ex.ToString();
                 DataTable dt = new DataTable();
                 return dt;
@@ -88,72 +93,229 @@ namespace appLograAdmin.Clases
         {
             try
             {
-                DbCommand cmd = db1.GetStoredProcCommand("PR_SEG_GET_OPCIONES_IND");
-                db1.AddInParameter(cmd, "PD_OPC_OPCION", DbType.Int64, _PB_COD_OPCION);
-                db1.ExecuteNonQuery(cmd);
+                if (Conexion.State.ToString().ToUpper() == "CLOSED")
+                    Conexion.Open();
+
+                OracleCommand cmd = new OracleCommand("PAQ_CLI_OPCIONES.PR_SEG_GET_OPCIONES_IND", Conexion);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("PD_OPC_OPCION", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PB_COD_OPCION;
+                cmd.Parameters.Add("po_tabla", OracleDbType.RefCursor, ParameterDirection.Output);
+                cmd.ExecuteNonQuery();
+                DataSet ds = new DataSet();
+                OracleDataAdapter da = new OracleDataAdapter(cmd);
+                da.Fill(ds);
                 DataTable dt = new DataTable();
-                dt = db1.ExecuteDataSet(cmd).Tables[0];
+                dt = ds.Tables[0];
                 if (dt.Rows.Count > 0)
                 {
                     foreach (DataRow dr in dt.Rows)
                     {
-                        _PB_COD_MENU = (string)dr["COD_MENU"].ToString();
-                        _PV_DESCRIPCIONMEN = (string)dr["DESCRIPCION"];
-                        _PV_DETALLE = (string)dr["DETALLE"];
-                    }   
+                        _PV_DESCRIPCIONMEN = (string)dr["descripcion"];
+
+                        if (string.IsNullOrEmpty(dr["DETALLE"].ToString()))
+                        { _PV_DETALLE = ""; }
+                        else
+                        { _PV_DETALLE = (string)dr["DETALLE"]; }
+
+                        if (string.IsNullOrEmpty(dr["COD_MENU"].ToString()))
+                        { _PB_COD_MENU = ""; }
+                        else
+                        { _PB_COD_MENU = (string)dr["COD_MENU"]; }
+
+
+                    }
 
                 }
+            }
+            catch (Exception ex)
+            {
 
             }
-            catch { }
         }
 
 
 
-        public string ABM()
+        public string ABM_I()
         {
             string resultado = "";
             try
             {
-                // verificar_vacios();
-                DbCommand cmd = db1.GetStoredProcCommand("PR_SEG_ABM_OPCION");
-                db1.AddInParameter(cmd, "PV_TIPO_OPERACION", DbType.String, _PV_TIPO_OPERACION);
-                if (_PB_COD_MENU == "")
-                    db1.AddInParameter(cmd, "PB_COD_MENU", DbType.String, null);
-                else
-                    db1.AddInParameter(cmd, "PB_COD_MENU", DbType.String, _PB_COD_MENU);
-                if (_PB_COD_OPCION == "")
-                    db1.AddInParameter(cmd, "PB_COD_OPCION", DbType.String, null);
-                else
-                    db1.AddInParameter(cmd, "PB_COD_OPCION", DbType.String, _PB_COD_OPCION);
 
-                db1.AddInParameter(cmd, "PV_DESCRIPCIONMEN", DbType.String, _PV_DESCRIPCIONMEN);
-                db1.AddInParameter(cmd, "PV_DETALLE", DbType.String, _PV_DETALLE);
-                db1.AddInParameter(cmd, "PV_USUARIO", DbType.String, _PV_USUARIO);
-                db1.AddOutParameter(cmd, "PV_ESTADOPR", DbType.String, 30);
-                db1.AddOutParameter(cmd, "PV_DESCRIPCIONPR", DbType.String, 250);
-                db1.AddOutParameter(cmd, "PV_ERROR", DbType.String, 250);
-                db1.ExecuteNonQuery(cmd);
-                //if (String.IsNullOrEmpty(db1.GetParameterValue(cmd, "PV_USER").ToString()))
-                //    PV_USUARIO = "";
-                //else
-                //    PV_USUARIO = (string)db1.GetParameterValue(cmd, "PV_USER");
-                PV_ERROR = (string)db1.GetParameterValue(cmd, "PV_ESTADOPR");
-                PV_ESTADOPR = (string)db1.GetParameterValue(cmd, "PV_ESTADOPR");
-                PV_DESCRIPCIONPR = (string)db1.GetParameterValue(cmd, "PV_DESCRIPCIONPR");
-                //_id_cliente = (int)db1.GetParameterValue(cmd, "@PV_DESCRIPCIONPR");
-                //_error = (string)db1.GetParameterValue(cmd, "error");
-                resultado = PV_ERROR + "|" + PV_ESTADOPR + "|" + PV_DESCRIPCIONPR;
+                if (Conexion.State.ToString().ToUpper() == "CLOSED")
+                    Conexion.Open();
+                OracleCommand cmd = new OracleCommand("PAQ_CLI_OPCIONES.PR_I_OPCION", Conexion);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("PB_COD_MENU", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PB_COD_MENU;
+                cmd.Parameters.Add("PV_DESCRIPCIONMEN", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PV_DESCRIPCIONMEN;
+                cmd.Parameters.Add("PV_DETALLE", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PV_DETALLE;
+                cmd.Parameters.Add("PV_USUARIO", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PV_USUARIO;
+                cmd.Parameters.Add("PV_ESTADOPR", OracleDbType.Varchar2, 32767).Direction = ParameterDirection.Output;
+                cmd.Parameters.Add("PV_DESCRIPCIONPR", OracleDbType.Varchar2, 32767).Direction = ParameterDirection.Output;
+                cmd.Parameters.Add("PV_ERROR", OracleDbType.Varchar2, 32767).Direction = ParameterDirection.Output;
+                cmd.ExecuteNonQuery();
+
+                Conexion.Close();
+
+                if (String.IsNullOrEmpty(cmd.Parameters["PV_ESTADOPR"].Value.ToString()))
+                    PV_ESTADOPR = "";
+                else
+                    PV_ESTADOPR = cmd.Parameters["PV_ESTADOPR"].Value.ToString();
+
+                if (String.IsNullOrEmpty(cmd.Parameters["PV_DESCRIPCIONPR"].Value.ToString()))
+                    PV_DESCRIPCIONPR = "";
+                else
+                    PV_DESCRIPCIONPR = cmd.Parameters["PV_DESCRIPCIONPR"].Value.ToString();
+
+                if (String.IsNullOrEmpty(cmd.Parameters["PV_ERROR"].Value.ToString()))
+                    PV_ERROR = "";
+                else
+                    PV_ERROR = cmd.Parameters["PV_ERROR"].Value.ToString();
+
+                resultado = PV_ESTADOPR + "|" + PV_DESCRIPCIONPR + "|" + PV_ERROR;
                 return resultado;
             }
             catch (Exception ex)
             {
                 //_error = ex.Message;
-                resultado = "Se produjo un error al registrar||";
+                resultado = "Se produjo un error al registrar";
                 return resultado;
             }
         }
 
+        public string ABM_U()
+        {
+            string resultado = "";
+            try
+            {
+                if (Conexion.State.ToString().ToUpper() == "CLOSED")
+                    Conexion.Open();
+                OracleCommand cmd = new OracleCommand("PAQ_CLI_OPCIONES.PR_U_OPCION", Conexion);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("PB_COD_OPCION", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PB_COD_OPCION;
+                cmd.Parameters.Add("PB_COD_MENU", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PB_COD_MENU;
+                cmd.Parameters.Add("PV_DESCRIPCIONMEN", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PV_DESCRIPCIONMEN;
+                cmd.Parameters.Add("PV_DETALLE", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PV_DETALLE;
+                cmd.Parameters.Add("PV_USUARIO", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PV_USUARIO;
+                cmd.Parameters.Add("PV_ESTADOPR", OracleDbType.Varchar2, 32767).Direction = ParameterDirection.Output;
+                cmd.Parameters.Add("PV_DESCRIPCIONPR", OracleDbType.Varchar2, 32767).Direction = ParameterDirection.Output;
+                cmd.Parameters.Add("PV_ERROR", OracleDbType.Varchar2, 32767).Direction = ParameterDirection.Output;
+                cmd.ExecuteNonQuery();
+
+                Conexion.Close();
+
+                if (String.IsNullOrEmpty(cmd.Parameters["PV_ESTADOPR"].Value.ToString()))
+                    PV_ESTADOPR = "";
+                else
+                    PV_ESTADOPR = cmd.Parameters["PV_ESTADOPR"].Value.ToString();
+
+                if (String.IsNullOrEmpty(cmd.Parameters["PV_DESCRIPCIONPR"].Value.ToString()))
+                    PV_DESCRIPCIONPR = "";
+                else
+                    PV_DESCRIPCIONPR = cmd.Parameters["PV_DESCRIPCIONPR"].Value.ToString();
+
+                if (String.IsNullOrEmpty(cmd.Parameters["PV_ERROR"].Value.ToString()))
+                    PV_ERROR = "";
+                else
+                    PV_ERROR = cmd.Parameters["PV_ERROR"].Value.ToString();
+
+                resultado = PV_ESTADOPR + "|" + PV_DESCRIPCIONPR + "|" + PV_ERROR;
+                return resultado;
+            }
+            catch (Exception ex)
+            {
+                //_error = ex.Message;
+                resultado = "Se produjo un error al registrar";
+                return resultado;
+            }
+        }
+
+        public string ABM_D()
+        {
+            string resultado = "";
+            try
+            {
+                if (Conexion.State.ToString().ToUpper() == "CLOSED")
+                    Conexion.Open();
+                OracleCommand cmd = new OracleCommand("PAQ_CLI_OPCIONES.PR_D_OPCION", Conexion);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("PB_COD_OPCION", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PB_COD_OPCION;
+                cmd.Parameters.Add("PV_USUARIO", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PV_USUARIO;
+                cmd.Parameters.Add("PV_ESTADOPR", OracleDbType.Varchar2, 32767).Direction = ParameterDirection.Output;
+                cmd.Parameters.Add("PV_DESCRIPCIONPR", OracleDbType.Varchar2, 32767).Direction = ParameterDirection.Output;
+                cmd.Parameters.Add("PV_ERROR", OracleDbType.Varchar2, 32767).Direction = ParameterDirection.Output;
+                cmd.ExecuteNonQuery();
+
+                Conexion.Close();
+
+                if (String.IsNullOrEmpty(cmd.Parameters["PV_ESTADOPR"].Value.ToString()))
+                    PV_ESTADOPR = "";
+                else
+                    PV_ESTADOPR = cmd.Parameters["PV_ESTADOPR"].Value.ToString();
+
+                if (String.IsNullOrEmpty(cmd.Parameters["PV_DESCRIPCIONPR"].Value.ToString()))
+                    PV_DESCRIPCIONPR = "";
+                else
+                    PV_DESCRIPCIONPR = cmd.Parameters["PV_DESCRIPCIONPR"].Value.ToString();
+
+                if (String.IsNullOrEmpty(cmd.Parameters["PV_ERROR"].Value.ToString()))
+                    PV_ERROR = "";
+                else
+                    PV_ERROR = cmd.Parameters["PV_ERROR"].Value.ToString();
+
+                resultado = PV_ESTADOPR + "|" + PV_DESCRIPCIONPR + "|" + PV_ERROR;
+                return resultado;
+            }
+            catch (Exception ex)
+            {
+                //_error = ex.Message;
+                resultado = "Se produjo un error al registrar";
+                return resultado;
+            }
+        }
+
+        public string ABM_A()
+        {
+            string resultado = "";
+            try
+            {
+                if (Conexion.State.ToString().ToUpper() == "CLOSED")
+                    Conexion.Open();
+                OracleCommand cmd = new OracleCommand("PAQ_CLI_OPCIONES.PR_A_OPCION", Conexion);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("PB_COD_OPCION", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PB_COD_OPCION;
+                cmd.Parameters.Add("PV_USUARIO", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PV_USUARIO;
+                cmd.Parameters.Add("PV_ESTADOPR", OracleDbType.Varchar2, 32767).Direction = ParameterDirection.Output;
+                cmd.Parameters.Add("PV_DESCRIPCIONPR", OracleDbType.Varchar2, 32767).Direction = ParameterDirection.Output;
+                cmd.Parameters.Add("PV_ERROR", OracleDbType.Varchar2, 32767).Direction = ParameterDirection.Output;
+                cmd.ExecuteNonQuery();
+
+                Conexion.Close();
+
+                if (String.IsNullOrEmpty(cmd.Parameters["PV_ESTADOPR"].Value.ToString()))
+                    PV_ESTADOPR = "";
+                else
+                    PV_ESTADOPR = cmd.Parameters["PV_ESTADOPR"].Value.ToString();
+
+                if (String.IsNullOrEmpty(cmd.Parameters["PV_DESCRIPCIONPR"].Value.ToString()))
+                    PV_DESCRIPCIONPR = "";
+                else
+                    PV_DESCRIPCIONPR = cmd.Parameters["PV_DESCRIPCIONPR"].Value.ToString();
+
+                if (String.IsNullOrEmpty(cmd.Parameters["PV_ERROR"].Value.ToString()))
+                    PV_ERROR = "";
+                else
+                    PV_ERROR = cmd.Parameters["PV_ERROR"].Value.ToString();
+
+                resultado = PV_ESTADOPR + "|" + PV_DESCRIPCIONPR + "|" + PV_ERROR;
+                return resultado;
+            }
+            catch (Exception ex)
+            {
+                //_error = ex.Message;
+                resultado = "Se produjo un error al registrar";
+                return resultado;
+            }
+        }
         #endregion
     }
 }

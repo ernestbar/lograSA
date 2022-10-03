@@ -11,44 +11,35 @@ namespace appLograAdmin
 {
 
 
-    public partial class opcion_menu_rol_admin
+    public partial class campos_admin
     {
 
         /// <summary>
-        /// odsRolesActivos control.
+        /// odsClientesTodos control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ObjectDataSource odsRolesActivos;
+        protected global::System.Web.UI.WebControls.ObjectDataSource odsClientesTodos;
 
         /// <summary>
-        /// odsOpcionRolAsignado control.
+        /// odsCamposNoAsignado control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ObjectDataSource odsOpcionRolAsignado;
+        protected global::System.Web.UI.WebControls.ObjectDataSource odsCamposNoAsignado;
 
         /// <summary>
-        /// odsOpcionRolNoAsignado control.
+        /// odsCamposAsignado control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ObjectDataSource odsOpcionRolNoAsignado;
-
-        /// <summary>
-        /// odsMenusAsignado control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ObjectDataSource odsMenusAsignado;
+        protected global::System.Web.UI.WebControls.ObjectDataSource odsCamposAsignado;
 
         /// <summary>
         /// odsSistema control.
@@ -58,6 +49,15 @@ namespace appLograAdmin
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ObjectDataSource odsSistema;
+
+        /// <summary>
+        /// odsRerportes control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ObjectDataSource odsRerportes;
 
         /// <summary>
         /// lblUsuario control.
@@ -96,31 +96,31 @@ namespace appLograAdmin
         protected global::System.Web.UI.WebControls.Label lblCodMenuRol;
 
         /// <summary>
-        /// ddlRol control.
+        /// ddlClientes control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlRol;
+        protected global::System.Web.UI.WebControls.DropDownList ddlClientes;
 
         /// <summary>
-        /// RequiredFieldValidator5 control.
+        /// RequiredFieldValidator9 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator5;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator9;
 
         /// <summary>
-        /// ddlSistema control.
+        /// ddlReporte control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlSistema;
+        protected global::System.Web.UI.WebControls.DropDownList ddlReporte;
 
         /// <summary>
         /// RequiredFieldValidator1 control.
@@ -130,24 +130,6 @@ namespace appLograAdmin
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator1;
-
-        /// <summary>
-        /// ddlMenuRol control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlMenuRol;
-
-        /// <summary>
-        /// RequiredFieldValidator3 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator3;
 
         /// <summary>
         /// Repeater1 control.

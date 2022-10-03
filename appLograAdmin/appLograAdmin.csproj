@@ -3361,6 +3361,7 @@
     <Content Include="assets\plugins\slimscroll\jquery.slimscroll.js" />
     <Content Include="assets\plugins\slimscroll\jquery.slimscroll.min.js" />
     <Content Include="cambio_password.aspx" />
+    <Content Include="campos_admin.aspx" />
     <Content Include="ClienteLogos\sin_logo.png" />
     <Content Include="clientes_admin.aspx" />
     <Content Include="dashboard.aspx" />
@@ -3386,6 +3387,14 @@
     <Compile Include="cambio_password.aspx.designer.cs">
       <DependentUpon>cambio_password.aspx</DependentUpon>
     </Compile>
+    <Compile Include="campos_admin.aspx.cs">
+      <DependentUpon>campos_admin.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="campos_admin.aspx.designer.cs">
+      <DependentUpon>campos_admin.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Clases\Campos_clientes.cs" />
     <Compile Include="Clases\Clientes.cs" />
     <Compile Include="Clases\Dominios.cs" />
     <Compile Include="Clases\enviar_correo.cs" />
@@ -3399,6 +3408,7 @@
     <Compile Include="Clases\Roles.cs" />
     <Compile Include="Clases\Sucursales.cs" />
     <Compile Include="Clases\Usuarios.cs" />
+    <Compile Include="Clases\Utilitarios.cs" />
     <Compile Include="clientes_admin.aspx.cs">
       <DependentUpon>clientes_admin.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

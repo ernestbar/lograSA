@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -10,7 +9,7 @@ using System.Web.UI.WebControls;
 
 namespace appLograAdmin
 {
-    public partial class opcion_menu_rol_admin : System.Web.UI.Page
+    public partial class campos_admin : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -22,11 +21,12 @@ namespace appLograAdmin
                 //}
                 //else
                 //{
-
+                //   // lblCodMenuRol.Text = Request.QueryString["RME"].ToString();
                 //    lblUsuario.Text = Session["usuario"].ToString();
                 //    lblCodMenuRol.Text = Request.QueryString["RME"].ToString();
-                //}
 
+
+                //}
                 lblUsuario.Text = "admin";
             }
         }
@@ -39,8 +39,8 @@ namespace appLograAdmin
                 string id = "";
                 Button obj = (Button)sender;
                 id = obj.CommandArgument.ToString();
-                string[] datos = id.Split('|');
-                Clases.Opciones_Menu_Rol obj_mr = new Clases.Opciones_Menu_Rol( datos[0], ddlMenuRol.SelectedValue, ddlRol.SelectedValue, "", datos[1], lblUsuario.Text);
+                //string[] datos = id.Split('|');
+                Clases.Campos_clientes obj_mr = new Clases.Campos_clientes(id,ddlClientes.SelectedValue, lblUsuario.Text);
                 lblAviso.Text = obj_mr.ABM_D().Replace("0", "").Replace("|", "").Replace("1", "").Replace("null", "");
                 Repeater1.DataBind();
                 Repeater2.DataBind();
@@ -48,7 +48,7 @@ namespace appLograAdmin
             }
             catch (Exception ex)
             {
-                string nombre_archivo = "error_opciones_menu_rol_admin_" + DateTime.Now.Day.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Year.ToString() + DateTime.Now.Hour.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Second.ToString() + ".txt";
+                string nombre_archivo = "error_menu_rol_admin_" + DateTime.Now.Day.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Year.ToString() + DateTime.Now.Hour.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Second.ToString() + ".txt";
                 string directorio2 = Server.MapPath("~/Logs");
                 StreamWriter writer5 = new StreamWriter(directorio2 + "\\" + nombre_archivo, true, Encoding.Unicode);
                 writer5.WriteLine(ex.ToString());
@@ -67,7 +67,7 @@ namespace appLograAdmin
                 Button obj = (Button)sender;
                 id = obj.CommandArgument.ToString();
 
-                Clases.Opciones_Menu_Rol obj_mr = new Clases.Opciones_Menu_Rol("", ddlMenuRol.SelectedValue, ddlRol.SelectedValue, "", id, lblUsuario.Text);
+                Clases.Campos_clientes obj_mr = new Clases.Campos_clientes(id, ddlClientes.SelectedValue, lblUsuario.Text);
                 lblAviso.Text = obj_mr.ABM_I().Replace("0", "").Replace("|", "").Replace("1", "").Replace("null", "");
                 Repeater1.DataBind();
                 Repeater2.DataBind();
@@ -75,7 +75,7 @@ namespace appLograAdmin
             }
             catch (Exception ex)
             {
-                string nombre_archivo = "error_opciones_menu_rol_admin_" + DateTime.Now.Day.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Year.ToString() + DateTime.Now.Hour.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Second.ToString() + ".txt";
+                string nombre_archivo = "error_menu_rol_admin_" + DateTime.Now.Day.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Year.ToString() + DateTime.Now.Hour.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Second.ToString() + ".txt";
                 string directorio2 = Server.MapPath("~/Logs");
                 StreamWriter writer5 = new StreamWriter(directorio2 + "\\" + nombre_archivo, true, Encoding.Unicode);
                 writer5.WriteLine(ex.ToString());
@@ -84,27 +84,7 @@ namespace appLograAdmin
             }
 
         }
-        protected void ddlRol_DataBound(object sender, EventArgs e)
-        {
-            ddlRol.Items.Insert(0, "SELECCIONAR");
-        }
-
-       
-
-        protected void ddlRol_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        protected void ddlMenuRol_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        protected void ddlMenuRol_DataBound(object sender, EventArgs e)
-        {
-            ddlMenuRol.Items.Insert(0, "SELECCIONAR");
-        }
+        
 
         protected void Repeater1_ItemDataBound(object sender, RepeaterItemEventArgs e)
         {
@@ -146,14 +126,26 @@ namespace appLograAdmin
             }
         }
 
-        protected void ddlSistema_SelectedIndexChanged(object sender, EventArgs e)
+       
+
+        protected void ddlClientes_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }
 
-        protected void ddlSistema_DataBound(object sender, EventArgs e)
+        protected void ddlClientes_DataBound(object sender, EventArgs e)
         {
-            ddlSistema.Items.Insert(0, "SELECCIONAR");
+            ddlClientes.Items.Insert(0, "SELECCIONAR");
+        }
+
+        protected void ddlReporte_DataBound(object sender, EventArgs e)
+        {
+            ddlReporte.Items.Insert(0, "SELECCIONAR");
+        }
+
+        protected void ddlReporte_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

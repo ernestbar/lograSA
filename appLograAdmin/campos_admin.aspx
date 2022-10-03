@@ -1,19 +1,18 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Principal.Master" AutoEventWireup="true" CodeBehind="menu_rol_admin.aspx.cs" Inherits="appLograAdmin.menu_rol_admin" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Principal.Master" AutoEventWireup="true" CodeBehind="campos_admin.aspx.cs" Inherits="appLograAdmin.campos_admin" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    
-	<asp:ObjectDataSource ID="odsRolesActivos" runat="server" SelectMethod="PR_GET_ROLES" TypeName="appLograAdmin.Clases.Roles">
-    </asp:ObjectDataSource>
+    <asp:ObjectDataSource ID="odsClientesTodos" runat="server" SelectMethod="PR_GET_CLIENTE_ALL" TypeName="appLograAdmin.Clases.Clientes">
+		</asp:ObjectDataSource>
 	
-	<asp:ObjectDataSource ID="odsMenusNoAsignado" runat="server" SelectMethod="PR_SEG_GET_MENUS_A_ASIGNAR" TypeName="appLograAdmin.Clases.Menus_roles">
+	<asp:ObjectDataSource ID="odsCamposNoAsignado" runat="server" SelectMethod="PR_GET_CAMPO_A_ASIGNAR_CLIENTE" TypeName="appLograAdmin.Clases.Campos_clientes">
 		<SelectParameters>
-			<asp:ControlParameter ControlID="ddlRol" Name="pB_ROL_ID_ROL" Type="String" />
-			<asp:ControlParameter ControlID="ddlSistema" Name="pV_SISTEMA" Type="String" />
+			<asp:ControlParameter ControlID="ddlReporte" Name="pV_COD_REPORTE" Type="String" />
+			<asp:ControlParameter ControlID="ddlClientes" Name="pV_COD_CLIENTE" Type="String" />
         </SelectParameters>
 		</asp:ObjectDataSource>
-	<asp:ObjectDataSource ID="odsMenusAsignado" runat="server" SelectMethod="PR_SEG_GET_MENUS_ASIGNADOS" TypeName="appLograAdmin.Clases.Menus_roles">
+	<asp:ObjectDataSource ID="odsCamposAsignado" runat="server" SelectMethod="PR_GET_CAMPO_ASIGNADO_CLIENTE" TypeName="appLograAdmin.Clases.Campos_clientes">
 		<SelectParameters>
-			<asp:ControlParameter ControlID="ddlRol" Name="pB_ROL_ID_ROL" Type="String" />
-			<asp:ControlParameter ControlID="ddlSistema" Name="pV_SISTEMA" Type="String" />
+			<asp:ControlParameter ControlID="ddlReporte" Name="pV_COD_REPORTE" Type="String" />
+			<asp:ControlParameter ControlID="ddlClientes" Name="pV_COD_CLIENTE" Type="String" />
         </SelectParameters>
 		</asp:ObjectDataSource>
 	<asp:ObjectDataSource ID="odsSistema" runat="server" SelectMethod="PR_PAR_GET_DOMINIOS" TypeName="appLograAdmin.Clases.Dominios">
@@ -21,6 +20,12 @@
 				<asp:Parameter DefaultValue="SISTEMA" Name="PV_DOMINIO" Type="String" />
 			</SelectParameters>
 		 </asp:ObjectDataSource>
+	
+	<asp:ObjectDataSource ID="odsRerportes" runat="server" SelectMethod="PR_PAR_GET_DOMINIOS" TypeName="appLograAdmin.Clases.Dominios">
+        <SelectParameters>
+			<asp:Parameter Name="PV_DOMINIO" DefaultValue="REPORTE EXISTENCIAS" />
+        </SelectParameters>
+    </asp:ObjectDataSource>
 	<style type="text/css">
         body
         {
@@ -69,12 +74,12 @@
 									
 										<!-- begin page-header -->
 											<h1 class="page-header">Asignación de menús a roles <small></small></h1>
-											Rol:
-											<asp:DropDownList ID="ddlRol" class="form-control col-md-6" AutoPostBack="true" OnSelectedIndexChanged="ddlRol_SelectedIndexChanged"  DataSourceID="odsRolesActivos" DataTextField="DESCRIPCION" DataValueField="ROL" OnDataBound="ddlRol_DataBound" runat="server"></asp:DropDownList>
-											<asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ErrorMessage="*" ForeColor="Red" ControlToValidate="ddlRol" InitialValue="SELECCIONAR"  Font-Bold="True"></asp:RequiredFieldValidator>
-											Sistema:
-											<asp:DropDownList ID="ddlSistema" class="form-control col-md-6" DataSourceID="odsSistema" AutoPostBack="true" OnSelectedIndexChanged="ddlSistema_SelectedIndexChanged" DataTextField="descripcion" DataValueField="codigo" OnDataBound="ddlSistema_DataBound" runat="server"></asp:DropDownList>
-											<asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="*" ForeColor="Red" ControlToValidate="ddlSistema" InitialValue="SELECCIONAR"  Font-Bold="True"></asp:RequiredFieldValidator>	
+											Clientes:
+											<asp:DropDownList ID="ddlClientes" class="form-control"  OnDataBound="ddlClientes_DataBound" OnSelectedIndexChanged="ddlClientes_SelectedIndexChanged" AutoPostBack="true"  DataSourceID="odsClientesTodos" DataTextField="DESC_RAZONSOCIAL" DataValueField="cod_cliente" ForeColor="Black" runat="server"></asp:DropDownList>
+											<asp:RequiredFieldValidator ID="RequiredFieldValidator9" runat="server" ErrorMessage="*" ForeColor="Red" ControlToValidate="ddlClientes" InitialValue="SELECCIONAR" Font-Bold="True"></asp:RequiredFieldValidator>
+											Reporte existencias:
+											<asp:DropDownList ID="ddlReporte" class="form-control"  OnDataBound="ddlReporte_DataBound" OnSelectedIndexChanged="ddlReporte_SelectedIndexChanged" AutoPostBack="true"  DataSourceID="odsRerportes" DataTextField="descripcion" DataValueField="codigo" ForeColor="Black" runat="server"></asp:DropDownList>
+											<asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="*" ForeColor="Red" ControlToValidate="ddlReporte" InitialValue="SELECCIONAR" Font-Bold="True"></asp:RequiredFieldValidator>
 										<!-- end page-header -->
 											<!-- begin panel -->
 											<div class="panel panel-inverse">
@@ -97,8 +102,8 @@
 												<table id="data-table-default" class="table table-striped table-bordered">
 													<thead>
 														<tr>
-															<th class="text-wrap">MENU ASIGNADO</th>
-															<th class="text-nowrap">MENU NO ASIGNADO</th>
+															<th class="text-wrap">CAMPOS ASIGNADOS</th>
+															<th class="text-nowrap">CAMPOS NO ASIGNADOS</th>
 														</tr>
 													</thead>
 													<tbody>
@@ -108,19 +113,19 @@
 																	<tr>
 																		
 																		<td>
-																			MENU
+																			CAMPO
 																		</td>
 																		<td>
 																			OPCIONES
 																		</td>
 																	</tr>
-																	 <asp:Repeater ID="Repeater1" DataSourceID="odsMenusAsignado" OnItemDataBound="Repeater1_ItemDataBound" runat="server">
+																	 <asp:Repeater ID="Repeater1" DataSourceID="odsCamposAsignado" OnItemDataBound="Repeater1_ItemDataBound" runat="server">
 																		<ItemTemplate>
 																			<tr class="gradeA">
 																			
-																				<td><asp:Label ID="lblRazonSocial" runat="server" Text='<%# Eval("DESCRIPCION") %>'></asp:Label></td>
+																				<td><asp:Label ID="lblRazonSocial" runat="server" Text='<%# Eval("campo") %>'></asp:Label></td>
 																				<td>
-																					<asp:Button ID="btnQuitar" class="btn btn-success btn-sm"  CommandArgument='<%# Eval("ROL_MENU")+ "|" + Eval("COD_MENU") %>' OnClick="btnQuitar_Click" runat="server" Text="Quitar" ToolTip="Eliminar menu asignado" />
+																					<asp:Button ID="btnQuitar" class="btn btn-success btn-sm"  CommandArgument='<%# Eval("cod_reporte") %>' OnClick="btnQuitar_Click" runat="server" Text="Quitar" ToolTip="Eliminar menu asignado" />
 																				</td>
 																			</tr>
 																		</ItemTemplate>
@@ -132,19 +137,19 @@
 																	<tr>
 																		
 																		<td>
-																			MENU
+																			CAMPO
 																		</td>
 																		<td>
 																			OPCIONES
 																		</td>
 																	</tr>
-																	 <asp:Repeater ID="Repeater2" DataSourceID="odsMenusNoAsignado" OnItemDataBound="Repeater2_ItemDataBound" runat="server">
+																	 <asp:Repeater ID="Repeater2" DataSourceID="odsCamposNoAsignado" OnItemDataBound="Repeater2_ItemDataBound" runat="server">
 																		<ItemTemplate>
 																			<tr class="gradeA">
 																				
-																				<td><asp:Label ID="lblRazonSocial" runat="server" Text='<%# Eval("DESCRIPCION") %>'></asp:Label></td>
+																				<td><asp:Label ID="lblRazonSocial" runat="server" Text='<%# Eval("campo") %>'></asp:Label></td>
 																				<td>
-																					<asp:Button ID="btnAgregar" class="btn btn-success btn-sm"  CommandArgument='<%# Eval("COD_MENU") %>' OnClick="btnAgregar_Click" runat="server" Text="Agregar" ToolTip="Asignar menu" />
+																					<asp:Button ID="btnAgregar" class="btn btn-success btn-sm"  CommandArgument='<%# Eval("cod_reporte") %>' OnClick="btnAgregar_Click" runat="server" Text="Agregar" ToolTip="Asignar menu" />
 																				</td>
 																			</tr>
 																		</ItemTemplate>

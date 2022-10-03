@@ -59,15 +59,15 @@ namespace appLograAdmin
                 cod_menu_padre = ddlMenuPadre.SelectedValue;
                 if (lblCodOpcion.Text == "")
                 {
-                    Clases.Opciones obj = new Clases.Opciones("I", "", cod_menu_padre, txtDescripcion.Text, txtDetalle.Text, lblUsuario.Text);
-                    lblAviso.Text = obj.ABM().Replace("0", "").Replace("|", "").Replace("1", "");
+                    Clases.Opciones obj = new Clases.Opciones("", cod_menu_padre, txtDescripcion.Text, txtDetalle.Text, lblUsuario.Text);
+                    lblAviso.Text = obj.ABM_I().Replace("0", "").Replace("|", "").Replace("1", "").Replace("null", "");
                     MultiView1.ActiveViewIndex = 0;
                     Repeater1.DataBind();
                 }
                 else
                 {
-                    Clases.Opciones obj = new Clases.Opciones("U", lblCodOpcion.Text, cod_menu_padre, txtDescripcion.Text, txtDetalle.Text, lblUsuario.Text);
-                    lblAviso.Text = obj.ABM().Replace("0", "").Replace("|", "").Replace("1", "");
+                    Clases.Opciones obj = new Clases.Opciones(lblCodOpcion.Text, cod_menu_padre, txtDescripcion.Text, txtDetalle.Text, lblUsuario.Text);
+                    lblAviso.Text = obj.ABM_U().Replace("0", "").Replace("|", "").Replace("1", "").Replace("null", "");
                     MultiView1.ActiveViewIndex = 0;
                     Repeater1.DataBind();
                 }
@@ -148,13 +148,13 @@ namespace appLograAdmin
                 lblCodOpcion.Text = datos[0];
                 if (datos[1] == "ACTIVO")
                 {
-                    Clases.Opciones obj_m = new Clases.Opciones("D", lblCodOpcion.Text, "", "", "", lblUsuario.Text);
-                    lblAviso.Text = obj_m.ABM().Replace("0", "").Replace("|", "").Replace("1", "");
+                    Clases.Opciones obj_m = new Clases.Opciones(lblCodOpcion.Text, "", "", "", lblUsuario.Text);
+                    lblAviso.Text = obj_m.ABM_D().Replace("0", "").Replace("|", "").Replace("1", "").Replace("null", "");
                 }
                 else
                 {
-                    Clases.Opciones obj_m = new Clases.Opciones("A", lblCodOpcion.Text, "", "", "", lblUsuario.Text);
-                    lblAviso.Text = obj_m.ABM().Replace("0", "").Replace("|", "").Replace("1", "");
+                    Clases.Opciones obj_m = new Clases.Opciones(lblCodOpcion.Text, "", "", "", lblUsuario.Text);
+                    lblAviso.Text = obj_m.ABM_A().Replace("0", "").Replace("|", "").Replace("1", "").Replace("null", "");
                 }
                 Repeater1.DataBind();
             }
@@ -204,6 +204,16 @@ namespace appLograAdmin
 
 
             }
+        }
+
+        protected void ddlSistema_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void ddlSistema_DataBound(object sender, EventArgs e)
+        {
+            ddlSistema.Items.Insert(0, "SELECCIONAR");
         }
     }
 }

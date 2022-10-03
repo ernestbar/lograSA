@@ -113,13 +113,20 @@ namespace appLograAdmin.Clases
                 {
                     foreach (DataRow dr in dt.Rows)
                     {
-                        _PV_COD_MENU_PADRE = (string)dr["cod_menu_padre"];
+                        if (String.IsNullOrEmpty(dr["cod_menu_padre"].ToString()))
+                            _PV_COD_MENU_PADRE = "";
+                        else
+                            _PV_COD_MENU_PADRE = dr["cod_menu_padre"].ToString();
+
                         _PV_DESCRIPCIONMEN = (string)dr["descripcion"];
+
                         if (String.IsNullOrEmpty(dr["detalle"].ToString()))
                             _PV_DETALLE = "";
                         else
-                            _PV_DETALLE = cmd.Parameters["detalle"].Value.ToString();
-                        _PV_SISTEMAS = (string)dr["sistema"];
+                            _PV_DETALLE = dr["detalle"].ToString();
+
+
+                        //_PV_SISTEMAS = (string)dr["sistema"];
                     }
 
                 }

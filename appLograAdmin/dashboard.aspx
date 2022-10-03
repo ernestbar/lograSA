@@ -4,7 +4,7 @@
 	<!-- begin #content -->
 		<div id="content" class="content">
      <!-- begin page-header -->
-			<h1 class="page-header">Dashboard  <small>estado general AmasCuotas</small></h1>
+			<h1 class="page-header">Dashboard  <small></small></h1>
 			<!-- end page-header -->
 			<!-- begin row -->
 			<div class="row">

@@ -3,8 +3,15 @@
    
 	
 	<asp:ObjectDataSource ID="odsMenus" runat="server" SelectMethod="PR_SEG_GET_MENUS" TypeName="appLograAdmin.Clases.Menus">
-		
-		</asp:ObjectDataSource>
+		<SelectParameters>
+            <asp:ControlParameter ControlID="ddlSistema" Name="pV_SISTEMA" DefaultValue="" />
+        </SelectParameters>
+	</asp:ObjectDataSource>
+	<asp:ObjectDataSource ID="odsSistema" runat="server" SelectMethod="PR_PAR_GET_DOMINIOS" TypeName="appLograAdmin.Clases.Dominios">
+			<SelectParameters>
+				<asp:Parameter DefaultValue="SISTEMA" Name="PV_DOMINIO" Type="String" />
+			</SelectParameters>
+		 </asp:ObjectDataSource>
 
 	<asp:ObjectDataSource ID="odsOpciones" runat="server" SelectMethod="PR_SEG_GET_OPCIONES" TypeName="appLograAdmin.Clases.Opciones">
 		<SelectParameters>
@@ -62,7 +69,9 @@
 									
 										<!-- begin page-header -->
 											<h1 class="page-header">Administración de opciones <small></small></h1>
-											
+											Sistema:
+											<asp:DropDownList ID="ddlSistema" class="form-control col-md-6" DataSourceID="odsSistema" AutoPostBack="true" OnSelectedIndexChanged="ddlSistema_SelectedIndexChanged" DataTextField="descripcion" DataValueField="codigo" OnDataBound="ddlSistema_DataBound" runat="server"></asp:DropDownList>
+											<asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="*" ForeColor="Red" ControlToValidate="ddlSistema" InitialValue="SELECCIONAR"  Font-Bold="True"></asp:RequiredFieldValidator>	
 											Menú:
 											<asp:DropDownList ID="ddlMenuPadre" class="form-control col-md-6" AutoPostBack="true" OnSelectedIndexChanged="ddlMenuPadre_SelectedIndexChanged" DataSourceID="odsMenus" DataTextField="descripcion" DataValueField="cod_menu" OnDataBound="ddlMenuPadre_DataBound" runat="server"></asp:DropDownList>
 											<asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ErrorMessage="*" ForeColor="Red" ControlToValidate="ddlMenuPadre" InitialValue="SELECCIONAR"  Font-Bold="True"></asp:RequiredFieldValidator>	

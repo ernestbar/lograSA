@@ -6,32 +6,26 @@ using System.Configuration;
 //using Microsoft.Practices.EnterpriseLibrary.Data;
 using Oracle.ManagedDataAccess.Client;
 
+
 namespace appLograAdmin.Clases
 {
-    public class Opciones_Menu_Rol
+    public class Campos_clientes
     {
         //Base de datos
         private static OracleConnection Conexion = new OracleConnection("User Id=sigal;Password=siga123;Data Source=200.12.254.22:1521/XE");
 
-
         #region Propiedades
         //Propiedades privadas
-        private string _PB_ROL_OPCION = "";
-        private string _PB_ROL_MENU = "";
-        private string _PB_ID_ROL = "";
-        private string _PB_COD_MENU = "";
-        private string _PB_OPCION = "";
+        private string _PV_COD_REPORTE = "";
+        private string _PV_COD_CLIENTE = "";
         private string _PV_USUARIO = "";
         private string _PV_ESTADOPR = "";
         private string _PV_DESCRIPCIONPR = "";
         private string _PV_ERROR = "";
 
         //Propiedades públicas
-        public string PB_ROL_OPCION { get { return _PB_ROL_OPCION; } set { _PB_ROL_OPCION = value; } }
-        public string PB_ROL_MENU { get { return _PB_ROL_MENU; } set { _PB_ROL_MENU = value; } }
-        public string PB_ID_ROL { get { return _PB_ID_ROL; } set { _PB_ID_ROL = value; } }
-        public string PB_COD_MENU { get { return _PB_COD_MENU; } set { _PB_COD_MENU = value; } }
-        public string PB_OPCION { get { return _PB_OPCION; } set { _PB_OPCION = value; } }
+        public string PV_COD_REPORTE { get { return _PV_COD_REPORTE; } set { _PV_COD_REPORTE = value; } }
+        public string PV_COD_CLIENTE { get { return _PV_COD_CLIENTE; } set { _PV_COD_CLIENTE = value; } }
 
         public string PV_USUARIO { get { return _PV_USUARIO; } set { _PV_USUARIO = value; } }
         public string PV_ESTADOPR { get { return _PV_ESTADOPR; } set { _PV_ESTADOPR = value; } }
@@ -42,35 +36,32 @@ namespace appLograAdmin.Clases
         #endregion
 
         #region Constructores
-        public Opciones_Menu_Rol(string pB_ROL_MENU)
+        //public Campos_clientes(string pB_ROL_MENU)
+        //{
+        //    _PB_ROL_MENU = pB_ROL_MENU;
+        //    RecuperarDatos();
+        //}
+        public Campos_clientes(string pV_COD_REPORTE, string pV_COD_CLIENTE, string pV_USUARIO)
         {
-            _PB_ROL_MENU = pB_ROL_MENU;
-            RecuperarDatos();
-        }
-        public Opciones_Menu_Rol( string pB_ROL_OPCION, string pB_ROL_MENU, string pB_ID_ROL, string pB_COD_MENU, string pB_OPCION, string pV_USUARIO)
-        {
-            _PB_ROL_OPCION = pB_ROL_OPCION;
-            _PB_ROL_MENU = pB_ROL_MENU;
-            _PB_ID_ROL = pB_ID_ROL;
-            _PB_COD_MENU = pB_COD_MENU;
-            _PB_OPCION = pB_OPCION;
+            _PV_COD_REPORTE = pV_COD_REPORTE;
+            _PV_COD_CLIENTE = pV_COD_CLIENTE;
             _PV_USUARIO = pV_USUARIO;
         }
         #endregion
 
         #region Métodos que NO requieren constructor
 
-        public static DataTable PR_SEG_GET_OPCIONES_A_ASIGNAR(string pD_MEN_COD_MENU, string pB_ROL_ID_ROL)
+        public static DataTable PR_GET_CAMPO_A_ASIGNAR_CLIENTE(string pV_COD_REPORTE, string pV_COD_CLIENTE)
         {
             try
             {
                 if (Conexion.State.ToString().ToUpper() == "CLOSED")
                     Conexion.Open();
 
-                OracleCommand cmd = new OracleCommand("PAQ_CLI_OPCIONES_ROLES.PR_SEG_GET_OPCIONES_A_ASIGNAR", Conexion);
+                OracleCommand cmd = new OracleCommand("PAQ_CLI_CAMPOS_CLIENTES.PR_GET_CAMPO_A_ASIGNAR_CLIENTE", Conexion);
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.Add("PD_MEN_COD_MENU", OracleDbType.Varchar2, ParameterDirection.Input).Value = pD_MEN_COD_MENU;
-                cmd.Parameters.Add("PB_ROL_ID_ROL", OracleDbType.Varchar2, ParameterDirection.Input).Value = pB_ROL_ID_ROL;
+                cmd.Parameters.Add("PV_TIPO_REPORTE", OracleDbType.Varchar2, ParameterDirection.Input).Value = pV_COD_REPORTE;
+                cmd.Parameters.Add("PV_COD_CLIENTE", OracleDbType.Varchar2, ParameterDirection.Input).Value = pV_COD_CLIENTE;
                 cmd.Parameters.Add("po_tabla", OracleDbType.RefCursor, ParameterDirection.Output);
                 cmd.ExecuteNonQuery();
                 DataSet ds = new DataSet();
@@ -88,17 +79,17 @@ namespace appLograAdmin.Clases
             }
         }
 
-        public static DataTable PR_SEG_GET_OPCIONES_ASIGNADOS(string pD_MEN_COD_MENU, string pB_ROL_ID_ROL)
+        public static DataTable PR_GET_CAMPO_ASIGNADO_CLIENTE(string pV_COD_REPORTE, string pV_COD_CLIENTE)
         {
             try
             {
                 if (Conexion.State.ToString().ToUpper() == "CLOSED")
                     Conexion.Open();
 
-                OracleCommand cmd = new OracleCommand("PAQ_CLI_OPCIONES_ROLES.PR_SEG_GET_OPCIONES_ASIGNADOS", Conexion);
+                OracleCommand cmd = new OracleCommand("PAQ_CLI_CAMPOS_CLIENTES.PR_GET_CAMPO_ASIGNADO_CLIENTE", Conexion);
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.Add("PD_MEN_COD_MENU", OracleDbType.Varchar2, ParameterDirection.Input).Value = pD_MEN_COD_MENU;
-                cmd.Parameters.Add("PB_ROL_ID_ROL", OracleDbType.Varchar2, ParameterDirection.Input).Value = pB_ROL_ID_ROL;
+                cmd.Parameters.Add("PV_TIPO_REPORTE", OracleDbType.Varchar2, ParameterDirection.Input).Value = pV_COD_REPORTE;
+                cmd.Parameters.Add("PV_COD_CLIENTE", OracleDbType.Varchar2, ParameterDirection.Input).Value = pV_COD_CLIENTE;
                 cmd.Parameters.Add("po_tabla", OracleDbType.RefCursor, ParameterDirection.Output);
                 cmd.ExecuteNonQuery();
                 DataSet ds = new DataSet();
@@ -139,9 +130,9 @@ namespace appLograAdmin.Clases
                 //    {
                 //        _PI_COD_CARGO = (string)dr["CAR_COD_CARGO"];
                 //        _PV_NOMBRE_CARGO = (string)dr["CAR_NOMBRE_CARGO"];
-                //        _PB_ID_ROL = (Int64)dr["PAT_ID_AREA_TRABAJO"];
+                //        _PV_COD_REPORTE = (Int64)dr["PAT_ID_AREA_TRABAJO"];
                 //        _PV_OBJETIVO_CARGO = (string)dr["CAR_OBJETIVO"];
-                //        _PB_COD_MENU = (Int64)dr["CAR_EXPERIENCIA_GENERAL"];
+                //        _PV_COD_CLIENTE = (Int64)dr["CAR_EXPERIENCIA_GENERAL"];
                 //        _PV_CAR_NIVEL_ACADEMICO = (string)dr["CAR_NIVEL_ACADEMICO"];
                 //        _PI_CAR_CANT_PUESTOS = (int)dr["CAR_CANT_PUESTOS"];
                 //        if (string.IsNullOrEmpty(dr["SUC_ID_SUCURSAL"].ToString()))
@@ -185,12 +176,10 @@ namespace appLograAdmin.Clases
 
                 if (Conexion.State.ToString().ToUpper() == "CLOSED")
                     Conexion.Open();
-                OracleCommand cmd = new OracleCommand("PAQ_CLI_OPCIONES_ROLES.PR_I_OPCIONES_ROLES", Conexion);
+                OracleCommand cmd = new OracleCommand("PAQ_CLI_CAMPOS_CLIENTES.PR_I_CAMPOS_CLIENTE", Conexion);
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.Add("PB_ROL_MENU", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PB_ROL_MENU;
-                cmd.Parameters.Add("PB_ID_ROL", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PB_ID_ROL;
-                cmd.Parameters.Add("PB_COD_MENU", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PB_COD_MENU;
-                cmd.Parameters.Add("PB_OPCION", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PB_OPCION;
+                cmd.Parameters.Add("PV_COD_REPORTE", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PV_COD_REPORTE;
+                cmd.Parameters.Add("PV_COD_CLIENTE", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PV_COD_CLIENTE;
                 cmd.Parameters.Add("PV_USUARIO", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PV_USUARIO;
                 cmd.Parameters.Add("PV_ESTADOPR", OracleDbType.Varchar2, 32767).Direction = ParameterDirection.Output;
                 cmd.Parameters.Add("PV_DESCRIPCIONPR", OracleDbType.Varchar2, 32767).Direction = ParameterDirection.Output;
@@ -232,13 +221,10 @@ namespace appLograAdmin.Clases
 
                 if (Conexion.State.ToString().ToUpper() == "CLOSED")
                     Conexion.Open();
-                OracleCommand cmd = new OracleCommand("PAQ_CLI_OPCIONES_ROLES.PR_D_OPCIONES_ROLES", Conexion);
+                OracleCommand cmd = new OracleCommand("PAQ_CLI_CAMPOS_CLIENTES.PR_D_CAMPOS_CLIENTE", Conexion);
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.Add("PB_ROL_OPCION", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PB_ROL_OPCION;
-                cmd.Parameters.Add("PB_ROL_MENU", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PB_ROL_MENU;
-                cmd.Parameters.Add("PB_ID_ROL", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PB_ID_ROL;
-                cmd.Parameters.Add("PB_COD_MENU", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PB_COD_MENU;
-                cmd.Parameters.Add("PB_OPCION", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PB_OPCION;
+                cmd.Parameters.Add("PV_COD_REPORTE", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PV_COD_REPORTE;
+                cmd.Parameters.Add("PV_COD_CLIENTE", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PV_COD_CLIENTE;
                 cmd.Parameters.Add("PV_USUARIO", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PV_USUARIO;
                 cmd.Parameters.Add("PV_ESTADOPR", OracleDbType.Varchar2, 32767).Direction = ParameterDirection.Output;
                 cmd.Parameters.Add("PV_DESCRIPCIONPR", OracleDbType.Varchar2, 32767).Direction = ParameterDirection.Output;
@@ -272,8 +258,6 @@ namespace appLograAdmin.Clases
                 return resultado;
             }
         }
-
         #endregion
-
     }
 }

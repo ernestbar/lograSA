@@ -16,18 +16,19 @@ namespace appLograAdmin
         {
             if (!Page.IsPostBack)
             {
-                if (Session["usuario"] == null)
-                {
-                    Response.Redirect("login.aspx");
-                }
-                else
-                {
-                   // lblCodMenuRol.Text = Request.QueryString["RME"].ToString();
-                    lblUsuario.Text = Session["usuario"].ToString();
-                    lblCodMenuRol.Text = Request.QueryString["RME"].ToString();
-                    
-                    
-                }
+                //if (Session["usuario"] == null)
+                //{
+                //    Response.Redirect("login.aspx");
+                //}
+                //else
+                //{
+                //   // lblCodMenuRol.Text = Request.QueryString["RME"].ToString();
+                //    lblUsuario.Text = Session["usuario"].ToString();
+                //    lblCodMenuRol.Text = Request.QueryString["RME"].ToString();
+
+
+                //}
+                lblUsuario.Text = "admin";
             }
         }
 
@@ -40,8 +41,8 @@ namespace appLograAdmin
                 Button obj = (Button)sender;
                 id = obj.CommandArgument.ToString();
                 string[] datos = id.Split('|');
-                Clases.Menus_roles obj_mr = new Clases.Menus_roles("D", datos[0], ddlRol.SelectedValue, datos[1], lblUsuario.Text);
-                lblAviso.Text = obj_mr.ABM().Replace("0", "").Replace("|", "").Replace("1", ""); ;
+                Clases.Menus_roles obj_mr = new Clases.Menus_roles( datos[0], ddlRol.SelectedValue, datos[1], lblUsuario.Text);
+                lblAviso.Text = obj_mr.ABM_D().Replace("0", "").Replace("|", "").Replace("1", "").Replace("null", "");
                 Repeater1.DataBind();
                 Repeater2.DataBind();
 
@@ -67,8 +68,8 @@ namespace appLograAdmin
                 Button obj = (Button)sender;
                 id = obj.CommandArgument.ToString();
 
-                Clases.Menus_roles obj_mr = new Clases.Menus_roles("I", "", ddlRol.SelectedValue, id, lblUsuario.Text);
-                lblAviso.Text = obj_mr.ABM().Replace("0", "").Replace("|", "").Replace("1", ""); ;
+                Clases.Menus_roles obj_mr = new Clases.Menus_roles( "", ddlRol.SelectedValue, id, lblUsuario.Text);
+                lblAviso.Text = obj_mr.ABM_I().Replace("0", "").Replace("|", "").Replace("1", "").Replace("null", "");
                 Repeater1.DataBind();
                 Repeater2.DataBind();
 
@@ -133,6 +134,16 @@ namespace appLograAdmin
 
                 //}
             }
+        }
+
+        protected void ddlSistema_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void ddlSistema_DataBound(object sender, EventArgs e)
+        {
+            ddlSistema.Items.Insert(0, "SELECCIOANR");
         }
     }
 }
