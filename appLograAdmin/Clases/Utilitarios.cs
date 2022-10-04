@@ -26,7 +26,10 @@ namespace appLograAdmin.Clases
                 OracleCommand cmd = new OracleCommand("PAQ_UTILITARIOS.PR_SEG_GET_MENUS_PADRE_ROL", Conexion);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("pv_usuario", OracleDbType.Varchar2, ParameterDirection.Input).Value = pv_usuario;
-                cmd.Parameters.Add("PV_SISTEMA", OracleDbType.Varchar2, ParameterDirection.Input).Value = PV_SISTEMA;
+                if (PV_SISTEMA == "")
+                    cmd.Parameters.Add("PV_SISTEMA", OracleDbType.Varchar2, ParameterDirection.Input).Value = null;
+                else
+                    cmd.Parameters.Add("PV_SISTEMA", OracleDbType.Varchar2, ParameterDirection.Input).Value = PV_SISTEMA;
                 cmd.Parameters.Add("po_tabla", OracleDbType.RefCursor, ParameterDirection.Output);
                 cmd.ExecuteNonQuery();
                 DataSet ds = new DataSet();
@@ -80,17 +83,23 @@ namespace appLograAdmin.Clases
                 if (Conexion.State.ToString().ToUpper() == "CLOSED")
                     Conexion.Open();
 
-                OracleCommand cmd = new OracleCommand("PAQ_UTILITARIOS.PR_GET_DATOS_DOMINIOS", Conexion);
+                OracleCommand cmd = new OracleCommand("PAQ_UTILITARIOS.PR_SEG_GET_MENUS_ROL", Conexion);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("pv_usuario", OracleDbType.Varchar2, ParameterDirection.Input).Value = pv_usuario;
                 cmd.Parameters.Add("pv_MEN_COD_MENU_PADRE", OracleDbType.Varchar2, ParameterDirection.Input).Value = pv_MEN_COD_MENU_PADRE;
-                cmd.Parameters.Add("PV_SISTEMA", OracleDbType.Varchar2, ParameterDirection.Input).Value = PV_SISTEMA;
+                if(PV_SISTEMA=="")
+                    cmd.Parameters.Add("PV_SISTEMA", OracleDbType.Varchar2, ParameterDirection.Input).Value = null;
+                else
+                    cmd.Parameters.Add("PV_SISTEMA", OracleDbType.Varchar2, ParameterDirection.Input).Value = PV_SISTEMA;
                 cmd.Parameters.Add("po_tabla", OracleDbType.RefCursor, ParameterDirection.Output);
                 cmd.ExecuteNonQuery();
                 DataSet ds = new DataSet();
                 OracleDataAdapter da = new OracleDataAdapter(cmd);
                 da.Fill(ds);
                 Conexion.Close();
+                DataTable dt = new DataTable();
+                dt = ds.Tables[0];
+
                 return ds.Tables[0];
             }
             catch (Exception ex)
@@ -109,10 +118,10 @@ namespace appLograAdmin.Clases
                 if (Conexion.State.ToString().ToUpper() == "CLOSED")
                     Conexion.Open();
 
-                OracleCommand cmd = new OracleCommand("PAQ_UTILITARIOS.PR_GET_DATOS_DOMINIOS_PADRE", Conexion);
+                OracleCommand cmd = new OracleCommand("PAQ_UTILITARIOS.PR_SEG_GET_OPCIONES_ROLES", Conexion);
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.Add("pv_usuario", OracleDbType.Varchar2, ParameterDirection.Input).Value = pv_usuario;
                 cmd.Parameters.Add("PD_MEN_COD_MENU", OracleDbType.Varchar2, ParameterDirection.Input).Value = PD_MEN_COD_MENU;
+                cmd.Parameters.Add("pv_usuario", OracleDbType.Varchar2, ParameterDirection.Input).Value = pv_usuario;
                 cmd.Parameters.Add("po_tabla", OracleDbType.RefCursor, ParameterDirection.Output);
                 cmd.ExecuteNonQuery();
                 DataSet ds = new DataSet();

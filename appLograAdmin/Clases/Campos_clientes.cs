@@ -60,8 +60,8 @@ namespace appLograAdmin.Clases
 
                 OracleCommand cmd = new OracleCommand("PAQ_CLI_CAMPOS_CLIENTES.PR_GET_CAMPO_A_ASIGNAR_CLIENTE", Conexion);
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.Add("PV_TIPO_REPORTE", OracleDbType.Varchar2, ParameterDirection.Input).Value = pV_COD_REPORTE;
                 cmd.Parameters.Add("PV_COD_CLIENTE", OracleDbType.Varchar2, ParameterDirection.Input).Value = pV_COD_CLIENTE;
+                cmd.Parameters.Add("PV_TIPO_REPORTE", OracleDbType.Varchar2, ParameterDirection.Input).Value = pV_COD_REPORTE;
                 cmd.Parameters.Add("po_tabla", OracleDbType.RefCursor, ParameterDirection.Output);
                 cmd.ExecuteNonQuery();
                 DataSet ds = new DataSet();
@@ -88,8 +88,8 @@ namespace appLograAdmin.Clases
 
                 OracleCommand cmd = new OracleCommand("PAQ_CLI_CAMPOS_CLIENTES.PR_GET_CAMPO_ASIGNADO_CLIENTE", Conexion);
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.Add("PV_TIPO_REPORTE", OracleDbType.Varchar2, ParameterDirection.Input).Value = pV_COD_REPORTE;
                 cmd.Parameters.Add("PV_COD_CLIENTE", OracleDbType.Varchar2, ParameterDirection.Input).Value = pV_COD_CLIENTE;
+                cmd.Parameters.Add("PV_TIPO_REPORTE", OracleDbType.Varchar2, ParameterDirection.Input).Value = pV_COD_REPORTE;
                 cmd.Parameters.Add("po_tabla", OracleDbType.RefCursor, ParameterDirection.Output);
                 cmd.ExecuteNonQuery();
                 DataSet ds = new DataSet();

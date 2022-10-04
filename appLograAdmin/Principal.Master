@@ -95,7 +95,7 @@
 			</ul>
 			<!-- end header navigation right -->
 		</div>
-		<asp:Label ID="lblSistema" runat="server" Visible="false" Text="SEGURIDAD"></asp:Label>
+		<asp:Label ID="lblSistema" runat="server" Visible="false" Text=""></asp:Label>
 		<!-- end #header -->
 		<!-- begin #sidebar -->
 		<div id="sidebar" class="sidebar">

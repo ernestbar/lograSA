@@ -3365,8 +3365,9 @@
     <Content Include="ClienteLogos\sin_logo.png" />
     <Content Include="clientes_admin.aspx" />
     <Content Include="dashboard.aspx" />
-    <Content Include="domino_admin.aspx" />
+    <Content Include="dominio_admin.aspx" />
     <Content Include="Global.asax" />
+    <Content Include="inventario_existecias.aspx" />
     <Content Include="login.aspx" />
     <Content Include="Logs\Leeme.txt" />
     <Content Include="menus_admin.aspx" />
@@ -3374,6 +3375,8 @@
     <Content Include="opciones_admin.aspx" />
     <Content Include="opcion_menu_rol_admin.aspx" />
     <Content Include="personal_admin.aspx" />
+    <Content Include="reporte_ingresos.aspx" />
+    <Content Include="reporte_salidas.aspx" />
     <Content Include="roles_admin.aspx" />
     <Content Include="sucursal_admin.aspx" />
     <Content Include="Web.config" />
@@ -3405,6 +3408,7 @@
     <Compile Include="Clases\OraDbHelper.cs" />
     <Compile Include="Clases\Paises.cs" />
     <Compile Include="Clases\Personal.cs" />
+    <Compile Include="Clases\Reportes.cs" />
     <Compile Include="Clases\Roles.cs" />
     <Compile Include="Clases\Sucursales.cs" />
     <Compile Include="Clases\Usuarios.cs" />
@@ -3423,15 +3427,22 @@
     <Compile Include="dashboard.aspx.designer.cs">
       <DependentUpon>dashboard.aspx</DependentUpon>
     </Compile>
-    <Compile Include="domino_admin.aspx.cs">
-      <DependentUpon>domino_admin.aspx</DependentUpon>
+    <Compile Include="dominio_admin.aspx.cs">
+      <DependentUpon>dominio_admin.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="domino_admin.aspx.designer.cs">
-      <DependentUpon>domino_admin.aspx</DependentUpon>
+    <Compile Include="dominio_admin.aspx.designer.cs">
+      <DependentUpon>dominio_admin.aspx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="inventario_existecias.aspx.cs">
+      <DependentUpon>inventario_existecias.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="inventario_existecias.aspx.designer.cs">
+      <DependentUpon>inventario_existecias.aspx</DependentUpon>
     </Compile>
     <Compile Include="login.aspx.cs">
       <DependentUpon>login.aspx</DependentUpon>
@@ -3483,6 +3494,20 @@
       <DependentUpon>Principal.Master</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="reporte_ingresos.aspx.cs">
+      <DependentUpon>reporte_ingresos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="reporte_ingresos.aspx.designer.cs">
+      <DependentUpon>reporte_ingresos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="reporte_salidas.aspx.cs">
+      <DependentUpon>reporte_salidas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="reporte_salidas.aspx.designer.cs">
+      <DependentUpon>reporte_salidas.aspx</DependentUpon>
+    </Compile>
     <Compile Include="roles_admin.aspx.cs">
       <DependentUpon>roles_admin.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

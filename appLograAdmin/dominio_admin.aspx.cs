@@ -7,9 +7,10 @@ using System.Text;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+
 namespace appLograAdmin
 {
-    public partial class domino_admin : System.Web.UI.Page
+    public partial class dominio_admin : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -123,13 +124,13 @@ namespace appLograAdmin
             {
                 if (lblCodigo.Text == "")
                 {
-                    Clases.Dominios dom = new Clases.Dominios( ddlDominio.SelectedValue, txtCodigo.Text, txtDescripcion.Text, "", 0, DateTime.Now, lblUsuario.Text);
+                    Clases.Dominios dom = new Clases.Dominios(ddlDominio.SelectedValue, txtCodigo.Text, txtDescripcion.Text, "", 0, DateTime.Now, lblUsuario.Text);
                     lblAviso.Text = dom.ABM_I().Replace("|", "").Replace("0", "").Replace("null", "");
                 }
                 else
                 {
                     Clases.Dominios dom = new Clases.Dominios(lblDominio.Text, lblCodigo.Text, txtDescripcion.Text, "", 0, DateTime.Now, lblUsuario.Text);
-                    lblAviso.Text = dom.ABM_U().Replace("|","").Replace("0","").Replace("null", ""); 
+                    lblAviso.Text = dom.ABM_U().Replace("|", "").Replace("0", "").Replace("null", "");
                 }
                 MultiView1.ActiveViewIndex = 0;
                 Repeater1.DataBind();

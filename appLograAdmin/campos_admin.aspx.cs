@@ -25,7 +25,7 @@ namespace appLograAdmin
                 //    lblUsuario.Text = Session["usuario"].ToString();
                 //    lblCodMenuRol.Text = Request.QueryString["RME"].ToString();
 
-
+            
                 //}
                 lblUsuario.Text = "admin";
             }
@@ -130,7 +130,8 @@ namespace appLograAdmin
 
         protected void ddlClientes_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            odsCamposAsignado.DataBind();odsCamposNoAsignado.DataBind();
+            Repeater1.DataBind(); Repeater2.DataBind();
         }
 
         protected void ddlClientes_DataBound(object sender, EventArgs e)
@@ -145,7 +146,8 @@ namespace appLograAdmin
 
         protected void ddlReporte_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            odsCamposAsignado.DataBind(); odsCamposNoAsignado.DataBind();
+            Repeater1.DataBind(); Repeater2.DataBind();
         }
     }
 }

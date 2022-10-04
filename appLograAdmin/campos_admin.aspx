@@ -73,7 +73,7 @@
 										<!-- end form-group row -->
 									
 										<!-- begin page-header -->
-											<h1 class="page-header">Asignación de menús a roles <small></small></h1>
+											<h1 class="page-header">Asignación de campos <small></small></h1>
 											Clientes:
 											<asp:DropDownList ID="ddlClientes" class="form-control"  OnDataBound="ddlClientes_DataBound" OnSelectedIndexChanged="ddlClientes_SelectedIndexChanged" AutoPostBack="true"  DataSourceID="odsClientesTodos" DataTextField="DESC_RAZONSOCIAL" DataValueField="cod_cliente" ForeColor="Black" runat="server"></asp:DropDownList>
 											<asp:RequiredFieldValidator ID="RequiredFieldValidator9" runat="server" ErrorMessage="*" ForeColor="Red" ControlToValidate="ddlClientes" InitialValue="SELECCIONAR" Font-Bold="True"></asp:RequiredFieldValidator>
@@ -123,9 +123,9 @@
 																		<ItemTemplate>
 																			<tr class="gradeA">
 																			
-																				<td><asp:Label ID="lblRazonSocial" runat="server" Text='<%# Eval("campo") %>'></asp:Label></td>
+																				<td><asp:Label ID="lblRazonSocial" runat="server" Text='<%# Eval("CAMPO") %>'></asp:Label></td>
 																				<td>
-																					<asp:Button ID="btnQuitar" class="btn btn-success btn-sm"  CommandArgument='<%# Eval("cod_reporte") %>' OnClick="btnQuitar_Click" runat="server" Text="Quitar" ToolTip="Eliminar menu asignado" />
+																					<asp:Button ID="btnQuitar" class="btn btn-success btn-sm"  CommandArgument='<%# Eval("COD_REPORTE") %>' OnClick="btnQuitar_Click" runat="server" Text="Quitar" ToolTip="Eliminar menu asignado" />
 																				</td>
 																			</tr>
 																		</ItemTemplate>
@@ -147,9 +147,9 @@
 																		<ItemTemplate>
 																			<tr class="gradeA">
 																				
-																				<td><asp:Label ID="lblRazonSocial" runat="server" Text='<%# Eval("campo") %>'></asp:Label></td>
+																				<td><asp:Label ID="lblRazonSocial" runat="server" Text='<%# Eval("CAMPO") %>'></asp:Label></td>
 																				<td>
-																					<asp:Button ID="btnAgregar" class="btn btn-success btn-sm"  CommandArgument='<%# Eval("cod_reporte") %>' OnClick="btnAgregar_Click" runat="server" Text="Agregar" ToolTip="Asignar menu" />
+																					<asp:Button ID="btnAgregar" class="btn btn-success btn-sm"  CommandArgument='<%# Eval("COD_REPORTE") %>' OnClick="btnAgregar_Click" runat="server" Text="Agregar" ToolTip="Asignar menu" />
 																				</td>
 																			</tr>
 																		</ItemTemplate>
@@ -167,5 +167,6 @@
 	
 			
 		</div>
+	
 		<!-- end #content -->
 </asp:Content>

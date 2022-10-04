@@ -1,6 +1,6 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Principal.Master" AutoEventWireup="true" CodeBehind="domino_admin.aspx.cs" Inherits="appLograAdmin.domino_admin" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Principal.Master" AutoEventWireup="true" CodeBehind="dominio_admin.aspx.cs" Inherits="appLograAdmin.dominio_admin" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-      <asp:ObjectDataSource ID="odsDominiosOnly" runat="server" SelectMethod="PR_PAR_GET_ONLY_DOMINIOS" TypeName="appLograAdmin.Clases.Dominios">
+       <asp:ObjectDataSource ID="odsDominiosOnly" runat="server" SelectMethod="PR_PAR_GET_ONLY_DOMINIOS" TypeName="appLograAdmin.Clases.Dominios">
 		</asp:ObjectDataSource>
 	<asp:ObjectDataSource ID="odsDominios" runat="server" SelectMethod="PR_PAR_GET_DOMINIOS" TypeName="appLograAdmin.Clases.Dominios">
         <SelectParameters>
