@@ -16,18 +16,18 @@ namespace appLograAdmin
         {
             if (!Page.IsPostBack)
             {
-                //if (Session["usuario"] == null)
-                //{
-                //    Response.Redirect("login.aspx");
-                //}
-                //else
-                //{
+                if (Session["usuario"] == null)
+                {
+                    Response.Redirect("login.aspx");
+                }
+                else
+                {
 
-                //    lblUsuario.Text = Session["usuario"].ToString();
-                //    lblCodMenuRol.Text = Request.QueryString["RME"].ToString();
-                //}
+                    lblUsuario.Text = Session["usuario"].ToString();
+                    lblCodMenuRol.Text = Request.QueryString["RME"].ToString();
+                }
 
-                lblUsuario.Text = "admin";
+                //lblUsuario.Text = "admin";
             }
         }
 
@@ -111,18 +111,18 @@ namespace appLograAdmin
             if (e.Item.ItemType == ListItemType.Item ||
                e.Item.ItemType == ListItemType.AlternatingItem)
             {
-                //Button bQuitar = (Button)e.Item.FindControl("btnQuitar");
-                //bQuitar.Visible = false;
-                //DataTable dt = Clases.Usuarios.PR_SEG_GET_OPCIONES_ROLES(lblUsuario.Text, Int64.Parse(lblCodMenuRol.Text));
-                //if (dt.Rows.Count > 0)
-                //{
-                //    foreach (DataRow dr in dt.Rows)
-                //    {
-                //        if (dr["DESCRIPCION"].ToString().ToUpper() == "QUITAR")
-                //            bQuitar.Visible = true;
-                //    }
+                Button bQuitar = (Button)e.Item.FindControl("btnQuitar");
+                bQuitar.Visible = false;
+                DataTable dt = Clases.Utilitarios.PR_SEG_GET_OPCIONES_ROLES(lblUsuario.Text, lblCodMenuRol.Text);
+                if (dt.Rows.Count > 0)
+                {
+                    foreach (DataRow dr in dt.Rows)
+                    {
+                        if (dr["DESCRIPCION"].ToString().ToUpper() == "QUITAR")
+                            bQuitar.Visible = true;
+                    }
 
-                //}
+                }
             }
         }
 
@@ -131,18 +131,18 @@ namespace appLograAdmin
             if (e.Item.ItemType == ListItemType.Item ||
                e.Item.ItemType == ListItemType.AlternatingItem)
             {
-                //Button bAgregar = (Button)e.Item.FindControl("btnAgregar");
-                //bAgregar.Visible = false;
-                //DataTable dt = Clases.Usuarios.PR_SEG_GET_OPCIONES_ROLES(lblUsuario.Text, Int64.Parse(lblCodMenuRol.Text));
-                //if (dt.Rows.Count > 0)
-                //{
-                //    foreach (DataRow dr in dt.Rows)
-                //    {
-                //        if (dr["DESCRIPCION"].ToString().ToUpper() == "AGREGAR")
-                //            bAgregar.Visible = true;
-                //    }
+                Button bAgregar = (Button)e.Item.FindControl("btnAgregar");
+                bAgregar.Visible = false;
+                DataTable dt = Clases.Utilitarios.PR_SEG_GET_OPCIONES_ROLES(lblUsuario.Text, lblCodMenuRol.Text);
+                if (dt.Rows.Count > 0)
+                {
+                    foreach (DataRow dr in dt.Rows)
+                    {
+                        if (dr["DESCRIPCION"].ToString().ToUpper() == "AGREGAR")
+                            bAgregar.Visible = true;
+                    }
 
-                //}
+                }
             }
         }
 

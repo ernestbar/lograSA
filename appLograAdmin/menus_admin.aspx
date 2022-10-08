@@ -62,14 +62,9 @@
 											<h1 class="page-header">Administración de menús <small></small></h1>
 										
 										<!-- end page-header -->
-									<!-- begin form-group row -->
-											<div class="form-group row m-b-10">
-												<label class="col-md-3 text-md-right col-form-label">Sistema:</label>
-												<div class="col-md-6">
-													 <asp:DropDownList ID="ddlSistema" class="form-control col-md-6" DataSourceID="odsSistema" AutoPostBack="true" OnSelectedIndexChanged="ddlSistema_SelectedIndexChanged" DataTextField="descripcion" DataValueField="codigo" OnDataBound="ddlSistema_DataBound" runat="server"></asp:DropDownList>
-												</div>
-											</div>
-											<!-- end form-group row -->
+										Sistema:
+										<asp:DropDownList ID="ddlSistema" class="form-control col-4" DataSourceID="odsSistema" AutoPostBack="true" OnSelectedIndexChanged="ddlSistema_SelectedIndexChanged" DataTextField="descripcion" DataValueField="codigo" OnDataBound="ddlSistema_DataBound" runat="server"></asp:DropDownList>
+										<asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="*" ForeColor="Red" ControlToValidate="ddlSistema" InitialValue="SELECCIONAR" Font-Bold="True"></asp:RequiredFieldValidator>
 											<!-- begin panel -->
 											<div class="panel panel-inverse">
 												<!-- begin panel-heading -->

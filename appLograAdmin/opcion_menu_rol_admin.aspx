@@ -33,7 +33,7 @@
 
 
 	
-	<style type="text/css">
+	<%--<style type="text/css">
         body
         {
             font-family: Arial;
@@ -62,7 +62,7 @@
             }
             return true;
         }
-    </script>
+    </script>--%>
 	<!-- begin #content -->
 		<div id="content" class="content">
 			<asp:Label ID="lblUsuario" runat="server" Visible="false" Text=""></asp:Label> 

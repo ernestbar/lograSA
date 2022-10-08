@@ -75,10 +75,10 @@
 										<!-- begin page-header -->
 											<h1 class="page-header">Asignación de campos <small></small></h1>
 											Clientes:
-											<asp:DropDownList ID="ddlClientes" class="form-control"  OnDataBound="ddlClientes_DataBound" OnSelectedIndexChanged="ddlClientes_SelectedIndexChanged" AutoPostBack="true"  DataSourceID="odsClientesTodos" DataTextField="DESC_RAZONSOCIAL" DataValueField="cod_cliente" ForeColor="Black" runat="server"></asp:DropDownList>
+											<asp:DropDownList ID="ddlClientes" class="form-control col-4"  OnDataBound="ddlClientes_DataBound" OnSelectedIndexChanged="ddlClientes_SelectedIndexChanged" AutoPostBack="true"  DataSourceID="odsClientesTodos" DataTextField="DESC_RAZONSOCIAL" DataValueField="cod_cliente" ForeColor="Black" runat="server"></asp:DropDownList>
 											<asp:RequiredFieldValidator ID="RequiredFieldValidator9" runat="server" ErrorMessage="*" ForeColor="Red" ControlToValidate="ddlClientes" InitialValue="SELECCIONAR" Font-Bold="True"></asp:RequiredFieldValidator>
 											Reporte existencias:
-											<asp:DropDownList ID="ddlReporte" class="form-control"  OnDataBound="ddlReporte_DataBound" OnSelectedIndexChanged="ddlReporte_SelectedIndexChanged" AutoPostBack="true"  DataSourceID="odsRerportes" DataTextField="descripcion" DataValueField="codigo" ForeColor="Black" runat="server"></asp:DropDownList>
+											<asp:DropDownList ID="ddlReporte" class="form-control col-4"  OnDataBound="ddlReporte_DataBound" OnSelectedIndexChanged="ddlReporte_SelectedIndexChanged" AutoPostBack="true"  DataSourceID="odsRerportes" DataTextField="descripcion" DataValueField="codigo" ForeColor="Black" runat="server"></asp:DropDownList>
 											<asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="*" ForeColor="Red" ControlToValidate="ddlReporte" InitialValue="SELECCIONAR" Font-Bold="True"></asp:RequiredFieldValidator>
 										<!-- end page-header -->
 											<!-- begin panel -->

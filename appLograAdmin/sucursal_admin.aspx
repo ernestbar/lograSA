@@ -77,15 +77,10 @@
 											</div>
 										</div>
 										<!-- end form-group row -->
-									  <!-- begin form-group row -->
-									<div class="form-group row m-b-10">
-										<label class="col-md-2 text-md-right col-form-label">Seleccione Cliente:</label>
-										<div class="col-md-6">
-												<asp:DropDownList ID="ddlClientes" class="form-control"  OnDataBound="ddlCliente_DataBound" OnSelectedIndexChanged="ddlClientes_SelectedIndexChanged" AutoPostBack="true"  DataSourceID="odsClientesTodos" DataTextField="DESC_RAZONSOCIAL" DataValueField="cod_cliente" ForeColor="Black" runat="server"></asp:DropDownList>
-												<asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ErrorMessage="*" ForeColor="Red" ControlToValidate="ddlClientes" InitialValue="SELECCIONAR" Font-Bold="True"></asp:RequiredFieldValidator>
-										</div>  
-									</div>
-									<!-- end form-group row -->  
+										Seleccionar cliente:
+										<asp:DropDownList ID="ddlClientes" class="form-control col-4"  OnDataBound="ddlCliente_DataBound" OnSelectedIndexChanged="ddlClientes_SelectedIndexChanged" AutoPostBack="true"  DataSourceID="odsClientesTodos" DataTextField="DESC_RAZONSOCIAL" DataValueField="cod_cliente" ForeColor="Black" runat="server"></asp:DropDownList>
+										<asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ErrorMessage="*" ForeColor="Red" ControlToValidate="ddlClientes" InitialValue="SELECCIONAR" Font-Bold="True"></asp:RequiredFieldValidator>
+									   
 										<!-- begin page-header -->
 											<h1 class="page-header">Sucursales <small></small></h1>
           

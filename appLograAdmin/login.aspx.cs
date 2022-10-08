@@ -50,25 +50,25 @@ namespace appLograAdmin
             string[] datos = Clases.Utilitarios.PR_INGRESO_APP(txtUsuario.Text, txtPassword.Text).Split('|');
             if (datos[1] == "Login correcto")
             {
-                //if (datos[2] == "1")
-                //{
-                //    Session["usuario"] = txtUsuario.Text;
-                //    Response.Redirect("cambio_password.aspx");
-                //}
-                //else
-                //{
-                //    Session["cod_cliente"]= datos[3];
-                //    Session["es_master"] = datos[4];
-                //    Session["usuario"] = txtUsuario.Text;
-                //    Response.Redirect("dashboard.aspx");
-                //    lblAviso.Text = "";
-                //}
+                if (datos[2] == "1")
+                {
+                    Session["usuario"] = txtUsuario.Text;
+                    Response.Redirect("cambio_password.aspx?temp=1");
+                }
+                else
+                {
+                    Session["cod_cliente"] = datos[3];
+                    Session["es_master"] = datos[4];
+                    Session["usuario"] = txtUsuario.Text;
+                    Response.Redirect("dashboard.aspx");
+                    lblAviso.Text = "";
+                }
 
-                Session["cod_cliente"] = datos[3];
-                Session["es_master"] = datos[4];
-                Session["usuario"] = txtUsuario.Text;
-                Response.Redirect("dashboard.aspx");
-                lblAviso.Text = "";
+                //Session["cod_cliente"] = datos[3];
+                //Session["es_master"] = datos[4];
+                //Session["usuario"] = txtUsuario.Text;
+                //Response.Redirect("dashboard.aspx");
+                //lblAviso.Text = "";
 
 
             }

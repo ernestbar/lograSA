@@ -85,7 +85,7 @@ namespace appLograAdmin.Clases
                 if (Conexion.State.ToString().ToUpper() == "CLOSED")
                     Conexion.Open();
 
-                OracleCommand cmd = new OracleCommand("PAQ_REPORTES_SEGAL_SEGAL.PR_EXISTENCIAS", Conexion);
+                OracleCommand cmd = new OracleCommand("PAQ_REPORTES_SEGAL.PR_EXISTENCIAS", Conexion);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("PV_FECHA", OracleDbType.Date, ParameterDirection.Input).Value = PV_FECHA_DESDE;
                 cmd.Parameters.Add("PV_COD_CLIENTE", OracleDbType.Varchar2, ParameterDirection.Input).Value = PV_COD_CLIENTE;
@@ -117,7 +117,7 @@ namespace appLograAdmin.Clases
                 if (Conexion.State.ToString().ToUpper() == "CLOSED")
                     Conexion.Open();
 
-                OracleCommand cmd = new OracleCommand("PAQ_REPORTES_SEGAL_SEGAL.PR_EXISTENCIAS_RESUMEN", Conexion);
+                OracleCommand cmd = new OracleCommand("PAQ_REPORTES_SEGAL.PR_EXISTENCIAS_RESUMEN", Conexion);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("PV_FECHA", OracleDbType.Date, ParameterDirection.Input).Value = PV_FECHA_DESDE;
                 cmd.Parameters.Add("PV_COD_CLIENTE", OracleDbType.Varchar2, ParameterDirection.Input).Value = PV_COD_CLIENTE;

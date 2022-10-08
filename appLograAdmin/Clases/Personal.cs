@@ -235,7 +235,7 @@ namespace appLograAdmin.Clases
 
                     }
                 }
-                
+
             }
             catch (Exception ex)
             {
@@ -255,7 +255,7 @@ namespace appLograAdmin.Clases
                     Conexion.Open();
                 OracleCommand cmd = new OracleCommand("PAQ_CLI_PERSONAL.PR_I_PERSONAL", Conexion);
                 cmd.CommandType = CommandType.StoredProcedure;
-                if(_PV_SUPERVISOR_INMEDIATO=="SELECCIONAR")
+                if (_PV_SUPERVISOR_INMEDIATO == "SELECCIONAR")
                     cmd.Parameters.Add("PV_SUPERVISOR_INMEDIATO", OracleDbType.Varchar2, ParameterDirection.Input).Value = null;
                 else
                     cmd.Parameters.Add("PV_SUPERVISOR_INMEDIATO", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PV_SUPERVISOR_INMEDIATO;
@@ -281,7 +281,7 @@ namespace appLograAdmin.Clases
                 cmd.Parameters.Add("PV_ERROR", OracleDbType.Varchar2, 32767).Direction = ParameterDirection.Output;
                 cmd.ExecuteNonQuery();
 
-               
+
 
                 if (String.IsNullOrEmpty(cmd.Parameters["PV_ESTADOPR"].Value.ToString()))
                     PV_ESTADOPR = "";
@@ -323,7 +323,7 @@ namespace appLograAdmin.Clases
                     Conexion.Open();
                 OracleCommand cmd = new OracleCommand("PAQ_CLI_PERSONAL.PR_U_PERSONAL", Conexion);
                 cmd.Parameters.Add("PV_COD_PERSONAL", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PV_COD_PERSONAL;
-                if(_PV_SUPERVISOR_INMEDIATO=="SELECCIONAR")
+                if (_PV_SUPERVISOR_INMEDIATO == "SELECCIONAR")
                     cmd.Parameters.Add("PV_SUPERVISOR_INMEDIATO", OracleDbType.Varchar2, ParameterDirection.Input).Value = null;
                 else
                     cmd.Parameters.Add("PV_SUPERVISOR_INMEDIATO", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PV_SUPERVISOR_INMEDIATO;
@@ -339,7 +339,7 @@ namespace appLograAdmin.Clases
                 cmd.Parameters.Add("PV_USUARIOI", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PV_USUARIOI;
                 cmd.Parameters.Add("PV_DESCRIPCION", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PV_DESCRIPCION;
                 cmd.Parameters.Add("PD_FECHA_DESDE", OracleDbType.Date, ParameterDirection.Input).Value = _PD_FECHA_DESDE;
-                cmd.Parameters.Add("PD_FECHA_HASTA", OracleDbType.Date, ParameterDirection.Input).Value = PD_FECHA_HASTA;
+                cmd.Parameters.Add("PD_FECHA_HASTA", OracleDbType.Date, ParameterDirection.Input).Value = _PD_FECHA_HASTA;
                 cmd.Parameters.Add("PV_ROL", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PV_ROL;
                 cmd.Parameters.Add("PV_USUARIO", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PV_USUARIO;
                 cmd.Parameters.Add("PV_ESTADOPR", OracleDbType.Varchar2, 32767).Direction = ParameterDirection.Output;
@@ -390,7 +390,7 @@ namespace appLograAdmin.Clases
                 cmd.Parameters.Add("PV_ERROR", OracleDbType.Varchar2, 32767).Direction = ParameterDirection.Output;
                 cmd.ExecuteNonQuery();
 
-                
+
 
                 if (String.IsNullOrEmpty(cmd.Parameters["PV_ESTADOPR"].Value.ToString()))
                     PV_ESTADOPR = "";
@@ -434,7 +434,7 @@ namespace appLograAdmin.Clases
                 cmd.Parameters.Add("PV_ERROR", OracleDbType.Varchar2, 32767).Direction = ParameterDirection.Output;
                 cmd.ExecuteNonQuery();
 
-                
+
 
                 if (String.IsNullOrEmpty(cmd.Parameters["PV_ESTADOPR"].Value.ToString()))
                     PV_ESTADOPR = "";
@@ -480,7 +480,7 @@ namespace appLograAdmin.Clases
                 cmd.Parameters.Add("PV_ERROR", OracleDbType.Varchar2, 32767).Direction = ParameterDirection.Output;
                 cmd.ExecuteNonQuery();
 
-                
+
 
                 if (String.IsNullOrEmpty(cmd.Parameters["PV_ESTADOPR"].Value.ToString()))
                     PV_ESTADOPR = "";
@@ -525,7 +525,7 @@ namespace appLograAdmin.Clases
                 cmd.Parameters.Add("PV_ERROR", OracleDbType.Varchar2, 32767).Direction = ParameterDirection.Output;
                 cmd.ExecuteNonQuery();
 
-               
+
 
                 if (String.IsNullOrEmpty(cmd.Parameters["PV_ESTADOPR"].Value.ToString()))
                     PV_ESTADOPR = "";

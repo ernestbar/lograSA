@@ -62,7 +62,7 @@
 											<asp:DropDownList ID="ddlClientes" class="form-control col-md-6"  OnDataBound="ddlClientes_DataBound" DataSourceID="odsClientesTodos" DataTextField="DESC_RAZONSOCIAL" DataValueField="cod_cliente" ForeColor="Black" runat="server"></asp:DropDownList>
 											<asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="*" ForeColor="Red" ControlToValidate="ddlClientes" InitialValue="SELECCIONAR" Font-Bold="True"></asp:RequiredFieldValidator>
 											Fecha:
-											<input id="fecha_salida" class="form-control col-2"  style="background:#ecf1fa" type="date"><asp:HiddenField ID="hfFechaSalida" runat="server" />
+											<input id="fecha_salida" class="form-control col-12 col-md-2"  style="background:#ecf1fa" type="date"><asp:HiddenField ID="hfFechaSalida" runat="server" />
 											Tipo Rerporte:
 											<asp:RadioButtonList ID="rblTipoReporte" CssClass="form-control" RepeatDirection="Horizontal"  runat="server">
 												<asp:ListItem>RESUMEN</asp:ListItem>
@@ -96,7 +96,19 @@
 												<!-- begin panel-body -->
 												<div class="panel-body">
 										<%--<div class="table-responsive">--%>
-													<asp:GridView ID="GridView1" runat="server"></asp:GridView>
+													<asp:GridView ID="GridView1" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None">
+                                                        <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
+                                                        <EditRowStyle BackColor="#999999" />
+                                                        <FooterStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
+                                                        <HeaderStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
+                                                        <PagerStyle BackColor="#284775" ForeColor="White" HorizontalAlign="Center" />
+                                                        <RowStyle BackColor="#F7F6F3" ForeColor="#333333" />
+                                                        <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
+                                                        <SortedAscendingCellStyle BackColor="#E9E7E2" />
+                                                        <SortedAscendingHeaderStyle BackColor="#506C8C" />
+                                                        <SortedDescendingCellStyle BackColor="#FFFDF8" />
+                                                        <SortedDescendingHeaderStyle BackColor="#6F8DAE" />
+                                                    </asp:GridView>
 												<%--<table id="data-table-buttons" class="table table-striped table-bordered">
 													<thead>
 														<tr>

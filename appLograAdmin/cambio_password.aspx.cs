@@ -22,6 +22,11 @@ namespace appLograAdmin
                 else
                 {
                     lblUsuario.Text = Session["usuario"].ToString();
+                    string temporal= Request.QueryString["temp"].ToString();
+                    if (temporal == "1")
+                        lblAviso.Text = "Su password es temporal, debe realizar el cambio gracias.";
+                    else
+                        lblAviso.Text = "";
                     //btnNuevo.Visible = false;
                     //lblCodMenuRol.Text = Request.QueryString["RME"].ToString();
                     //DataTable dt = Clases.Usuarios.PR_SEG_GET_OPCIONES_ROLES(lblUsuario.Text, Int64.Parse(lblCodMenuRol.Text));
