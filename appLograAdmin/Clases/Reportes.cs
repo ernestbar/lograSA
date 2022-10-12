@@ -26,6 +26,7 @@ namespace appLograAdmin.Clases
                 cmd.Parameters.Add("PV_FECHA_HASTA", OracleDbType.Date, ParameterDirection.Input).Value = PV_FECHA_HASTA;
                 cmd.Parameters.Add("PV_COD_CLIENTE", OracleDbType.Varchar2, ParameterDirection.Input).Value = PV_COD_CLIENTE;
                 cmd.Parameters.Add("PV_SERVIDOR", OracleDbType.Varchar2, ParameterDirection.Input).Value = PV_SERVIDOR;
+                cmd.Parameters.Add("PV_QUERY", OracleDbType.Varchar2, 32767).Direction = ParameterDirection.Output;
                 cmd.Parameters.Add("po_tabla", OracleDbType.RefCursor, ParameterDirection.Output);
                 cmd.ExecuteNonQuery();
                 DataSet ds = new DataSet();
@@ -58,6 +59,7 @@ namespace appLograAdmin.Clases
                 cmd.Parameters.Add("PV_FECHA_HASTA", OracleDbType.Date, ParameterDirection.Input).Value = PV_FECHA_HASTA;
                 cmd.Parameters.Add("PV_COD_CLIENTE", OracleDbType.Varchar2, ParameterDirection.Input).Value = PV_COD_CLIENTE;
                 cmd.Parameters.Add("PV_SERVIDOR", OracleDbType.Varchar2, ParameterDirection.Input).Value = PV_SERVIDOR;
+                cmd.Parameters.Add("PV_QUERY", OracleDbType.Varchar2, 32767).Direction = ParameterDirection.Output;
                 cmd.Parameters.Add("po_tabla", OracleDbType.RefCursor, ParameterDirection.Output);
                 cmd.ExecuteNonQuery();
                 DataSet ds = new DataSet();

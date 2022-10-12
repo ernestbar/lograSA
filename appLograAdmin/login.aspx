@@ -19,7 +19,7 @@
 	<link href="assets/plugins/animate/animate.min.css" rel="stylesheet" />
 	<link href="assets/css/default/style.min.css" rel="stylesheet" />
 	<link href="assets/css/default/style-responsive.min.css" rel="stylesheet" />
-	<link href="assets/css/default/theme/default.css" rel="stylesheet" id="theme" />
+	<link href="assets/css/default/theme/red.css" rel="stylesheet" id="theme" />
 	<!-- ================== END BASE CSS STYLE ================== -->
 	
 	<!-- ================== BEGIN BASE JS ================== -->
@@ -80,7 +80,7 @@
                             <asp:Label ID="lblAviso" runat="server" ForeColor="Red" Text=""></asp:Label>
 						</div><br />
 					<div class="login-buttons">
-                            <asp:Button ID="btnReset" OnClick="btnReset_Click" class="btn btn-default btn-block btn-lg" runat="server" Text="Resetear password" />
+                            <asp:Button ID="btnReset" OnClick="btnReset_Click" class="btn btn-default btn-block btn-lg" OnClientClick="return confirm('Seguro que desea resetear su password a 123???')" runat="server" Text="Resetear password" />
 							<%--<button type="submit" class="btn btn-success btn-block btn-lg">Sign me in</button>--%>
 						</div>
 						<%--<div class="m-t-20 m-b-40 p-b-40 text-inverse">
@@ -88,7 +88,7 @@
 						</div>--%>
 						<hr />
 						<p class="text-center text-grey-darker">
-							&copy; AmasZonas All Right Reserved 2020
+							&copy; Logra SA All Right Reserved 2022
 						</p>
 					
 				</div>

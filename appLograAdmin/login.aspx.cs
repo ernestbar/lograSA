@@ -80,6 +80,10 @@ namespace appLograAdmin
 
         protected void btnReset_Click(object sender, EventArgs e)
         {
+
+            Clases.Personal per = new Clases.Personal("", "", "", "", "", "", "", "", "", 0, 0, 0,
+                      "", txtUsuario.Text, "", "", "", DateTime.Now, DateTime.Now, "", txtUsuario.Text);
+            lblAviso.Text = per.ABM_R().Replace("|", "").Replace("0", "").Replace("null", "");
             //Clases.Usuarios per = new Clases.Usuarios("R", "", "", "", "", "", "", "", "", 0, 0, 0,
             //           "", txtUsuario.Text, "", "", "", DateTime.Now, DateTime.Now, "", txtUsuario.Text);
             //string[] datos = per.ABM().Split('|');

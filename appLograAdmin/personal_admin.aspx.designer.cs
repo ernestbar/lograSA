@@ -492,6 +492,15 @@ namespace appLograAdmin
         protected global::System.Web.UI.WebControls.View View3;
 
         /// <summary>
+        /// btnVolverUsuarios control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnVolverUsuarios;
+
+        /// <summary>
         /// Repeater2 control.
         /// </summary>
         /// <remarks>

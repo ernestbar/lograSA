@@ -66,7 +66,7 @@
 										<div class="form-group row m-b-10">
 											
 											<div class="col-md-6">
-                                                <asp:Button ID="btnNuevo" class="btn-sm btn-info btn-block" OnClick="btnNuevo_Click" runat="server" Text="Nuevo cliente" />
+                                                <asp:Button ID="btnNuevo" class="btn btn-success btn-sm col-12" OnClick="btnNuevo_Click" runat="server" Text="Nuevo cliente" />
 												<%--<input type="text" name="Ruta" placeholder="" class="form-control" />--%>
 											</div>
 										</div>

@@ -90,7 +90,7 @@
 										<div class="form-group row m-b-10">
 											
 											<div class="col-md-6">
-                                                <asp:Button ID="btnNuevo" class="btn-sm btn-info btn-block" OnClick="btnNuevo_Click" runat="server" Text="Nuevo personal" />
+                                                <asp:Button ID="btnNuevo" class="btn btn-success btn-sm col-12" OnClick="btnNuevo_Click" runat="server" Text="Nuevo personal" />
 												<%--<input type="text" name="Ruta" placeholder="" class="form-control" />--%>
 											</div>
 										</div>
@@ -137,6 +137,7 @@
 															<th class="text-nowrap">FIJO</th>
 															<th class="text-nowrap">INTERNO</th>
 															<th class="text-nowrap">EMAIL</th>
+															<th class="text-wrap">SUPERVISOR</th>
 															<th class="text-nowrap">ESTADO</th>
 															<th class="text-nowrap" data-orderable="false">OPCIONES</th>
 															
@@ -157,6 +158,7 @@
 																<td><asp:Label ID="lblComplemento" runat="server" Text='<%# Eval("FIJO") %>'></asp:Label></td>
 																<td><asp:Label ID="lblExpedido" runat="server" Text='<%# Eval("INTERNO") %>'></asp:Label></td>
 																<td><asp:Label ID="lblSucursal" runat="server" Text='<%# Eval("EMAIL") %>'></asp:Label></td>
+																<td><asp:Label ID="lblSucursal1" runat="server" Text='<%# Eval("DESC_SUPERVISOR_INMEDIATO") %>'></asp:Label></td>
 															<td><asp:Label ID="lblArea" runat="server" Text='<%# Eval("DESC_ESTADO") %>'></asp:Label></td>
 															<td>
 																<asp:Button ID="btnEditar" class="btn btn-success btn-sm"  CommandArgument='<%# Eval("COD_PERSONAL") %>' OnClick="btnEditar_Click" runat="server" Text="Editar" ToolTip="Editar" />
@@ -320,8 +322,8 @@
 					<div class="form-group row m-b-10">
 						<label class="col-md-3 text-md-right col-form-label">Fecha desde:</label>
 						<div class="col-md-6">
-							<asp:Label ID="lblFechaDesde" runat="server" Text=""></asp:Label>
-						    <input id="fecha_salida" class="form-control" onfocus="bloquear()" style="background:#ecf1fa" type="date"><asp:HiddenField ID="hfFechaSalida" runat="server" />
+							<asp:Label ID="lblFechaDesde" Visible="false" runat="server" Text="" ></asp:Label>
+						    <input id="fecha_salida" class="form-control" onfocus="bloquear()" style="background:#ecf1fa" required type="date"><asp:HiddenField ID="hfFechaSalida" runat="server" />
 						</div>
 					</div>
 					<!-- end form-group row -->
@@ -329,7 +331,7 @@
 					<div class="form-group row m-b-10">
 						<label class="col-md-3 text-md-right col-form-label">Fecha hasta:</label>
 						<div class="col-md-6">
-							<asp:Label ID="lblFechaHasta" runat="server" Text=""></asp:Label>
+							<asp:Label ID="lblFechaHasta" Visible="false" runat="server" Text=""></asp:Label>
 						    <input id="fecha_retorno" class="form-control" onfocus="bloquear()" style="background:#ecf1fa" type="date"><asp:HiddenField ID="hfFechaRetorno" runat="server" />
 						</div>
 					</div>
@@ -352,7 +354,15 @@
 			
         </asp:View>
 		<asp:View ID="View3" runat="server">
-										
+										<!-- begin form-group row -->
+										<div class="form-group row m-b-10">
+											
+											<div class="col-md-6">
+                                                <asp:Button ID="btnVolverUsuarios" class="btn-sm btn-info btn-block" OnClick="btnVolverUsuarios_Click" runat="server" Text="Volver a personal" />
+												<%--<input type="text" name="Ruta" placeholder="" class="form-control" />--%>
+											</div>
+										</div>
+										<!-- end form-group row -->
 										<!-- begin page-header -->
 											<h1 class="page-header">Administrar Usuarios<small></small></h1>
 												<!-- begin form-group row -->
@@ -470,6 +480,11 @@
             document.getElementById('<%=hfFechaSalida.ClientID%>').value = document.getElementById('fecha_salida').value;
                 document.getElementById('<%=hfFechaRetorno.ClientID%>').value = document.getElementById('fecha_retorno').value;
 		}
-        
+        function setearFechaSalida() {
+            document.getElementById('fecha_salida').value = document.getElementById('<%=hfFechaSalida.ClientID%>').value;
+		}
+        function setearFechaRetorno() {
+            document.getElementById('fecha_retorno').value = document.getElementById('<%=hfFechaRetorno.ClientID%>').value;
+        }
     </script>
 </asp:Content>

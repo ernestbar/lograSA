@@ -10,7 +10,7 @@ namespace appLograAdmin.Clases
     public class Personal
     {
         //Base de datos
-        private static OracleConnection Conexion = new OracleConnection("User Id=seguridad;Password=segu123;Data Source=200.12.254.22:1521/XE");
+        private static OracleConnection Conexion = new OracleConnection("User Id=sigal;Password=siga123;Data Source=200.12.254.22:1521/XE");
         #region Propiedades
         //Propiedades privadas
         private string _PV_SUPERVISOR_INMEDIATO = "";
@@ -193,6 +193,7 @@ namespace appLograAdmin.Clases
                             _PD_FECHA_DESDE = (DateTime)dr["FECHA_DESDE"];
                             _PD_FECHA_HASTA = (DateTime)dr["FECHA_HASTA"];
                             _PV_ROL = (string)dr["rol"];
+                           
                         }
 
                     }
@@ -231,6 +232,10 @@ namespace appLograAdmin.Clases
                             { _PV_EMAIL = (string)dr["EMAIL"]; }
 
                             _PV_COD_SUCURSAL = (string)dr["COD_SUCURSAL"];
+                            if (string.IsNullOrEmpty(dr["SUPERVISOR_INMEDIATO"].ToString()))
+                            { _PV_SUPERVISOR_INMEDIATO = ""; }
+                            else
+                            { _PV_SUPERVISOR_INMEDIATO = (string)dr["SUPERVISOR_INMEDIATO"]; }
                         }
 
                     }
@@ -272,7 +277,10 @@ namespace appLograAdmin.Clases
                 cmd.Parameters.Add("PV_EMAIL", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PV_EMAIL;
                 cmd.Parameters.Add("PV_DESCRIPCION", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PV_DESCRIPCION;
                 cmd.Parameters.Add("PD_FECHA_DESDE", OracleDbType.Date, ParameterDirection.Input).Value = _PD_FECHA_DESDE;
-                cmd.Parameters.Add("PD_FECHA_HASTA", OracleDbType.Date, ParameterDirection.Input).Value = PD_FECHA_HASTA;
+                if(_PD_FECHA_HASTA == DateTime.Parse("01/01/3000"))
+                    cmd.Parameters.Add("PD_FECHA_HASTA", OracleDbType.Date, ParameterDirection.Input).Value = null;
+                else
+                    cmd.Parameters.Add("PD_FECHA_HASTA", OracleDbType.Date, ParameterDirection.Input).Value = _PD_FECHA_HASTA;
                 cmd.Parameters.Add("PV_ROL", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PV_ROL;
                 cmd.Parameters.Add("PV_USUARIO", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PV_USUARIO;
                 cmd.Parameters.Add("PV_EMAILOUT", OracleDbType.Varchar2, 32767).Direction = ParameterDirection.Output;
@@ -322,6 +330,7 @@ namespace appLograAdmin.Clases
                 if (Conexion.State.ToString().ToUpper() == "CLOSED")
                     Conexion.Open();
                 OracleCommand cmd = new OracleCommand("PAQ_CLI_PERSONAL.PR_U_PERSONAL", Conexion);
+                cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("PV_COD_PERSONAL", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PV_COD_PERSONAL;
                 if (_PV_SUPERVISOR_INMEDIATO == "SELECCIONAR")
                     cmd.Parameters.Add("PV_SUPERVISOR_INMEDIATO", OracleDbType.Varchar2, ParameterDirection.Input).Value = null;
@@ -339,7 +348,10 @@ namespace appLograAdmin.Clases
                 cmd.Parameters.Add("PV_USUARIOI", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PV_USUARIOI;
                 cmd.Parameters.Add("PV_DESCRIPCION", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PV_DESCRIPCION;
                 cmd.Parameters.Add("PD_FECHA_DESDE", OracleDbType.Date, ParameterDirection.Input).Value = _PD_FECHA_DESDE;
-                cmd.Parameters.Add("PD_FECHA_HASTA", OracleDbType.Date, ParameterDirection.Input).Value = _PD_FECHA_HASTA;
+                if (_PD_FECHA_HASTA == DateTime.Parse("01/01/3000"))
+                    cmd.Parameters.Add("PD_FECHA_HASTA", OracleDbType.Date, ParameterDirection.Input).Value = null;
+                else
+                    cmd.Parameters.Add("PD_FECHA_HASTA", OracleDbType.Date, ParameterDirection.Input).Value = _PD_FECHA_HASTA;
                 cmd.Parameters.Add("PV_ROL", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PV_ROL;
                 cmd.Parameters.Add("PV_USUARIO", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PV_USUARIO;
                 cmd.Parameters.Add("PV_ESTADOPR", OracleDbType.Varchar2, 32767).Direction = ParameterDirection.Output;
@@ -547,7 +559,7 @@ namespace appLograAdmin.Clases
                 else
                     PV_EMAILOUT = cmd.Parameters["PV_EMAILOUT"].Value.ToString();
                 Conexion.Close();
-                resultado = PV_ESTADOPR + "|" + PV_DESCRIPCIONPR + "|" + PV_ERROR + "|" + PV_EMAILOUT;
+                resultado = PV_ESTADOPR + "|" + PV_DESCRIPCIONPR + "|" + PV_ERROR ;
                 return resultado;
             }
             catch (Exception ex)

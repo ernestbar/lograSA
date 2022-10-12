@@ -80,3 +80,6 @@ C:\GITHUB2\LOGRASA\appLograAdmin\bin\System.Text.Json.xml
 C:\GITHUB2\LOGRASA\appLograAdmin\bin\System.Threading.Tasks.Extensions.xml
 C:\GITHUB2\LOGRASA\appLograAdmin\bin\System.ValueTuple.xml
 C:\GITHUB2\LograSA\appLograAdmin\obj\Debug\appLograAdmin.csproj.AssemblyReference.cache
+C:\GITHUB2\LograSA\appLograAdmin\bin\BouncyCastle.Crypto.dll
+C:\GITHUB2\LograSA\appLograAdmin\bin\itextsharp.dll
+C:\GITHUB2\LograSA\appLograAdmin\bin\itextsharp.xml

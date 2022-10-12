@@ -49,17 +49,9 @@ namespace appLograAdmin
         {
             try
             {
-                
-                string[] datos = Clases.Utilitarios.PR_SEG_CAMBIOPASSWORD(lblUsuario.Text, txtPasswordAnterior.Text, txtPassword.Text, lblUsuario.Text).Split('|');
-                if (datos[2] == "PASSWORD CORRECTAMENTE REGISTRADO")
-                {
-                    ScriptManager.RegisterStartupScript(this, GetType(), "showalert", "alert('Su password SI se cambio correctamente.');", true);
-                }
-                else
-                {
-                    ScriptManager.RegisterStartupScript(this, GetType(), "showalert", "alert('Su password NO se cambio correctamente.');", true);
-                }
-
+                Clases.Personal per = new Clases.Personal("", "", "", "", "", "", "", "", "", 0, 0, 0,
+                      "", lblUsuario.Text, txtPassword.Text,txtPasswordAnterior.Text, "", DateTime.Now, DateTime.Now, "", lblUsuario.Text);
+                lblAviso.Text = per.ABM_C().Replace("|", "").Replace("0", "").Replace("null", "");
             }
             catch (Exception ex)
             {

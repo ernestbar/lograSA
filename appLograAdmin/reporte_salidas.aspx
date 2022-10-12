@@ -65,7 +65,7 @@
 											<div class="form-group row m-b-10">
 											
 												<div class="col-md-6">
-													<asp:Button ID="btnConsultar" class="btn-sm btn-info btn-block" OnClientClick="recuperarFechaSalida()" OnClick="btnConsultar_Click" runat="server" Text="Generar Reporte" />
+													<asp:Button ID="btnConsultar" class="btn btn-success btn-sm col-12" OnClientClick="recuperarFechaSalida()" OnClick="btnConsultar_Click" runat="server" Text="Generar Reporte" />
 													<%--<input type="text" name="Ruta" placeholder="" class="form-control" />--%>
 												</div>
 											</div>

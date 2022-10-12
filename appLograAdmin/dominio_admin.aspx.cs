@@ -70,6 +70,26 @@ namespace appLograAdmin
                 txtCodigo.Text = dom.PV_CODIGO;
                 txtCodigo.Enabled = false;
                 txtDescripcion.Text = dom.PV_DESCRIPCION;
+                txtValorCaracter.Text = dom.PV_VALOR_CARACTER;
+                txtValorNmerico.Text = dom.PV_VALOR_NUMERICO.ToString();
+                if(dom.PV_VALOR_DATE==DateTime.Parse("01/01/3000"))
+                if (dom.PV_VALOR_DATE != DateTime.Parse("01/01/3000"))
+                {
+                    DateTime fecha2 = dom.PV_VALOR_DATE;
+                    string dia = "";
+                    string mes = "";
+                    if (fecha2.Day.ToString().Length == 1)
+                        dia = "0" + fecha2.Day.ToString();
+                    else
+                        dia = fecha2.Day.ToString();
+
+                    if (fecha2.Month.ToString().Length == 1)
+                        mes = "0" + fecha2.Month.ToString();
+                    else
+                        mes = fecha2.Month.ToString();
+                    hfFechaSalida.Value = fecha2.Year.ToString() + "-" + mes + "-" + dia;
+                    ScriptManager.RegisterStartupScript(this, this.Page.GetType(), "myFuncionAlerta2", "setearFechaSalida();", true);
+                }
                 lblNombreDominio.Text = dom.PV_DOMINIO;
                 MultiView1.ActiveViewIndex = 1;
 
@@ -122,14 +142,25 @@ namespace appLograAdmin
         {
             try
             {
+                string valor_fecha = "01/01/3000";
+                if (hfFechaSalida.Value != "")
+                    valor_fecha = hfFechaSalida.Value;
+                //else
+                //{
+                //    if (lblFechaDesde.Text == "")
+                //        valor_fecha = "01/01/3000";
+                //    else
+                //        valor_fecha = lblFechaDesde.Text;
+                //}
+                   
                 if (lblCodigo.Text == "")
                 {
-                    Clases.Dominios dom = new Clases.Dominios(ddlDominio.SelectedValue, txtCodigo.Text, txtDescripcion.Text, "", 0, DateTime.Now, lblUsuario.Text);
+                    Clases.Dominios dom = new Clases.Dominios(ddlDominio.SelectedValue, txtCodigo.Text, txtDescripcion.Text, txtValorCaracter.Text, int.Parse(txtValorNmerico.Text), DateTime.Parse(valor_fecha), lblUsuario.Text);
                     lblAviso.Text = dom.ABM_I().Replace("|", "").Replace("0", "").Replace("null", "");
                 }
                 else
                 {
-                    Clases.Dominios dom = new Clases.Dominios(lblDominio.Text, lblCodigo.Text, txtDescripcion.Text, "", 0, DateTime.Now, lblUsuario.Text);
+                    Clases.Dominios dom = new Clases.Dominios(lblDominio.Text, lblCodigo.Text, txtDescripcion.Text, txtValorCaracter.Text,int.Parse(txtValorNmerico.Text),DateTime.Parse(valor_fecha), lblUsuario.Text);
                     lblAviso.Text = dom.ABM_U().Replace("|", "").Replace("0", "").Replace("null", "");
                 }
                 MultiView1.ActiveViewIndex = 0;
@@ -160,6 +191,9 @@ namespace appLograAdmin
             txtCodigo.Text = "";
             txtDescripcion.Text = "";
             lblAviso.Text = "";
+            txtValorCaracter.Text = "";
+            txtValorNmerico.Text = "";
+            hfFechaSalida.Value = "";
             txtCodigo.Enabled = true;
 
         }

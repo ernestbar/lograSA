@@ -40,9 +40,9 @@
             <asp:Parameter DefaultValue="PAIS" Name="pV_DOMINIO" Type="String" />
         </SelectParameters>
     </asp:ObjectDataSource>
-	<asp:ObjectDataSource ID="odsCiudad" runat="server" SelectMethod="PR_PAR_GET_DOMINIOS" TypeName="appLograAdmin.Clases.Dominios">
+	<asp:ObjectDataSource ID="odsCiudad" runat="server" SelectMethod="PR_GET_CIUDAD" TypeName="appLograAdmin.Clases.Dominios">
         <SelectParameters>
-            <asp:Parameter DefaultValue="CIUDAD" Name="pV_DOMINIO" Type="String" />
+			<asp:ControlParameter ControlID="ddlPais" Name="pV_COD_PAIS" />
         </SelectParameters>
     </asp:ObjectDataSource>
     <asp:ObjectDataSource ID="odsSucursales" runat="server" SelectMethod="PR_PAR_GET_SUCURSALES" TypeName="appLograAdmin.Clases.Sucursales">
@@ -72,7 +72,7 @@
 			<!-- begin form-group row -->
 										<div class="form-group row m-b-10">											
 											<div class="col-md-6">
-                                                <asp:Button ID="btnNuevoCliente" class="btn-sm btn-info btn-block" OnClick="btnNuevoCliente_Click" runat="server" Text="Nueva Sucursal" />
+                                                <asp:Button ID="btnNuevoCliente" class="btn btn-success btn-sm col-12" OnClick="btnNuevoCliente_Click" runat="server" Text="Nueva Sucursal" />
 												<%--<input type="text" name="Ruta" placeholder="" class="form-control" />--%>
 											</div>
 										</div>

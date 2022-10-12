@@ -18,7 +18,7 @@
 	<link href="assets/plugins/animate/animate.min.css" rel="stylesheet" />
 	<link href="assets/css/default/style.min.css" rel="stylesheet" />
 	<link href="assets/css/default/style-responsive.min.css" rel="stylesheet" />
-	<link href="assets/css/default/theme/default.css" rel="stylesheet" id="theme" />
+	<link href="assets/css/default/theme/red.css" rel="stylesheet" id="theme" />
 	<!-- ================== END BASE CSS STYLE ================== -->
 	
 	<!-- ================== BEGIN PAGE LEVEL STYLE ================== -->
@@ -57,7 +57,7 @@
 	<!-- begin #page-container -->
 	<div id="page-container" class="fade page-sidebar-fixed page-header-fixed">
 		<!-- begin #header -->
-		<div id="header" class="header navbar-default">
+		<div id="header" class="header navbar-default" style="background-color:#7f3033">
 			<!-- begin navbar-header -->
 			<div class="navbar-header">
 				<img src="assets/img/logo/logo-admin.png" height="50" />
@@ -84,10 +84,10 @@
 				<li class="dropdown navbar-user">
 					<a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
 						<img src="assets/img/user/user-13.jpg" alt="" /> 
-						<span class="d-none d-md-inline"><asp:Label ID="lblUsuario" runat="server" Text=""></asp:Label> </span> <b class="caret"></b>
+						<span class="d-none d-md-inline"><asp:Label ID="lblUsuario" ForeColor="Yellow" runat="server" Text=""></asp:Label> </span> <b class="caret"></b>
 					</a>
 					<div class="dropdown-menu dropdown-menu-right">
-						<a href="cambio_password.aspx" class="dropdown-item">Cambiar password</a>
+						<a href="cambio_password.aspx?temp=0" class="dropdown-item">Cambiar password</a>
 						<div class="dropdown-divider"></div>
 						<a href="login.aspx" class="dropdown-item">Salir</a>
 					</div>
@@ -100,7 +100,7 @@
 		<!-- begin #sidebar -->
 		<div id="sidebar" class="sidebar">
 			<!-- begin sidebar scrollbar -->
-			<div data-scrollbar="true" data-height="100%">
+			<div data-scrollbar="true" style="background-color:#7f3033" data-height="100%">
 				<!-- begin sidebar user -->
 				<%--<ul class="nav">
 					<li class="nav-profile">

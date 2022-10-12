@@ -38,6 +38,7 @@ namespace appLograAdmin
 
                     }
                     MultiView1.ActiveViewIndex = 0;
+
                 }
                 //lblUsuario.Text = "admin";
                 //MultiView1.ActiveViewIndex = 0;
@@ -84,6 +85,11 @@ namespace appLograAdmin
             txtUsuario.Text = "";
             lblFechaDesde.Text = "";
             lblFechaHasta.Text = "";
+            txtPassword.Text = "";
+            txtPasswordAnterior.Text = "";
+            txtInterno.Text = "";
+            txtFijo.Text = "";
+            txtDescripcion.Text = "";
             ddlExpedido.DataBind();
             ddlTipoDocumento.DataBind();
             ddlCargo.DataBind();
@@ -94,7 +100,13 @@ namespace appLograAdmin
         protected void btnNuevo_Click(object sender, EventArgs e)
         {
             limpiar_controles();
+          
             MultiView1.ActiveViewIndex = 1;
+
+            hfFechaSalida.Value = DateTime.Now.Year.ToString()+"-"+ DateTime.Now.Month.ToString() + "-"+ DateTime.Now.Day.ToString();
+            hfFechaRetorno.Value = DateTime.Now.AddYears(1).Year.ToString() + "-" + DateTime.Now.AddYears(1).Month.ToString() + "-" + DateTime.Now.AddYears(1).Day.ToString();
+
+            ScriptManager.RegisterStartupScript(this, this.Page.GetType(), "myFuncionAlerta", "setearFechaSalida();", true);
 
         }
 
@@ -119,7 +131,8 @@ namespace appLograAdmin
                 ddlCargo.SelectedValue = cli.PV_COD_CARGO;
                 ddlSucursal.SelectedValue = cli.PV_COD_SUCURSAL;
                 ddlTipoDocumento.SelectedValue = cli.PV_TIPO_DOCUMENTO;
-
+                if(cli.PV_SUPERVISOR_INMEDIATO!="")
+                    ddlSupervisor.SelectedValue = cli.PV_SUPERVISOR_INMEDIATO;
                 DataTable dt = new DataTable();
                 dt = Clases.Personal.PR_PAR_GET_USUARIOS(lblCodPersonal.Text);
                 if (dt.Rows.Count > 0)
@@ -129,6 +142,59 @@ namespace appLograAdmin
                         lblCodUsuarioI.Text = dr["usuario"].ToString();
                         txtUsuario.Text = dr["usuario"].ToString();
                         txtDescripcion.Text = dr["descripcion"].ToString();
+                        if (dr["fecha_desde"].ToString() == "")
+                        {
+                            DateTime fecha1 = DateTime.Now;
+                            string dia = "";
+                            string mes = "";
+                            if (fecha1.Day.ToString().Length == 1)
+                                dia = "0" + fecha1.Day.ToString();
+                            else
+                                dia = fecha1.Day.ToString();
+                            if (fecha1.Month.ToString().Length == 1)
+                                mes = "0" + fecha1.Month.ToString();
+                            else
+                                mes = fecha1.Month.ToString();
+                            hfFechaSalida.Value = fecha1.Year.ToString() + "-" + mes + "-" + dia;
+                            ScriptManager.RegisterStartupScript(this, this.Page.GetType(), "myFuncionAlerta", "setearFechaSalida();", true);
+                        }
+                        else
+                        {
+                            DateTime fecha1 = DateTime.Parse(dr["fecha_desde"].ToString());
+                            string dia = "";
+                            string mes = "";
+                            if (fecha1.Day.ToString().Length == 1)
+                                dia = "0" + fecha1.Day.ToString();
+                            else
+                                dia = fecha1.Day.ToString();
+
+                            if (fecha1.Month.ToString().Length == 1)
+                                mes = "0" + fecha1.Month.ToString();
+                            else
+                                mes = fecha1.Month.ToString();
+                            hfFechaSalida.Value = fecha1.Year.ToString() + "-" + mes + "-" + dia;
+                            ScriptManager.RegisterStartupScript(this, this.Page.GetType(), "myFuncionAlerta", "setearFechaSalida();", true);
+                        }
+                        if (dr["fecha_hasta"].ToString() != "")
+                        {
+                            DateTime fecha2 = DateTime.Parse(dr["fecha_hasta"].ToString());
+                            string dia = "";
+                            string mes="";
+                            if (fecha2.Day.ToString().Length == 1)
+                                dia = "0" + fecha2.Day.ToString();
+                            else
+                                dia = fecha2.Day.ToString();
+
+                            if (fecha2.Month.ToString().Length == 1)
+                                mes = "0" + fecha2.Month.ToString();
+                            else
+                                mes = fecha2.Month.ToString();
+                            hfFechaRetorno.Value = fecha2.Year.ToString() + "-" + mes + "-" + dia;
+                            ScriptManager.RegisterStartupScript(this, this.Page.GetType(), "myFuncionAlerta2", "setearFechaRetorno();", true);
+                        }
+                        
+                        
+
                         lblFechaDesde.Text = dr["fecha_desde"].ToString();
                         lblFechaHasta.Text = dr["fecha_hasta"].ToString();
                         ddlRol.SelectedValue = dr["rol"].ToString();
@@ -225,7 +291,7 @@ namespace appLograAdmin
                     fecha_retorno = hfFechaRetorno.Value;
                 string fecha_salida = "01/01/3000";
                 if (hfFechaSalida.Value != "")
-                    fecha_salida = hfFechaRetorno.Value;
+                    fecha_salida = hfFechaSalida.Value;
 
                 string[] datos_cargo = ddlCargo.SelectedValue.Split('&');
                 string aux = "";
@@ -239,20 +305,26 @@ namespace appLograAdmin
                 }
                 else
                 {
-                    string fecha_desde = "";
-                    string fecha_hasta = "";
-                    if (hfFechaSalida.Value == "")
-                    { fecha_desde = lblFechaDesde.Text; }
-                    else
-                    { fecha_desde = hfFechaSalida.Value; }
-                    if (hfFechaRetorno.Value == "")
-                    { fecha_hasta = lblFechaHasta.Text; }
-                    else
-                    { fecha_hasta = hfFechaRetorno.Value; }
+                    //string fecha_desde = "";
+                    //string fecha_hasta = "";
+                    //if (hfFechaSalida.Value == "")
+                    //{ fecha_desde = lblFechaDesde.Text; }
+                    //else
+                    //{ fecha_desde = hfFechaSalida.Value; }
+
+                    //if (hfFechaRetorno.Value == "")
+                    //{
+                    //    if (lblFechaHasta.Text == "")
+                    //        fecha_hasta = "01/01/3000"; 
+                    //    else
+                    //        fecha_hasta = lblFechaHasta.Text;
+                    //}
+                    //else
+                    //{ fecha_hasta = hfFechaRetorno.Value; }
                     Clases.Personal per = new Clases.Personal(ddlClientes.SelectedValue, lblCodPersonal.Text, ddlSupervisor.SelectedValue, ddlSucursal.SelectedValue, txtNombres.Text,
                          ddlTipoDocumento.SelectedValue, txtNumeroDocumento.Text, ddlExpedido.SelectedValue,
                          ddlCargo.SelectedValue, int.Parse(txtCelular.Text), Int64.Parse(txtFijo.Text), Int64.Parse(txtInterno.Text),
-                         txtEmail.Text, txtUsuario.Text, "", "", txtDescripcion.Text, DateTime.Parse(fecha_desde), DateTime.Parse(fecha_retorno), ddlRol.SelectedValue, lblUsuario.Text);
+                         txtEmail.Text, txtUsuario.Text, "", "", txtDescripcion.Text, DateTime.Parse(fecha_salida), DateTime.Parse(fecha_retorno), ddlRol.SelectedValue, lblUsuario.Text);
                     aux = per.ABM_U();
                 }
 
@@ -375,6 +447,7 @@ namespace appLograAdmin
                 Button obj = (Button)sender;
                 id = obj.CommandArgument.ToString();
                 lblCodUsuarioI.Text = id;
+              
                 MultiView1.ActiveViewIndex = 3;
             }
             catch (Exception ex)
@@ -448,6 +521,11 @@ namespace appLograAdmin
         protected void ddlRol_DataBound(object sender, EventArgs e)
         {
             ddlRol.Items.Insert(0, "SELECCIONAR");
+        }
+
+        protected void btnVolverUsuarios_Click(object sender, EventArgs e)
+        {
+            MultiView1.ActiveViewIndex = 0;
         }
     }
 }

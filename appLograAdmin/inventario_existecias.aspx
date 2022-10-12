@@ -73,7 +73,8 @@
 											<div class="form-group row m-b-10">
 											
 												<div class="col-md-6">
-													<asp:Button ID="btnConsultar" class="btn-sm btn-info btn-block" OnClientClick="recuperarFechaSalida()" OnClick="btnConsultar_Click" runat="server" Text="Generar Reporte" />
+													<asp:Button ID="btnConsultar" class="btn btn-success btn-sm" OnClientClick="recuperarFechaSalida()" OnClick="btnConsultar_Click" runat="server" Text="Generar Reporte" />
+													<asp:Button ID="btnExportar" class="btn btn-success btn-sm" runat="server" Text="Exportar" OnClick="btnExportar_Click" />
 													<%--<input type="text" name="Ruta" placeholder="" class="form-control" />--%>
 												</div>
 											</div>
@@ -96,19 +97,12 @@
 												<!-- begin panel-body -->
 												<div class="panel-body">
 										<%--<div class="table-responsive">--%>
-													<asp:GridView ID="GridView1" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None">
-                                                        <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
-                                                        <EditRowStyle BackColor="#999999" />
-                                                        <FooterStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
-                                                        <HeaderStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
-                                                        <PagerStyle BackColor="#284775" ForeColor="White" HorizontalAlign="Center" />
-                                                        <RowStyle BackColor="#F7F6F3" ForeColor="#333333" />
-                                                        <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
-                                                        <SortedAscendingCellStyle BackColor="#E9E7E2" />
-                                                        <SortedAscendingHeaderStyle BackColor="#506C8C" />
-                                                        <SortedDescendingCellStyle BackColor="#FFFDF8" />
-                                                        <SortedDescendingHeaderStyle BackColor="#6F8DAE" />
-                                                    </asp:GridView>
+													<asp:Panel runat="server" ID="pnlPrint">
+														<img src="#" runat="server" visible="false" id="imgLogo" /><br />
+														<asp:GridView runat="server" ID="GridView1" AutoGenerateColumns="true" OnPreRender="GridView_PreRender" CssClass="table table-striped">
+
+														</asp:GridView>
+													</asp:Panel>
 												<%--<table id="data-table-buttons" class="table table-striped table-bordered">
 													<thead>
 														<tr>
@@ -174,6 +168,48 @@
                 
         }
 
+    </script>
+
+   <!-- pace -->
+    <script>
+        var handleDataTableButtons = function () {
+            "use strict";
+            0 !== $('#<%= GridView1.ClientID %>').length &&
+                $('#<%= GridView1.ClientID %>').DataTable({
+            dom: "Bfrtip",
+            buttons: [{
+                extend: "copy",
+                className: "btn-sm"
+            }, {
+                extend: "csv",
+                className: "btn-sm"
+            }, {
+                extend: "excel",
+                className: "btn-sm"
+            }, {
+                extend: "pdf",
+                className: "btn-sm"
+            }, {
+                extend: "print",
+                className: "btn-sm"
+            }],
+            responsive: !0
+        })
+    },
+    TableManageButtons = function () {
+        "use strict";
+        return {
+            init: function () {
+                handleDataTableButtons()
+            }
+        }
+    }();
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#<%= GridView1.ClientID %>').dataTable();
+        });
+        TableManageButtons.init();
     </script>
 			
 		</div>

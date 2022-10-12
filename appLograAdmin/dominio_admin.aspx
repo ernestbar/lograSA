@@ -57,7 +57,7 @@
 										<div class="form-group row m-b-10">
 											
 											<div class="col-md-6">
-                                                <asp:Button ID="btnNuevo" class="btn-sm btn-info btn-block" OnClick="btnNuevo_Click" runat="server" Text="Nuevo dominio" />
+                                                <asp:Button ID="btnNuevo" class="btn btn-success btn-sm col-12" OnClick="btnNuevo_Click" runat="server" Text="Nuevo dominio" />
 												<%--<input type="text" name="Ruta" placeholder="" class="form-control" />--%>
 											</div>
 										</div>
@@ -92,9 +92,9 @@
 															<th class="text-wrap">DOMINIO</th>
 															<th class="text-nowrap">CODIGO</th>
 															<th class="text-nowrap">DESCRIPCION</th>
-															<%--<th class="text-nowrap">VALOR CARACTER</th>
+															<th class="text-nowrap">VALOR CARACTER</th>
 															<th class="text-nowrap">VALOR NUMERICO</th>
-															<th class="text-nowrap">VALOR FECHA</th>--%>
+															<th class="text-nowrap">VALOR FECHA</th>
 															<th class="text-nowrap" data-orderable="false">OPCIONES</th>
 															
 															</tr>
@@ -108,9 +108,9 @@
 															<td><asp:Label ID="lblEsPrincipal" runat="server" Text='<%# Eval("dominio") %>'></asp:Label></td>
 															<td><asp:Label ID="lblRazonSocial" runat="server" Text='<%# Eval("codigo") %>'></asp:Label></td>
 															<td><asp:Label ID="lblMedioContacto" runat="server" Text='<%# Eval("descripcion") %>'></asp:Label></td>
-															<%--<td><asp:Label ID="lblValor" runat="server" Text='<%# Eval("DOM_VALOR_CARACTER") %>'></asp:Label></td>
-																<td><asp:Label ID="Label1" runat="server" Text='<%# Eval("DOM_VALOR_NUMERICO") %>'></asp:Label></td>
-																<td><asp:Label ID="Label2" runat="server" Text='<%# Eval("DOM_VALOR_FECHA") %>'></asp:Label></td>--%>
+															<td><asp:Label ID="lblValor" runat="server" Text='<%# Eval("valor_caracter") %>'></asp:Label></td>
+																<td><asp:Label ID="Label1" runat="server" Text='<%# Eval("valor_numerico") %>'></asp:Label></td>
+																<td><asp:Label ID="Label2" runat="server" Text='<%# Eval("valor_date") %>'></asp:Label></td>
 															<td>
 																<asp:Button ID="btnEditar" class="btn btn-success btn-sm"  CommandArgument='<%# Eval("dominio") +"|"+Eval("codigo") %>' OnClick="btnEditar_Click" runat="server" Text="Editar" ToolTip="Editar" />
 																<asp:Button ID="btnEliminar" class="btn btn-success btn-sm" CommandArgument='<%# Eval("dominio") +"|"+Eval("codigo") %>' OnClick="btnEliminar_Click" OnClientClick="return confirm('Seguro que desea eliminar el registro???')" runat="server" Text="Eliminar" ToolTip="Borrar registro" />
@@ -168,30 +168,37 @@
                         
 					</div>
 					<!-- end form-group row -->
-					<%--<!-- begin form-group row -->
+					Datos opcionales:
+					<!-- begin form-group row -->
 					<div class="form-group row m-b-10">
-						<label class="col-md-3 text-md-right col-form-label">Valor Caracter:</label>
+						<label class="col-md-3 text-md-right col-form-label">Valor caracter:</label>
 						<div class="col-md-6">
-                            <asp:TextBox ID="TextBox1" class="form-control" runat="server"></asp:TextBox>
-							<asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="*" ControlToValidate="txtDescripcion" Font-Bold="True"></asp:RequiredFieldValidator>
+                            <asp:TextBox ID="txtValorCaracter" class="form-control" runat="server"></asp:TextBox>
 						</div>
                         
 					</div>
 					<!-- end form-group row -->
 					<!-- begin form-group row -->
 					<div class="form-group row m-b-10">
-						<label class="col-md-3 text-md-right col-form-label">Descripción:</label>
+						<label class="col-md-3 text-md-right col-form-label">Valor numérico:</label>
 						<div class="col-md-6">
-                            <asp:TextBox ID="TextBox2" class="form-control" runat="server"></asp:TextBox>
-							<asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ErrorMessage="*" ControlToValidate="txtDescripcion" Font-Bold="True"></asp:RequiredFieldValidator>
+                            <asp:TextBox ID="txtValorNmerico" class="form-control" runat="server"></asp:TextBox>
 						</div>
                         
 					</div>
-					<!-- end form-group row -->--%>
-					
-					
+					<!-- end form-group row -->
+					<!-- begin form-group row -->
+					<div class="form-group row m-b-10">
+						<label class="col-md-3 text-md-right col-form-label">Valor fecha:</label>
+						<div class="col-md-6">
+                            <asp:Label ID="lblFechaDesde" runat="server" Text=""></asp:Label>
+						    <input id="fecha_salida" class="form-control" style="background:#ecf1fa" type="date"><asp:HiddenField ID="hfFechaSalida" runat="server" />
+						</div>
+                        
+					</div>
+					<!-- end form-group row -->
 						<div class="btn-toolbar mr-2 sw-btn-group float-right" role="group">
-							<asp:Button ID="btnGuardar" CssClass="btn btn-success" runat="server" OnClick="btnGuardar_Click" Text="Guardar" />
+							<asp:Button ID="btnGuardar" CssClass="btn btn-success" OnClientClick="recuperarFechaSalida()" runat="server" OnClick="btnGuardar_Click" Text="Guardar" />
 							<asp:Button ID="btnVolverAlta" CssClass="btn btn-success"  runat="server" CausesValidation="false" OnClick="btnVolverAlta_Click" Text="Cancelar" />
 						</div>
 					</div>
@@ -203,5 +210,15 @@
 	
 			
 		</div>
+
 		<!-- end #content -->
+	<script type="text/javascript">
+        function recuperarFechaSalida() {
+
+            document.getElementById('<%=hfFechaSalida.ClientID%>').value = document.getElementById('fecha_salida').value;
+		}
+        function setearFechaSalida() {
+            document.getElementById('fecha_salida').value = document.getElementById('<%=hfFechaSalida.ClientID%>').value;
+        }
+    </script>
 </asp:Content>
