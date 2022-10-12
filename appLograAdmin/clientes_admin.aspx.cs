@@ -87,7 +87,10 @@ namespace appLograAdmin
                 if (cli.PV_LOGO == "")
                 { imgLogo.ImageUrl = "~/ClienteLogos/sin_logo.png"; lblLogoAnt.Text = ""; }
                 else
-                { imgLogo.ImageUrl = "~/ClienteLogos/"+cli.PV_COD_CLIENTE+"/"+cli.PV_LOGO; lblLogoAnt.Text = cli.PV_LOGO; }
+                { 
+                    imgLogo.ImageUrl = "~/ClienteLogos/"+cli.PV_COD_CLIENTE+"/"+cli.PV_LOGO; 
+                    lblLogoAnt.Text = cli.PV_LOGO; 
+                }
                 if (cli.PV_TIPO_CLIENTE == "PN")
                 { Panel_natural.Visible = true; Panel_juridica.Visible = false; }
                 else

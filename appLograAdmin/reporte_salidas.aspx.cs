@@ -4,6 +4,10 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.IO;
+using iTextSharp.text;
+using iTextSharp.text.html.simpleparser;
+using iTextSharp.text.pdf;
 
 namespace appLograAdmin
 {
@@ -43,8 +47,51 @@ namespace appLograAdmin
 
         protected void btnConsultar_Click(object sender, EventArgs e)
         {
-            Repeater1.DataSource = Clases.Reportes.PR_SALIDAS(DateTime.Parse(hfFechaSalida.Value), DateTime.Parse(hfFechaRetorno.Value), ddlClientes.SelectedValue, ddlServidor.SelectedValue);
-            Repeater1.DataBind();
+            GridView1.DataSource = Clases.Reportes.PR_SALIDAS(DateTime.Parse(hfFechaSalida.Value), DateTime.Parse(hfFechaRetorno.Value), ddlClientes.SelectedValue, ddlServidor.SelectedValue);
+            GridView1.DataBind();
+        }
+        protected void GridView_PreRender(object sender, EventArgs e)
+        {
+            GridView gv = (GridView)sender;
+
+            if ((gv.ShowHeader == true && gv.Rows.Count > 0)
+                || (gv.ShowHeaderWhenEmpty == true))
+            {
+                //Force GridView to use <thead> instead of <tbody>
+                gv.HeaderRow.TableSection = TableRowSection.TableHeader;
+            }
+            if (gv.ShowFooter == true && gv.Rows.Count > 0)
+            {
+                //Force GridView to use <tfoot> instead of <tbody>
+                gv.FooterRow.TableSection = TableRowSection.TableFooter;
+            }
+        }
+
+        protected void btnExportar_Click(object sender, EventArgs e)
+        {
+            imgLogo.Src = Server.MapPath("~") + "/ClienteLogos/sin_logo.png";
+            Response.ContentType = "application/pdf";
+            Response.AddHeader("content-disposition", "attachment;filename=TestPage.pdf");
+            Response.Cache.SetCacheability(HttpCacheability.NoCache);
+            StringWriter sw = new StringWriter();
+            HtmlTextWriter hw = new HtmlTextWriter(sw);
+            imgLogo.Visible = true;
+            pnlPrint.RenderControl(hw);
+            imgLogo.Visible = false;
+            StringReader sr = new StringReader(sw.ToString());
+            Document pdfDoc = new Document(PageSize.A2, 10f, 10f, 100f, 0f);
+            HTMLWorker htmlparser = new HTMLWorker(pdfDoc);
+            PdfWriter.GetInstance(pdfDoc, Response.OutputStream);
+            pdfDoc.Open();
+            htmlparser.Parse(sr);
+            pdfDoc.Close();
+            Response.Write(pdfDoc);
+            Response.End();
+        }
+
+        public override void VerifyRenderingInServerForm(Control control)
+        {
+            /* Verifies that the control is rendered */
         }
     }
 }

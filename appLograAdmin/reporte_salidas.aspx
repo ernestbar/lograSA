@@ -66,6 +66,7 @@
 											
 												<div class="col-md-6">
 													<asp:Button ID="btnConsultar" class="btn btn-success btn-sm col-12" OnClientClick="recuperarFechaSalida()" OnClick="btnConsultar_Click" runat="server" Text="Generar Reporte" />
+													<asp:Button ID="btnExportar" class="btn btn-success btn-sm" runat="server" Text="Exportar" OnClick="btnExportar_Click" />
 													<%--<input type="text" name="Ruta" placeholder="" class="form-control" />--%>
 												</div>
 											</div>
@@ -88,7 +89,13 @@
 												<!-- begin panel-body -->
 												<div class="panel-body">
 										<%--<div class="table-responsive">--%>
-												<table id="data-table-buttons" class="table table-striped table-bordered">
+													<asp:Panel runat="server" ID="pnlPrint">
+														<img src="#" runat="server" visible="false" id="imgLogo" /><br />
+														<asp:GridView runat="server" ID="GridView1" AutoGenerateColumns="true" OnPreRender="GridView_PreRender" CssClass="table table-striped">
+
+														</asp:GridView>
+													</asp:Panel>
+												<%--<table id="data-table-buttons" class="table table-striped table-bordered">
 													<thead>
 														<tr>
 															<th class="text-wrap">RECINTO</th>
@@ -125,7 +132,7 @@
 														
 													
 													</tbody>
-												</table>
+												</table>--%>
 											</div>
 											<!-- end table-responsive -->
 													</div>
@@ -146,7 +153,46 @@
         }
 
     </script>
-			
+		<script>
+            var handleDataTableButtons = function () {
+                "use strict";
+                0 !== $('#<%= GridView1.ClientID %>').length &&
+                $('#<%= GridView1.ClientID %>').DataTable({
+            dom: "Bfrtip",
+            buttons: [{
+                extend: "copy",
+                className: "btn-sm"
+            }, {
+                extend: "csv",
+                className: "btn-sm"
+            }, {
+                extend: "excel",
+                className: "btn-sm"
+            }, {
+                extend: "pdf",
+                className: "btn-sm"
+            }, {
+                extend: "print",
+                className: "btn-sm"
+            }],
+            responsive: !0
+        })
+    },
+    TableManageButtons = function () {
+        "use strict";
+        return {
+            init: function () {
+                handleDataTableButtons()
+            }
+        }
+    }();
+        </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#<%= GridView1.ClientID %>').dataTable();
+        });
+        TableManageButtons.init();
+    </script>	
 		</div>
 		<!-- end #content -->
 </asp:Content>
