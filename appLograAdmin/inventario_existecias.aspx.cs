@@ -119,7 +119,7 @@ namespace appLograAdmin
                 logoCliente = Server.MapPath("~") + "/ClienteLogos/" + cli.PV_COD_CLIENTE + "/" + cli.PV_LOGO;
             }
 
-            byte[] buffer = Reportes.ExportarPDF(GridView1, logoCliente, "Reporte de Inventarios");
+            byte[] buffer = Reportes.ExportarPDF(GridView1, logoCliente, "Reporte Inventario Existencias");
 
             Response.Clear();
             Response.Charset = "";
@@ -147,7 +147,7 @@ namespace appLograAdmin
             }
 
             FileInfo infoLogo = new FileInfo(logoCliente);
-            byte[] buffer = Reportes.ExportarExcel(GridView1, infoLogo, "Reporte de Inventarios");
+            byte[] buffer = Reportes.ExportarExcel(GridView1, infoLogo, "Reporte Inventario Existencias");
 
             Response.Clear();
             Response.Charset = "";

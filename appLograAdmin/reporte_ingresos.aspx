@@ -70,8 +70,9 @@
 											<div class="form-group row m-b-10">
 											
 												<div class="col-md-6">
-													<asp:Button ID="btnConsultar" class="btn btn-success btn-sm col-12" OnClientClick="recuperarFechaSalida()" OnClick="btnConsultar_Click" runat="server" Text="Generar Reporte" />
-														<asp:Button ID="btnExportar" class="btn btn-success btn-sm" runat="server" Text="Exportar" OnClick="btnExportar_Click" />
+													<asp:Button ID="btnConsultar" class="btn btn-success btn-sm" OnClientClick="recuperarFechaSalida()" OnClick="btnConsultar_Click" runat="server" Text="Generar Reporte" />
+													<asp:Button ID="btnExportarPDF" class="btn btn-success btn-sm" runat="server" Text="Exportar PDF" OnClick="btnExportarPDF_Click" />
+													<asp:Button ID="btnExportarExcel" class="btn btn-success btn-sm" runat="server" Text="Exportar Excel" OnClick="btnExportarExcel_Click" />
 													<%--<input type="text" name="Ruta" placeholder="" class="form-control" />--%>
 												</div>
 											</div>
@@ -94,12 +95,9 @@
 												<!-- begin panel-body -->
 												<div class="panel-body">
 										<%--<div class="table-responsive">--%>
-													<asp:Panel runat="server" ID="pnlPrint">
-														<img src="#" runat="server" visible="false" id="imgLogo" /><br />
 														<asp:GridView runat="server" ID="GridView1" AutoGenerateColumns="true" OnPreRender="GridView_PreRender" CssClass="table table-striped">
 
 														</asp:GridView>
-													</asp:Panel>
 												<%--<table id="data-table-buttons" class="table table-striped table-bordered">
 													<thead>
 														<tr>

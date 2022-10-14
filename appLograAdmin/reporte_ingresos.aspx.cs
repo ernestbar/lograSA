@@ -5,9 +5,10 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.IO;
-using iTextSharp.text;
-using iTextSharp.text.html.simpleparser;
-using iTextSharp.text.pdf;
+//using iTextSharp.text;
+//using iTextSharp.text.html.simpleparser;
+//using iTextSharp.text.pdf;
+using appLograAdmin.Clases;
 
 namespace appLograAdmin
 {
@@ -67,31 +68,86 @@ namespace appLograAdmin
             }
         }
 
-        protected void btnExportar_Click(object sender, EventArgs e)
-        {
-            imgLogo.Src = Server.MapPath("~") + "/ClienteLogos/sin_logo.png";
-            Response.ContentType = "application/pdf";
-            Response.AddHeader("content-disposition", "attachment;filename=TestPage.pdf");
-            Response.Cache.SetCacheability(HttpCacheability.NoCache);
-            StringWriter sw = new StringWriter();
-            HtmlTextWriter hw = new HtmlTextWriter(sw);
-            imgLogo.Visible = true;
-            pnlPrint.RenderControl(hw);
-            imgLogo.Visible = false;
-            StringReader sr = new StringReader(sw.ToString());
-            Document pdfDoc = new Document(PageSize.A2, 10f, 10f, 100f, 0f);
-            HTMLWorker htmlparser = new HTMLWorker(pdfDoc);
-            PdfWriter.GetInstance(pdfDoc, Response.OutputStream);
-            pdfDoc.Open();
-            htmlparser.Parse(sr);
-            pdfDoc.Close();
-            Response.Write(pdfDoc);
-            Response.End();
-        }
-
         public override void VerifyRenderingInServerForm(Control control)
         {
             /* Verifies that the control is rendered */
+        }
+
+        //protected void btnExportar_Click(object sender, EventArgs e)
+        //{
+        //    imgLogo.Src = Server.MapPath("~") + "/ClienteLogos/sin_logo.png";
+        //    Response.ContentType = "application/pdf";
+        //    Response.AddHeader("content-disposition", "attachment;filename=TestPage.pdf");
+        //    Response.Cache.SetCacheability(HttpCacheability.NoCache);
+        //    StringWriter sw = new StringWriter();
+        //    HtmlTextWriter hw = new HtmlTextWriter(sw);
+        //    imgLogo.Visible = true;
+        //    pnlPrint.RenderControl(hw);
+        //    imgLogo.Visible = false;
+        //    StringReader sr = new StringReader(sw.ToString());
+        //    Document pdfDoc = new Document(PageSize.A2, 10f, 10f, 100f, 0f);
+        //    HTMLWorker htmlparser = new HTMLWorker(pdfDoc);
+        //    PdfWriter.GetInstance(pdfDoc, Response.OutputStream);
+        //    pdfDoc.Open();
+        //    htmlparser.Parse(sr);
+        //    pdfDoc.Close();
+        //    Response.Write(pdfDoc);
+        //    Response.End();
+        //}
+
+        protected void btnExportarPDF_Click(object sender, EventArgs e)
+        {
+            string logoCliente;
+            string nombreReporte = "ReporteIngresos.pdf";
+
+            Clases.Clientes cli = new Clases.Clientes(ddlClientes.SelectedValue);
+            if (cli.PV_LOGO == "")
+            {
+                logoCliente = Server.MapPath("~") + "/ClienteLogos/sin_logo.png";
+            }
+            else
+            {
+                logoCliente = Server.MapPath("~") + "/ClienteLogos/" + cli.PV_COD_CLIENTE + "/" + cli.PV_LOGO;
+            }
+
+            byte[] buffer = Reportes.ExportarPDF(GridView1, logoCliente, "Reporte de Ingresos");
+
+            Response.Clear();
+            Response.Charset = "";
+            Response.ContentType = "application/pdf";
+            Response.AppendHeader("Content-Disposition", "attachment; filename=" + nombreReporte);
+            Response.BinaryWrite(buffer);
+            Response.Flush();
+            Response.End();
+            Response.ClearContent();
+        }
+
+        protected void btnExportarExcel_Click(object sender, EventArgs e)
+        {
+            string logoCliente;
+            string nombreReporte = "ReporteIngresos.xlsx";
+
+            Clases.Clientes cli = new Clases.Clientes(ddlClientes.SelectedValue);
+            if (cli.PV_LOGO == "")
+            {
+                logoCliente = Server.MapPath("~") + "/ClienteLogos/sin_logo.png";
+            }
+            else
+            {
+                logoCliente = Server.MapPath("~") + "/ClienteLogos/" + cli.PV_COD_CLIENTE + "/" + cli.PV_LOGO;
+            }
+
+            FileInfo infoLogo = new FileInfo(logoCliente);
+            byte[] buffer = Reportes.ExportarExcel(GridView1, infoLogo, "Reporte de Ingresos");
+
+            Response.Clear();
+            Response.Charset = "";
+            Response.ContentType = "application/vnd.ms-excel";
+            Response.AppendHeader("Content-Disposition", "attachment; filename=" + nombreReporte);
+            Response.BinaryWrite(buffer);
+            Response.Flush();
+            Response.End();
+            Response.ClearContent();
         }
     }
 }
