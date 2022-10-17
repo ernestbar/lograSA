@@ -57,10 +57,10 @@
 	<!-- begin #page-container -->
 	<div id="page-container" class="fade page-sidebar-fixed page-header-fixed">
 		<!-- begin #header -->
-		<div id="header" class="header navbar-default" style="background-color:#7f3033">
+		<div id="header" class="header navbar-default" style="background-color:#2B3C82">
 			<!-- begin navbar-header -->
 			<div class="navbar-header">
-				<img src="assets/img/logo/logo-admin.png" height="50" />
+				<img src="assets/img/logo/logo3.png" height="60" />
 				
 				<button type="button" class="navbar-toggle" data-click="sidebar-toggled">
 					<span class="icon-bar"></span>
@@ -93,116 +93,21 @@
 					</div>
 				</li>
 			</ul>
+			
 			<!-- end header navigation right -->
 		</div>
+		
 		<asp:Label ID="lblSistema" runat="server" Visible="false" Text=""></asp:Label>
 		<!-- end #header -->
 		<!-- begin #sidebar -->
 		<div id="sidebar" class="sidebar">
 			<!-- begin sidebar scrollbar -->
-			<div data-scrollbar="true" style="background-color:#7f3033" data-height="100%">
+			<div data-scrollbar="true" style="background-color:#2B3C82;" data-height="100%">
 				<!-- begin sidebar user -->
-				<%--<ul class="nav">
-					<li class="nav-profile">
-						<a href="javascript:;" data-toggle="nav-profile">
-							<div class="cover with-shadow"></div>
-							<div class="image">
-								<img src="assets/img/user/user-13.jpg" alt="" />
-							</div>
-							<div class="info">
-								<b class="caret pull-right"></b>
-								AmasCuotas
-								<small>Opciones de configuracion</small>
-							</div>
-						</a>
-					</li>
-					<li>
-						<ul class="nav nav-profile">
-							<li><a href="javascript:;"><i class="fa fa-cog"></i> Configurar</a></li>
-							<li><a href="javascript:;"><i class="fa fa-pencil-alt"></i> Retroalimentacion</a></li>
-							<li><a href="javascript:;"><i class="fa fa-question-circle"></i> Ayuda</a></li>
-						</ul>
-					</li>
-				</ul>--%>
 				<!-- end sidebar user -->
 				<!-- begin sidebar nav -->
 				<ul class="nav">
-					<li class="nav-header">Navigation</li>
-					<%--<li class="has-sub active">
-						<a href="javascript:;">
-							<b class="caret"></b>
-							<i class="fa fa-th-large"></i>
-							<span>Home</span>
-						</a>
-						<ul class="sub-menu">
-							<li><a href="default.aspx">Dashboard usuarios</a></li>
-						</ul>
-					</li>
-					<li class="has-sub">
-						<a href="javascript:;">
-							<span class="badge pull-right">10</span>
-							<i class="fa fa-hdd"></i> 
-							<span>Mensajes</span>
-						</a>
-						<ul class="sub-menu">
-							<li><a href="#">Mensajes</a></li>
-							<li><a href="#">Envios</a></li>
-							<li><a href="#">Detalles</a></li>
-						</ul>
-					</li>--%>
-					<%--<li class="has-sub">
-						<a href="javascript:;">
-							<b class="caret"></b>
-							<i class="fa fa-table"></i>
-							<span>Solicitudes</span>
-						</a>
-						<ul class="sub-menu">
-							<li><a href="simulador_wiz.aspx">Simulador plan de pagos</a></li>
-							<li><a href="natural_wiz.aspx">Formulario Natural</a></li>
-							<li><a href="juridica_wiz.aspx">Formulario Juridica</a></li>
-							<li><a href="solicitudes_gerencial.aspx">Solicitudes pendientes</a></li>
-							
-						
-						</ul>
-					</li>
-					<li class="has-sub">
-						<a href="javascript:;">
-							<b class="caret"></b>
-							<i class="fa fa-table"></i>
-							<span>Personal y usuarios</span>
-						</a>
-						<ul class="sub-menu">
-							<li><a href="personal_admin.aspx">Personal/Usuario</a></li>
-							
-						</ul>
-					</li>
-					<li class="has-sub">
-						<a href="javascript:;">
-							<b class="caret"></b>
-							<i class="fa fa-table"></i>
-							<span>Parametros</span>
-						</a>
-						<ul class="sub-menu">
-							<li><a href="domino_admin.aspx">Dominios</a></li>
-							<li><a href="sucursal_admin.aspx">Sucursales</a></li>
-						</ul>
-					</li>
-					<li class="has-sub">
-						<a href="javascript:;">
-							<b class="caret"></b>
-							<i class="fa fa-table"></i>
-							<span>Seguridad</span>
-						</a>
-						<ul class="sub-menu">
-							<li><a href="roles_admin.aspx">Admnistrar roles</a></li>
-							<li><a href="menus_admin.aspx">Admnistrar menus</a></li>
-							<li><a href="menu_rol_admin.aspx">Asignar menus a roles</a></li>
-							<li><a href="opciones_admin.aspx">Admnistrar opciones</a></li>
-							<li><a href="opcion_menu_rol_admin.aspx">Asignar opciones a menu rol</a></li>
-						</ul>
-					</li>--%>
-
-
+					<li class="nav-header">Navigación</li>
 					<asp:ObjectDataSource ID="odsMenuPadre" runat="server" SelectMethod="PR_SEG_GET_MENUS_PADRE_ROL" TypeName="appLograAdmin.Clases.Utilitarios">
                     <SelectParameters>
                         <asp:ControlParameter ControlID="lblUsuario" Name="pv_usuario" Type="String" />
@@ -211,10 +116,10 @@
                 </asp:ObjectDataSource>
 					<asp:Repeater ID="Repeater1" DataSourceID="odsMenuPadre" OnItemDataBound="Repeater1_ItemDataBound" runat="server">
                         <ItemTemplate>
-                            	<li class="has-sub">
+                            	<li class="has-sub" style="color:#ec0000">
 						            <a href="javascript:;">
 							            <b class="caret"></b>
-							            <i class="fa fa-table"></i>
+							            <i class="fa fa-circle"></i>
 							            <span><%# Eval("DESCRIPCION") %></span>
 										<asp:Label ID="lblCodPadre" runat="server" Visible="false" Text='<%# Eval("COD_MENU") %>'></asp:Label>
 						            </a>
@@ -223,8 +128,6 @@
                                         <ItemTemplate>
                                             
 							                    <li><a href="<%# Eval("DETALLE") + "?RME=" + Eval("ROL_MENU") %>"><%# Eval("DESCRIPCION") %></a></li>
-												
-						                    
                                         </ItemTemplate>
                                      </asp:Repeater>
 						            </ul>
@@ -244,7 +147,7 @@
 		<div class="sidebar-bg"></div>
 		<!-- end #sidebar -->
 		</div>
-    <form id="form1" class="form-control-with-bg" runat="server">
+    <form id="form1" class="form-control-with-bg" style="background-color:white" runat="server">
         <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
         <div>
             <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">

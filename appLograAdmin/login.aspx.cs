@@ -84,17 +84,10 @@ namespace appLograAdmin
             Clases.Personal per = new Clases.Personal("", "", "", "", "", "", "", "", "", 0, 0, 0,
                       "", txtUsuario.Text, "", "", "", DateTime.Now, DateTime.Now, "", txtUsuario.Text);
             lblAviso.Text = per.ABM_R().Replace("|", "").Replace("0", "").Replace("null", "");
-            //Clases.Usuarios per = new Clases.Usuarios("R", "", "", "", "", "", "", "", "", 0, 0, 0,
-            //           "", txtUsuario.Text, "", "", "", DateTime.Now, DateTime.Now, "", txtUsuario.Text);
-            //string[] datos = per.ABM().Split('|');
-            //if (datos[2] == "PASSWORD CORRECTAMENTE REGISTRADO")
-            //{
-            //    ScriptManager.RegisterStartupScript(this, GetType(), "showalert", "alert('Su password se reseteo correctamente a 123');", true);
-            //}
-            //else
-            //{
-            //    ScriptManager.RegisterStartupScript(this, GetType(), "showalert", "alert('Su password NO se reseteo correctamente a 123');", true);
-            //}
+            Clases.enviar_correo objC = new Clases.enviar_correo();
+            string resultado2 = objC.enviar(txtUsuario.Text, "Reseteo de contraseña del usuario " +txtUsuario.Text, "Estimado usuario :" + "<br/><br/> Su password temporal es el 123: <br/><br/>" + " <br/><br/> Ahora debe ingresar al sistema del siguiente link: <br/><br/>" + "https://200.105.209.42:5554" + "<br/><br/>Saludos coordiales.", "");
+                //lblAviso.Text = datos[3] + ". Te enviamos un correo con tu password temporal para ingresar, muchas gracias!!!!";
+                //Response.Redirect("login.aspx?tipo=R");
         }
     }
 }

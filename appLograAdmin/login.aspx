@@ -80,7 +80,7 @@
                             <asp:Label ID="lblAviso" runat="server" ForeColor="Red" Text=""></asp:Label>
 						</div><br />
 					<div class="login-buttons">
-                            <asp:Button ID="btnReset" OnClick="btnReset_Click" class="btn btn-default btn-block btn-lg" OnClientClick="return confirm('Seguro que desea resetear su password a 123???')" runat="server" Text="Resetear password" />
+                            <asp:Button ID="btnReset" OnClick="btnReset_Click" class="btn btn-default btn-block btn-lg" OnClientClick="return confirm('Seguro que desea resetera su password??? de ser asi el nuevo password se le enviara a su correo electronico')" runat="server" Text="Resetear password" />
 							<%--<button type="submit" class="btn btn-success btn-block btn-lg">Sign me in</button>--%>
 						</div>
 						<%--<div class="m-t-20 m-b-40 p-b-40 text-inverse">

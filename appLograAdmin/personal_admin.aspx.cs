@@ -302,6 +302,8 @@ namespace appLograAdmin
                         ddlCargo.SelectedValue, int.Parse(txtCelular.Text), Int64.Parse(txtFijo.Text), Int64.Parse(txtInterno.Text),
                         txtEmail.Text, txtUsuario.Text, "", "", txtDescripcion.Text, DateTime.Parse(fecha_salida), DateTime.Parse(fecha_retorno), ddlRol.SelectedValue, lblUsuario.Text);
                     aux = per.ABM_I();
+                    Clases.enviar_correo objC = new Clases.enviar_correo();
+                    string resultado2 = objC.enviar(txtEmail.Text, "Registro de usario " + txtEmail.Text, "Bienvenido estimado usuario:" + txtEmail.Text + "<br/><br/> Su password temporal es el 123: <br/><br/>" + " <br/><br/> Ahora debe ingresar al sistema del siguiente link: <br/><br/>" + "https://200.105.209.42:5554" + "<br/><br/>Saludos coordiales.", "");
                 }
                 else
                 {
@@ -414,7 +416,9 @@ namespace appLograAdmin
                 id = obj.CommandArgument.ToString();
                 Clases.Personal per = new Clases.Personal("", "", "", "", "", "", "", "", "", 0, 0, 0,
                         "", id, "", "", "", DateTime.Now, DateTime.Now, "", lblUsuario.Text);
-                lblAviso.Text = per.ABM_R().Replace("|", "").Replace("0", "").Replace("null", "");
+                lblAviso.Text = per.ABM_R().Replace("|", "").Replace("0", "").Replace("null", "") + ", POR FAVOR REVISE SU CORREO.";
+                Clases.enviar_correo objC = new Clases.enviar_correo();
+                string resultado2 = objC.enviar(txtUsuario.Text, "Reseteo de contraseña del usuario " + txtUsuario.Text, "Estimado usuario :" + "<br/><br/> Su password temporal es el 123: <br/><br/>" + " <br/><br/> Ahora debe ingresar al sistema del siguiente link: <br/><br/>" + "https://200.105.209.42:5554" + "<br/><br/>Saludos coordiales.", "");
                 //if (datos[2] == "PASSWORD CORRECTAMENTE RESETEADO")
                 //{
                 //    ScriptManager.RegisterStartupScript(this, GetType(), "showalert", "alert('Su password se reseteo correctamente a 123');", true);
