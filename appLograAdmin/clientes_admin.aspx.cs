@@ -50,6 +50,8 @@ namespace appLograAdmin
         }
         public void limpiar_controles()
         {
+            txtCodSICI.Text = "";
+            lblCodServidor.Text = "";
             lblLogoAnt.Text = "";
             lblCodCliente.Text = "";
             txtCodCliSis.Text = "";
@@ -268,6 +270,98 @@ namespace appLograAdmin
             { Panel_juridica.Visible = true;Panel_natural.Visible = false; }
             else
             { Panel_juridica.Visible = false; Panel_natural.Visible = true; }
+        }
+
+        protected void btnSICI_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                lblAviso.Text = "";
+                limpiar_controles();
+                string id = "";
+                Button obj = (Button)sender;
+                id = obj.CommandArgument.ToString();
+                lblCodCliente.Text = id;
+                Repeater2.DataSource = Clases.Clientes_servidores.PR_GET_CLIENTE_SERVIDOR(id);
+                Repeater2.DataBind();
+                MultiView1.ActiveViewIndex = 2;
+
+            }
+            catch (Exception ex)
+            {
+                string nombre_archivo = "error_clientes_" + DateTime.Now.Day.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Year.ToString() + DateTime.Now.Hour.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Second.ToString() + ".txt";
+                string directorio2 = Server.MapPath("~/Logs");
+                StreamWriter writer5 = new StreamWriter(directorio2 + "\\" + nombre_archivo, true, Encoding.Unicode);
+                writer5.WriteLine(ex.ToString());
+                writer5.Close();
+                lblAviso.Text = "Tenemos algunos problemas consulte con el administrador.";
+            }
+        }
+
+        protected void btnEditarSICI_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                lblAviso.Text = "";
+                limpiar_controles();
+                Button obj = (Button)sender;
+                string[]  id = obj.CommandArgument.ToString().Split('|');
+
+                lblCodServidor.Text = id[0];
+                lblCodCliente.Text = id[1];
+                DataTable dt= Clases.Clientes_servidores.PR_GET_CLIENTE_SERVIDOR_IND(lblCodCliente.Text,lblCodServidor.Text);
+                foreach (DataRow dr in dt.Rows)
+                {
+                    txtCodSICI.Text = dr["COD_CLIENTE_SICI"].ToString();
+                }
+                MultiView1.ActiveViewIndex = 3;
+
+            }
+            catch (Exception ex)
+            {
+                string nombre_archivo = "error_clientes_" + DateTime.Now.Day.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Year.ToString() + DateTime.Now.Hour.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Second.ToString() + ".txt";
+                string directorio2 = Server.MapPath("~/Logs");
+                StreamWriter writer5 = new StreamWriter(directorio2 + "\\" + nombre_archivo, true, Encoding.Unicode);
+                writer5.WriteLine(ex.ToString());
+                writer5.Close();
+                lblAviso.Text = "Tenemos algunos problemas consulte con el administrador.";
+            }
+        }
+
+        protected void btnGuardarSICI_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                lblAviso.Text = "";
+
+                Clases.Clientes_servidores obj = new Clases.Clientes_servidores(txtCodSICI.Text, lblCodCliente.Text, lblCodServidor.Text,lblUsuario.Text);
+                lblAviso.Text = obj.ABM_U().Replace("|", "").Replace("0", "").Replace("null", "");
+                Repeater2.DataSource = Clases.Clientes_servidores.PR_GET_CLIENTE_SERVIDOR(lblCodCliente.Text);
+                Repeater2.DataBind();
+                MultiView1.ActiveViewIndex = 2;
+
+            }
+            catch (Exception ex)
+            {
+                string nombre_archivo = "error_clientes_" + DateTime.Now.Day.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Year.ToString() + DateTime.Now.Hour.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Second.ToString() + ".txt";
+                string directorio2 = Server.MapPath("~/Logs");
+                StreamWriter writer5 = new StreamWriter(directorio2 + "\\" + nombre_archivo, true, Encoding.Unicode);
+                writer5.WriteLine(ex.ToString());
+                writer5.Close();
+                lblAviso.Text = "Tenemos algunos problemas consulte con el administrador.";
+            }
+        }
+
+        protected void btnVolverSICI_Click(object sender, EventArgs e)
+        {
+            lblCodServidor.Text = "";
+            MultiView1.ActiveViewIndex = 2;
+        }
+
+        protected void btnVolverSICI1_Click(object sender, EventArgs e)
+        {
+            limpiar_controles();
+            MultiView1.ActiveViewIndex = 0;
         }
     }
 }

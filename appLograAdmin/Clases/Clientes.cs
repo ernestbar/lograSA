@@ -108,6 +108,8 @@ namespace appLograAdmin.Clases
 
         }
 
+       
+
         #endregion
 
         #region Métodos que requieren constructor

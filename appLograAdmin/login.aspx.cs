@@ -86,8 +86,8 @@ namespace appLograAdmin
             lblAviso.Text = per.ABM_R().Replace("|", "").Replace("0", "").Replace("null", "");
             Clases.enviar_correo objC = new Clases.enviar_correo();
             string resultado2 = objC.enviar(txtUsuario.Text, "Reseteo de contraseña del usuario " +txtUsuario.Text, "Estimado usuario :" + "<br/><br/> Su password temporal es el 123: <br/><br/>" + " <br/><br/> Ahora debe ingresar al sistema del siguiente link: <br/><br/>" + "https://200.105.209.42:5554" + "<br/><br/>Saludos coordiales.", "");
-                //lblAviso.Text = datos[3] + ". Te enviamos un correo con tu password temporal para ingresar, muchas gracias!!!!";
-                //Response.Redirect("login.aspx?tipo=R");
+            lblAviso.Text ="Te enviamos un correo con tu password temporal para ingresar, muchas gracias!!!!";
+            //Response.Redirect("login.aspx?tipo=R");
         }
     }
 }

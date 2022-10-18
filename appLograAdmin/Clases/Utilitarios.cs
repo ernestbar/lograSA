@@ -36,7 +36,9 @@ namespace appLograAdmin.Clases
                 OracleDataAdapter da = new OracleDataAdapter(cmd);
                 da.Fill(ds);
                 Conexion.Close();
-                return ds.Tables[0];
+                DataView dtv = ds.Tables[0].DefaultView;
+                dtv.Sort = "RN DESC";
+                return dtv.ToTable();
             }
             catch (Exception ex)
             {
@@ -97,10 +99,9 @@ namespace appLograAdmin.Clases
                 OracleDataAdapter da = new OracleDataAdapter(cmd);
                 da.Fill(ds);
                 Conexion.Close();
-                DataTable dt = new DataTable();
-                dt = ds.Tables[0];
-
-                return ds.Tables[0];
+                DataView dtv = ds.Tables[0].DefaultView;
+                dtv.Sort = "RN ASC";
+                return dtv.ToTable();
             }
             catch (Exception ex)
             {

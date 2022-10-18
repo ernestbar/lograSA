@@ -3474,6 +3474,7 @@
     </Compile>
     <Compile Include="Clases\Campos_clientes.cs" />
     <Compile Include="Clases\Clientes.cs" />
+    <Compile Include="Clases\Clientes_servidores.cs" />
     <Compile Include="Clases\Dominios.cs" />
     <Compile Include="Clases\enviar_correo.cs" />
     <Compile Include="Clases\Menus.cs" />

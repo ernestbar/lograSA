@@ -52,6 +52,10 @@ namespace appLograAdmin
                 Clases.Personal per = new Clases.Personal("", "", "", "", "", "", "", "", "", 0, 0, 0,
                       "", lblUsuario.Text, txtPassword.Text,txtPasswordAnterior.Text, "", DateTime.Now, DateTime.Now, "", lblUsuario.Text);
                 lblAviso.Text = per.ABM_C().Replace("|", "").Replace("0", "").Replace("null", "");
+                if (lblAviso.Text == "PASSWORD CORRECTAMENTE REGISTRADO")
+                {
+                    Response.Redirect("login.aspx");
+                }
             }
             catch (Exception ex)
             {
