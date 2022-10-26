@@ -212,6 +212,8 @@ namespace appLograAdmin.Clases
                     //doc.Add(c1);
 
                     // Datos
+                    iText.Kernel.Colors.Color colorFondoCabecera = new iText.Kernel.Colors.DeviceRgb(10, 49, 71);
+
                     if (gvDatos.Rows.Count > 0)
                     {
                         iTextLE.Table tabla = new iTextLE.Table(gvDatos.Rows[0].Cells.Count);
@@ -221,6 +223,8 @@ namespace appLograAdmin.Clases
                             celda = new iTextLE.Cell();
                             celda.Add(new iTextLE.Paragraph(WebUtility.HtmlDecode(gvDatos.HeaderRow.Cells[i].Text)));
                             celda.SetBold();
+                            celda.SetBackgroundColor(colorFondoCabecera);
+                            celda.SetFontColor(iText.Kernel.Colors.ColorConstants.WHITE);
                             tabla.AddHeaderCell(celda);
                         }
 
@@ -267,11 +271,15 @@ namespace appLograAdmin.Clases
                     ew.Cells[1, 2].Style.VerticalAlignment = ExcelVerticalAlignment.Center;
                     ew.Row(1).Height = 25;
                     // Datos
+                    System.Drawing.Color colorFondoCabecera = System.Drawing.ColorTranslator.FromHtml("#0a3147");
                     if (gvDatos.Rows.Count > 0)
                     {
                         for (int i = 0; i < gvDatos.HeaderRow.Cells.Count; i++)
                         {
                             ew.Cells[3, i + 1].Value = WebUtility.HtmlDecode(gvDatos.HeaderRow.Cells[i].Text);
+                            ew.Cells[3, i + 1].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                            ew.Cells[3, i + 1].Style.Fill.BackgroundColor.SetColor(colorFondoCabecera);
+                            ew.Cells[3, i + 1].Style.Font.Color.SetColor(System.Drawing.Color.White);
                             ew.Cells[3, i + 1].Style.Font.Bold = true;
                             ew.Column(i + 1).Width = 30;
                         }

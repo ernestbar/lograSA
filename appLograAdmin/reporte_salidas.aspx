@@ -57,9 +57,9 @@
 											<asp:DropDownList ID="ddlClientes" class="form-control col-md-6"  OnDataBound="ddlClientes_DataBound" DataSourceID="odsClientesTodos" DataTextField="DESC_RAZONSOCIAL" DataValueField="cod_cliente" ForeColor="Black" runat="server"></asp:DropDownList>
 											<asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="*" ForeColor="Red" ControlToValidate="ddlClientes" InitialValue="SELECCIONAR" Font-Bold="True"></asp:RequiredFieldValidator>
 											Fecha inicio:
-											<input id="fecha_salida" class="form-control col-12 col-md-2"  style="background:#ecf1fa" type="date"><asp:HiddenField ID="hfFechaSalida" required runat="server" />
+											<input id="fecha_salida" class="form-control col-12 col-md-2"  style="background:#ecf1fa" type="date"><asp:HiddenField ID="hfFechaSalida" runat="server" />
 											Fecha fin:
-											<input id="fecha_retorno" class="form-control col-12 col-md-2"  style="background:#ecf1fa" type="date"><asp:HiddenField ID="hfFechaRetorno" required runat="server" />
+											<input id="fecha_retorno" class="form-control col-12 col-md-2"  style="background:#ecf1fa" type="date"><asp:HiddenField ID="hfFechaRetorno" runat="server" />
 											<!-- end page-header -->
 											<!-- begin form-group row -->
 											<div class="form-group row m-b-10">
@@ -90,7 +90,7 @@
 												<!-- begin panel-body -->
 												<div class="panel-body">
 										<%--<div class="table-responsive">--%>
-														<asp:GridView runat="server" ID="GridView1" AutoGenerateColumns="true" OnPreRender="GridView_PreRender" CssClass="table table-striped">
+														<asp:GridView runat="server" ID="GridView1" AutoGenerateColumns="true" OnPreRender="GridView_PreRender" CssClass="table table-striped" OnRowDataBound="GridView1_RowDataBound">
 
 														</asp:GridView>
 												<%--<table id="data-table-buttons" class="table table-striped table-bordered">

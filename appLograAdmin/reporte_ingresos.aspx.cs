@@ -73,6 +73,19 @@ namespace appLograAdmin
             /* Verifies that the control is rendered */
         }
 
+        protected void GridView1_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.Header)
+            {
+                e.Row.BackColor = System.Drawing.ColorTranslator.FromHtml("#0a3147");
+                foreach (TableCell celda in e.Row.Cells)
+                {
+                    celda.Font.Size = 9;
+                    celda.ForeColor = System.Drawing.Color.White;
+                }
+            }
+        }
+
         //protected void btnExportar_Click(object sender, EventArgs e)
         //{
         //    imgLogo.Src = Server.MapPath("~") + "/ClienteLogos/sin_logo.png";

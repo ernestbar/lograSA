@@ -98,7 +98,7 @@
 												<!-- begin panel-body -->
 												<div class="panel-body">
 										<%--<div class="table-responsive">--%>
-														<asp:GridView runat="server" ID="GridView1" AutoGenerateColumns="true" OnPreRender="GridView_PreRender" CssClass="table table-striped">
+														<asp:GridView runat="server" ID="GridView1" AutoGenerateColumns="true" OnPreRender="GridView_PreRender" CssClass="table table-striped" OnRowDataBound="GridView1_RowDataBound">
 
 														</asp:GridView>
 												<%--<table id="data-table-buttons" class="table table-striped table-bordered">
