@@ -60,6 +60,9 @@ namespace appLograAdmin
                     Session["cod_cliente"] = datos[3];
                     Session["es_master"] = datos[4];
                     Session["usuario"] = txtUsuario.Text;
+                    Session["servidor"] = ddlServidor.SelectedItem.Text;
+                    string[] datosServ = ddlServidor.SelectedValue.Split('|');
+                    Session["cod_servidor"] = datosServ[0];
                     Response.Redirect("dashboard.aspx");
                     lblAviso.Text = "";
                 }

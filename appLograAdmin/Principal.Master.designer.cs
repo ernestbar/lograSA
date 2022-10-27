@@ -42,6 +42,15 @@ namespace appLograAdmin
         protected global::System.Web.UI.WebControls.Label lblServidor;
 
         /// <summary>
+        /// lblCodServidor control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblCodServidor;
+
+        /// <summary>
         /// odsMenuPadre control.
         /// </summary>
         /// <remarks>

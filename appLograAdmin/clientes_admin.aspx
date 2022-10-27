@@ -375,13 +375,16 @@
 		</asp:View>
 		<asp:View ID="View5" runat="server">
 			<div class="form-group row m-b-10">
-											
+				<asp:Label ID="lblCodClienteSICIextra" runat="server" Visible="false" Text=""></asp:Label>
+				<asp:Label ID="lblCodClienteExtra" runat="server" Visible="false" Text=""></asp:Label>
+				<asp:Label ID="lblCodServidorExtra" runat="server" Visible="false" Text=""></asp:Label>
 											<div class="col-md-6">
-                                                <asp:Button ID="btnVolverCodigos" class="btn btn-green btn-sm col-6" OnClick="btnVolverSICI1_Click" runat="server" Text="Volver a SICI" />
+												 <asp:Button ID="btnNuevoCodExtra" class="btn btn-green btn-sm col-6" OnClick="btnNuevoCodExtra_Click" runat="server" Text="AGREGAR NUEVO" />
+                                                <asp:Button ID="btnVolverCodigos" class="btn btn-default btn-sm col-6" OnClick="btnVolverSICI1_Click" runat="server" Text="Volver a SICI" />
 												<%--<input type="text" name="Ruta" placeholder="" class="form-control" />--%>
 											</div>
 										</div>
-				<h1 class="page-header">Administrador Codigos Extra:</h1>
+									<h1 class="page-header">Administrador Codigos Extra:</h1>
 										<%--	<asp:DropDownList ID="ddlDominio" class="form-control col-md-6" AutoPostBack="true" OnSelectedIndexChanged="ddlDominio_SelectedIndexChanged"  DataSourceID="odsDominiosOnly" DataTextField="dominio" DataValueField="dominio" OnDataBound="ddlDominio_DataBound" runat="server"></asp:DropDownList>
 											<asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="*" ForeColor="Red" ControlToValidate="ddlDominio" InitialValue="SELECCIONAR"  Font-Bold="True"></asp:RequiredFieldValidator>--%>
 											<!-- end page-header -->
@@ -398,7 +401,7 @@
 													<h4 class="panel-title">Registros</h4>
 												</div>
 												<!-- end panel-heading -->
-												<asp:GridView ID="GridView1" runat="server"></asp:GridView>
+												
 												<div class="table-responsive">
 												<!-- begin panel-body -->
 												<div class="panel-body">
@@ -406,10 +409,11 @@
 												<table id="data-table-buttons" class="table table-striped table-bordered">
 													<thead>
 														<tr>
-															<th class="text-wrap">CODIGO SERVIDOR</th>
 															<th class="text-wrap">SERVIDOR</th>
 															<th class="text-nowrap">CLIENTE</th>
 															<th class="text-nowrap">CODIGO SICI</th>
+															<th class="text-nowrap">DETALLE</th>
+															<th class="text-nowrap">FECHA ELIMINACION</th>
 															<th class="text-nowrap" data-orderable="false">OPCIONES</th>
 															
 															</tr>
@@ -420,13 +424,14 @@
 															<tr class="gradeA">
 																
 															<%--<td><asp:Image ID="Image1" Height="50px" runat="server" ImageUrl='<%# @"Logos\" + Eval("CLI_ID_CLIENTE") + @"\" +  Eval("CLI_LOGO") %>' /></td>--%>
-															<td><asp:Label ID="lblEsPrincipa1l" runat="server" Text='<%# Eval("COD_SERVIDOR") %>'></asp:Label></td>
-															<td><asp:Label ID="lblEsPrincipal" runat="server" Text='<%# Eval("DESC_COD_SERVIDOR") %>'></asp:Label></td>
-															<td><asp:Label ID="lblRazonSocial" runat="server" Text='<%# Eval("DESC_RAZONSOCIAL") %>'></asp:Label></td>
-															<td><asp:Label ID="lblMedioContacto0" runat="server" Text='<%# Eval("COD_CLIENTE_SICI") %>'></asp:Label></td>
+															<td><asp:Label ID="lblEsPrincipa1l" runat="server" Text='<%# Eval("DESC_COD_SERVIDOR") %>'></asp:Label></td>
+															<td><asp:Label ID="lblEsPrincipal" runat="server" Text='<%# Eval("DESC_RAZONSOCIAL") %>'></asp:Label></td>
+															<td><asp:Label ID="lblRazonSocial" runat="server" Text='<%# Eval("COD_CLIENTE_SICI") %>'></asp:Label></td>
+															<td><asp:Label ID="lblMedioContacto0" runat="server" Text='<%# Eval("DETALLE") %>'></asp:Label></td>
+															<td><asp:Label ID="lblMedioContacto1" runat="server" Text='<%# Eval("FECHA_ELIMINACION") %>'></asp:Label></td>
 															<td>
-																<%--<asp:Button ID="btnEditarSICI" style="color:blue" class="btn btn-success btn-sm"  CommandArgument='<%# Eval("COD_SERVIDOR")+"|"+Eval("COD_CLIENTE") %>' OnClick="btnEditarSICI_Click"	runat="server" Text="Editar" ToolTip="Editar" />
-																<asp:Button ID="btnSICIExtra" style="color:blue" class="btn btn-success btn-sm"  CommandArgument='<%# Eval("COD_SERVIDOR")+"|"+Eval("COD_CLIENTE") %>' OnClick="btnSICIExtra_Click"	runat="server" Text="Codigos SICI Extra" ToolTip="Agragar codigos" />--%>
+																<asp:Button ID="btnEditarSICIextra" style="color:blue" class="btn btn-success btn-sm"  CommandArgument='<%# Eval("COD_SERVIDOR")+"|"+Eval("COD_CLIENTE")+"|"+Eval("COD_CLIENTE_SICI") %>' OnClick="btnEditarSICIextra_Click"	runat="server" Text="Editar" ToolTip="Editar" />
+																<asp:Button ID="btnEliminarSICIExtra" style="color:blue" class="btn btn-danger btn-sm"  CommandArgument='<%# Eval("COD_SERVIDOR")+"|"+Eval("COD_CLIENTE")+"|"+Eval("COD_CLIENTE_SICI")+"|"+Eval("FECHA_ELIMINACION") %>' OnClick="btnEliminarSICIExtra_Click"	runat="server" Text="Eliminar/Activar" ToolTip="Elimina o activa codigos" />
 															</td>
 														</tr>
 														</ItemTemplate>
@@ -439,11 +444,45 @@
 										</div>
 		</asp:View>
 		<asp:View ID="View6" runat="server">
-
+			<!-- begin row -->
+			<div class="row">
+				<!-- begin col-8 -->
+				<div class="col-md-6 offset-md-2">
+					
+					<legend class="no-border f-w-700 p-b-0 m-t-0 m-b-20 f-s-16 text-inverse">Datos codigo SICI extra</legend>
+					<!-- begin form-group row -->
+					<div class="form-group row m-b-10">
+						<label class="col-md-3 text-md-right col-form-label">Codigo Extra:</label>
+						<div class="col-md-6">
+                             <asp:TextBox ID="txtCodExtra" class="form-control" runat="server"></asp:TextBox>
+                            <%--<asp:CheckBox ID="cbPadre"  class="form-control" AutoPostBack="true" Text="SI/NO" OnCheckedChanged="cbPadre_CheckedChanged" Checked="true" runat="server" />--%>
+						<%--	<asp:DropDownList ID="ddlCliente" class="form-control"  DataSourceID="odsClientes" DataTextField="CLI_RAZON_SOCIAL" DataValueField="CLI_ID_CLIENTE" OnDataBound="ddlCliente_DataBound" runat="server"></asp:DropDownList>
+							<asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ErrorMessage="*" ForeColor="Red" ControlToValidate="ddlCliente" InitialValue="SELECCIONAR"  Font-Bold="True"></asp:RequiredFieldValidator>--%>
+						</div>
+					</div>
+					<!-- end form-group row -->
+					<!-- begin form-group row -->
+					<div class="form-group row m-b-10">
+						<label class="col-md-3 text-md-right col-form-label">Detalle:</label>
+						<div class="col-md-6">
+                             <asp:TextBox ID="txtDetalleExtra" class="form-control" runat="server"></asp:TextBox>
+                            <%--<asp:CheckBox ID="cbPadre"  class="form-control" AutoPostBack="true" Text="SI/NO" OnCheckedChanged="cbPadre_CheckedChanged" Checked="true" runat="server" />--%>
+						<%--	<asp:DropDownList ID="ddlCliente" class="form-control"  DataSourceID="odsClientes" DataTextField="CLI_RAZON_SOCIAL" DataValueField="CLI_ID_CLIENTE" OnDataBound="ddlCliente_DataBound" runat="server"></asp:DropDownList>
+							<asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ErrorMessage="*" ForeColor="Red" ControlToValidate="ddlCliente" InitialValue="SELECCIONAR"  Font-Bold="True"></asp:RequiredFieldValidator>--%>
+						</div>
+					</div>
+					<!-- end form-group row -->
+						<div class="btn-toolbar mr-2 sw-btn-group float-right" role="group">
+							<asp:Button ID="btnGuardarSICIextra" CssClass="btn btn-info" runat="server" OnClick="btnGuardarSICIextra_Click" Text="Guardar" />
+							<asp:Button ID="btnVolverSICIextra" CssClass="btn btn-default"  runat="server" CausesValidation="false" OnClick="btnVolverSICIextra_Click" Text="Cancelar" />
+						</div>
+					</div>
+				</div>				
+				<!-- end col-8 -->
+		
 		</asp:View>
     </asp:MultiView>
-	
 			
 		</div>
-		<!-- end #content -->
+		<!-- end #content -->	
 </asp:Content>

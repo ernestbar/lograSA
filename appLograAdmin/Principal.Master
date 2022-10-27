@@ -107,7 +107,8 @@
 			<div data-scrollbar="true" style="background-color:#2B3C82;" data-height="100%">
 				<br /><br />
 					<div style="text-align:center">
-					<asp:Label ID="lblServidor" ForeColor="Yellow" Font-Size="Larger" runat="server" Text="Servidor: Santa Cruz"></asp:Label>
+					<asp:Label ID="lblServidor" ForeColor="Yellow" Font-Size="Larger" runat="server" Text=""></asp:Label>
+						<asp:Label ID="lblCodServidor" Visible="false" ForeColor="Yellow" Font-Size="Larger" runat="server" Text=""></asp:Label>
 				</div>
 				<!-- begin sidebar user -->
 				<!-- end sidebar user -->

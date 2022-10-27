@@ -61,10 +61,7 @@
 					</div>
 				</div>
 				<!-- end login-header -->
-				<asp:ObjectDataSource ID="odsServidores" runat="server" SelectMethod="PR_PAR_GET_DOMINIOS" TypeName="appLograAdmin.Clases.Dominios">
-					<SelectParameters>
-						<asp:Parameter Name="pV_DOMINIO" DefaultValue="SERVIDORES" />
-					</SelectParameters>
+				<asp:ObjectDataSource ID="odsServidores" runat="server" SelectMethod="PR_GET_SERVIDORES" TypeName="appLograAdmin.Clases.Dominios">
 				</asp:ObjectDataSource>
 				<!-- begin login-content -->
 				<div class="login-content">

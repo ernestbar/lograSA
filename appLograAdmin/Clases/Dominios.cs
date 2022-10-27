@@ -228,6 +228,33 @@ namespace appLograAdmin.Clases
             }
 
         }
+
+        public static DataTable PR_GET_SERVIDORES()
+        {
+            try
+            {
+                if (Conexion.State.ToString().ToUpper() == "CLOSED")
+                    Conexion.Open();
+
+                OracleCommand cmd = new OracleCommand("PAQ_DOMINIOS.PR_GET_SERVIDORES", Conexion);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("po_tabla", OracleDbType.RefCursor, ParameterDirection.Output);
+                cmd.ExecuteNonQuery();
+                DataSet ds = new DataSet();
+                OracleDataAdapter da = new OracleDataAdapter(cmd);
+                da.Fill(ds);
+                Conexion.Close();
+                return ds.Tables[0];
+            }
+            catch (Exception ex)
+            {
+                Conexion.Close();
+                ex.ToString();
+                DataTable dt = new DataTable();
+                return dt;
+            }
+
+        }
         #endregion
 
         #region Métodos que requieren constructor

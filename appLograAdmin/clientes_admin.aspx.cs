@@ -360,8 +360,8 @@ namespace appLograAdmin
 
         protected void btnVolverSICI1_Click(object sender, EventArgs e)
         {
-            limpiar_controles();
-            MultiView1.ActiveViewIndex = 0;
+            //limpiar_controles();
+            MultiView1.ActiveViewIndex = 2;
         }
 
         protected void btnSICIExtra_Click(object sender, EventArgs e)
@@ -371,14 +371,14 @@ namespace appLograAdmin
             try
             {
                 lblAviso.Text = "";
-                limpiar_controles();
+                //limpiar_controles();
                 Button obj = (Button)sender;
                 string[] id = obj.CommandArgument.ToString().Split('|');
 
-                lblCodServidor.Text = id[0];
-                lblCodCliente.Text = id[1];
-                GridView1.DataSource = Clases.Cliente_servidor_extra.PR_GET_CLIENTE_SERVIDOR_EXTRA(lblCodCliente.Text, lblCodServidor.Text);
-                GridView1.DataBind();
+                lblCodServidorExtra.Text = id[0];
+                lblCodClienteExtra.Text = id[1];
+                Repeater3.DataSource = Clases.Cliente_servidor_extra.PR_GET_CLIENTE_SERVIDOR_EXTRA(lblCodClienteExtra.Text, lblCodServidorExtra.Text);
+                Repeater3.DataBind();
                 MultiView1.ActiveViewIndex = 4;
 
             }
@@ -392,6 +392,126 @@ namespace appLograAdmin
                 lblAviso.Text = "Tenemos algunos problemas consulte con el administrador.";
             }
 
+        }
+
+        protected void btnNuevoCodExtra_Click(object sender, EventArgs e)
+        {
+            txtCodExtra.Text = "";
+            txtCodExtra.Enabled = true;
+            txtDetalleExtra.Text = "";
+            lblCodClienteSICIextra.Text = "";
+            MultiView1.ActiveViewIndex = 5;
+        }
+
+        protected void btnEditarSICIextra_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                lblAviso.Text = "";
+               // limpiar_controles();
+                Button obj = (Button)sender;
+                string[] id = obj.CommandArgument.ToString().Split('|');
+
+                lblCodServidorExtra.Text = id[0];
+                lblCodClienteExtra.Text = id[1];
+                lblCodClienteSICIextra.Text = id[2];
+
+                DataTable dt = Clases.Cliente_servidor_extra.PR_GET_CLIENTE_SERVIDOR_E_IND(lblCodClienteExtra.Text, lblCodServidorExtra.Text, lblCodClienteSICIextra.Text);
+                foreach (DataRow dr in dt.Rows)
+                {
+                    txtDetalleExtra.Text = dr["DETALLE"].ToString();
+                    txtCodExtra.Text = dr["COD_CLIENTE_SICI"].ToString();
+                }
+                txtCodExtra.Enabled = false;
+                MultiView1.ActiveViewIndex = 5;
+
+            }
+            catch (Exception ex)
+            {
+                string nombre_archivo = "error_clientes_" + DateTime.Now.Day.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Year.ToString() + DateTime.Now.Hour.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Second.ToString() + ".txt";
+                string directorio2 = Server.MapPath("~/Logs");
+                StreamWriter writer5 = new StreamWriter(directorio2 + "\\" + nombre_archivo, true, Encoding.Unicode);
+                writer5.WriteLine(ex.ToString());
+                writer5.Close();
+                lblAviso.Text = "Tenemos algunos problemas consulte con el administrador.";
+            }
+        }
+
+        protected void btnEliminarSICIExtra_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                lblAviso.Text = "";
+                //limpiar_controles();
+                Button obj = (Button)sender;
+                string[] id = obj.CommandArgument.ToString().Split('|');
+
+                lblCodServidorExtra.Text = id[0];
+                lblCodClienteExtra.Text = id[1];
+                lblCodClienteSICIextra.Text = id[2];
+                if (id[3] == "")
+                {
+                    Clases.Cliente_servidor_extra objE = new Clases.Cliente_servidor_extra(lblCodClienteSICIextra.Text, "", lblCodClienteExtra.Text, lblCodServidorExtra.Text, lblUsuario.Text);
+                    lblAviso.Text = objE.ABM_D().Replace("|", "").Replace("0", "").Replace("null", "");
+                }
+                else
+                {
+                    Clases.Cliente_servidor_extra objE = new Clases.Cliente_servidor_extra(lblCodClienteSICIextra.Text, "", lblCodClienteExtra.Text, lblCodServidorExtra.Text, lblUsuario.Text);
+                    lblAviso.Text = objE.ABM_A().Replace("|", "").Replace("0", "").Replace("null", "");
+                }
+                
+                Repeater3.DataSource = Clases.Cliente_servidor_extra.PR_GET_CLIENTE_SERVIDOR_EXTRA(lblCodClienteExtra.Text, lblCodServidorExtra.Text);
+                Repeater3.DataBind();
+
+            }
+            catch (Exception ex)
+            {
+                string nombre_archivo = "error_clientes_" + DateTime.Now.Day.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Year.ToString() + DateTime.Now.Hour.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Second.ToString() + ".txt";
+                string directorio2 = Server.MapPath("~/Logs");
+                StreamWriter writer5 = new StreamWriter(directorio2 + "\\" + nombre_archivo, true, Encoding.Unicode);
+                writer5.WriteLine(ex.ToString());
+                writer5.Close();
+                lblAviso.Text = "Tenemos algunos problemas consulte con el administrador.";
+            }
+        }
+
+        protected void btnGuardarSICIextra_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                lblAviso.Text = "";
+                if (lblCodClienteSICIextra.Text == "")
+                {
+                    Clases.Cliente_servidor_extra obj = new Clases.Cliente_servidor_extra(txtCodExtra.Text, txtDetalleExtra.Text, lblCodClienteExtra.Text, lblCodServidorExtra.Text, lblUsuario.Text);
+                    lblAviso.Text = obj.ABM_I().Replace("|", "").Replace("0", "").Replace("null", "");
+                }
+                else
+                {
+                    Clases.Cliente_servidor_extra obj = new Clases.Cliente_servidor_extra(lblCodClienteSICIextra.Text, txtDetalleExtra.Text, lblCodClienteExtra.Text, lblCodServidorExtra.Text, lblUsuario.Text);
+                    lblAviso.Text = obj.ABM_U().Replace("|", "").Replace("0", "").Replace("null", "");
+                }
+
+                Repeater3.DataSource = Clases.Cliente_servidor_extra.PR_GET_CLIENTE_SERVIDOR_EXTRA(lblCodClienteExtra.Text, lblCodServidorExtra.Text);
+                Repeater3.DataBind();
+                MultiView1.ActiveViewIndex = 4;
+
+            }
+            catch (Exception ex)
+            {
+                string nombre_archivo = "error_clientes_" + DateTime.Now.Day.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Year.ToString() + DateTime.Now.Hour.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Second.ToString() + ".txt";
+                string directorio2 = Server.MapPath("~/Logs");
+                StreamWriter writer5 = new StreamWriter(directorio2 + "\\" + nombre_archivo, true, Encoding.Unicode);
+                writer5.WriteLine(ex.ToString());
+                writer5.Close();
+                lblAviso.Text = "Tenemos algunos problemas consulte con el administrador.";
+            }
+        }
+
+        protected void btnVolverSICIextra_Click(object sender, EventArgs e)
+        {
+            txtDetalleExtra.Text = "";
+            lblCodClienteSICIextra.Text = "";
+            MultiView1.ActiveViewIndex = 4;
         }
     }
 }

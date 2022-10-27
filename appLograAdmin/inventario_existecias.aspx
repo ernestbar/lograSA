@@ -5,9 +5,10 @@
             <asp:ControlParameter ControlID="ddlDominio" Name="PV_DOMINIO" Type="String" />
         </SelectParameters>
     </asp:ObjectDataSource>--%>
-	<asp:ObjectDataSource ID="odsServidores" runat="server" SelectMethod="PR_PAR_GET_DOMINIOS" TypeName="appLograAdmin.Clases.Dominios">
+	<asp:ObjectDataSource ID="odsServidores" runat="server" SelectMethod="PR_GET_LISTAR_SICI" TypeName="appLograAdmin.Clases.Cliente_servidor_extra">
         <SelectParameters>
-			<asp:Parameter Name="PV_DOMINIO" DefaultValue="SERVIDORES" />
+			<asp:ControlParameter ControlID="ddlClientes" Name="pV_COD_CLIENTE" />
+			<asp:ControlParameter ControlID="lblCodServidor" Name="pV_COD_SERVIDOR" />
         </SelectParameters>
     </asp:ObjectDataSource>
     <asp:ObjectDataSource ID="odsClientesTodos" runat="server" SelectMethod="PR_GET_CLIENTE_ALL" TypeName="appLograAdmin.Clases.Clientes">
@@ -47,6 +48,7 @@
 			<asp:Label ID="lblUsuario" runat="server" Visible="false" Text=""></asp:Label> 
 			<asp:Label ID="lblDominio" runat="server" Text="" Visible="false"></asp:Label>
 			<asp:Label ID="lblCodigo" runat="server" Text="3" Visible="false"></asp:Label>
+			<asp:Label ID="lblCodServidor" runat="server" Text="3" Visible="false"></asp:Label>
 			<asp:Label ID="lblAviso" runat="server" ForeColor="Blue" Font-Size="Medium" Text=""></asp:Label>
 			  <asp:Label ID="lblCodMenuRol" runat="server" Visible="false" Text=""></asp:Label>
     <asp:MultiView ID="MultiView1" runat="server">
@@ -55,12 +57,13 @@
 									
 										<!-- begin page-header -->
 											<h1 class="page-header">Visibilidad de inventario de existencias en línea</h1>
-											Servidor:
-											<asp:DropDownList ID="ddlServidor" class="form-control col-md-6"  DataSourceID="odsServidores" DataTextField="descripcion" DataValueField="codigo" OnDataBound="ddlServidor_DataBound" runat="server"></asp:DropDownList>
-											<asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="*" ForeColor="Red" ControlToValidate="ddlServidor" InitialValue="SELECCIONAR"  Font-Bold="True"></asp:RequiredFieldValidator>
+											
 											Cliente:
-											<asp:DropDownList ID="ddlClientes" class="form-control col-md-6"  OnDataBound="ddlClientes_DataBound" DataSourceID="odsClientesTodos" DataTextField="DESC_RAZONSOCIAL" DataValueField="cod_cliente" ForeColor="Black" runat="server"></asp:DropDownList>
+											<asp:DropDownList ID="ddlClientes" class="form-control col-md-6" AutoPostBack="true" OnSelectedIndexChanged="ddlClientes_SelectedIndexChanged" OnDataBound="ddlClientes_DataBound" DataSourceID="odsClientesTodos" DataTextField="DESC_RAZONSOCIAL" DataValueField="cod_cliente" ForeColor="Black" runat="server"></asp:DropDownList>
 											<asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="*" ForeColor="Red" ControlToValidate="ddlClientes" InitialValue="SELECCIONAR" Font-Bold="True"></asp:RequiredFieldValidator>
+											Codigo SICI:
+											<asp:DropDownList ID="ddlServidor" class="form-control col-md-6"  DataSourceID="odsServidores" DataTextField="detalle" DataValueField="cod_cliente_sici" OnDataBound="ddlServidor_DataBound" runat="server"></asp:DropDownList>
+											<asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="*" ForeColor="Red" ControlToValidate="ddlServidor" InitialValue="SELECCIONAR"  Font-Bold="True"></asp:RequiredFieldValidator>
 											Fecha:
 											<input id="fecha_salida" class="form-control col-12 col-md-2"  style="background:#ecf1fa" required type="date"><asp:HiddenField ID="hfFechaSalida" runat="server" />
 											Tipo Rerporte:
@@ -69,17 +72,19 @@
 												<asp:ListItem>DETALLADO</asp:ListItem>
 											</asp:RadioButtonList>
 											<!-- end page-header -->
+			<br />
 											<!-- begin form-group row -->
 											<div class="form-group row m-b-10">
 											
 												<div class="col-md-6">
-													<asp:Button ID="btnConsultar" class="btn btn-success btn-sm" OnClientClick="recuperarFechaSalida()" OnClick="btnConsultar_Click" runat="server" Text="Generar Reporte" />
-													<asp:Button ID="btnExportarPDF" class="btn btn-success btn-sm" runat="server" Text="Exportar PDF" OnClick="btnExportarPDF_Click" />
-													<asp:Button ID="btnExportarExcel" class="btn btn-success btn-sm" runat="server" Text="Exportar Excel" OnClick="btnExportarExcel_Click" />
+													<asp:Button ID="btnConsultar" class="btn btn-default btn-sm" OnClientClick="recuperarFechaSalida()" OnClick="btnConsultar_Click" runat="server" Text="Generar Reporte" />
+													<asp:Button ID="btnExportarPDF" class="btn btn-default btn-sm" runat="server" Text="Exportar PDF" OnClick="btnExportarPDF_Click" />
+													<asp:Button ID="btnExportarExcel" class="btn btn-default btn-sm" runat="server" Text="Exportar Excel" OnClick="btnExportarExcel_Click" />
 													<%--<input type="text" name="Ruta" placeholder="" class="form-control" />--%>
 												</div>
 											</div>
 											<!-- end form-group row -->
+			<asp:GridView ID="GridView2" runat="server"></asp:GridView>
 											<!-- begin panel -->
 											<div class="panel panel-inverse">
 												<!-- begin panel-heading -->
@@ -166,6 +171,10 @@
 
         }
 
+		function setearFechaSalida() {
+
+            document.getElementById('fecha_salida').value = document.getElementById('<%=hfFechaSalida.ClientID%>').value;
+        }
     </script>
 
    <!-- pace -->

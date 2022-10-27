@@ -18,6 +18,8 @@ namespace appLograAdmin
                 else
                 {
                     lblUsuario.Text = Session["usuario"].ToString();
+                    lblServidor.Text="Servidor: " + Session["servidor"].ToString();
+                    lblCodServidor.Text = Session["cod_servidor"].ToString();
                 }
             }
 

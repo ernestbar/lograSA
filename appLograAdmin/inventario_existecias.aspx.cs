@@ -24,13 +24,26 @@ namespace appLograAdmin
                 }
                 else
                 {
+                    DateTime fecha1 = DateTime.Now;
+                    string dia = "";
+                    string mes = "";
+                    if (fecha1.Day.ToString().Length == 1)
+                        dia = "0" + fecha1.Day.ToString();
+                    else
+                        dia = fecha1.Day.ToString();
+                    if (fecha1.Month.ToString().Length == 1)
+                        mes = "0" + fecha1.Month.ToString();
+                    else
+                        mes = fecha1.Month.ToString();
+                    hfFechaSalida.Value = fecha1.Year.ToString() + "-" + mes + "-" + dia;
+                    ScriptManager.RegisterStartupScript(this, this.Page.GetType(), "myFuncionAlerta", "setearFechaSalida();", true);
 
                     if (Session["es_master"].ToString() != "S")
                     {
                         odsClientesTodos.FilterExpression = "COD_CLIENTE='" + Session["cod_cliente"] + "'";
                         ddlClientes.DataBind();
                     }
-
+                    lblCodServidor.Text = Session["cod_servidor"].ToString();
                     MultiView1.ActiveViewIndex = 0;
                 }
             }
@@ -48,16 +61,22 @@ namespace appLograAdmin
 
         protected void btnConsultar_Click(object sender, EventArgs e)
         {
+            string fecha_ini = DateTime.Now.Year.ToString() + "/" + DateTime.Now.Month.ToString() + "/" + DateTime.Now.Day.ToString();
+            if (hfFechaSalida.Value != "")
+                fecha_ini = hfFechaSalida.Value;
             if (rblTipoReporte.SelectedValue == "RESUMEN")
             {
-                GridView1.DataSource = Clases.Reportes.PR_EXISTENCIAS_RESUMEN(DateTime.Parse(hfFechaSalida.Value), ddlClientes.SelectedValue, ddlServidor.SelectedValue);
+                GridView1.DataSource = Clases.Reportes.PR_EXISTENCIAS_RESUMEN(DateTime.Parse(fecha_ini), ddlClientes.SelectedValue, ddlServidor.SelectedValue);
                 GridView1.DataBind();
+               
             }
             else
             {
-                GridView1.DataSource = Clases.Reportes.PR_EXISTENCIAS(DateTime.Parse(hfFechaSalida.Value), ddlClientes.SelectedValue, ddlServidor.SelectedValue);
+                GridView1.DataSource = Clases.Reportes.PR_EXISTENCIAS(DateTime.Parse(fecha_ini), ddlClientes.SelectedValue, ddlServidor.SelectedValue);
                 GridView1.DataBind();
+               
             }
+            ScriptManager.RegisterStartupScript(this, this.Page.GetType(), "myFuncionAlerta", "setearFechaSalida();", true);
         }
 
         protected void GridView_PreRender(object sender, EventArgs e)
@@ -170,6 +189,11 @@ namespace appLograAdmin
             Response.Flush();
             Response.End();
             Response.ClearContent();
+        }
+
+        protected void ddlClientes_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ScriptManager.RegisterStartupScript(this, this.Page.GetType(), "myFuncionAlerta", "setearFechaSalida();", true);
         }
     }
 }
