@@ -90,7 +90,7 @@
 										<div class="form-group row m-b-10">
 											
 											<div class="col-md-6">
-                                                <asp:Button ID="btnNuevo" class="btn btn-success btn-sm col-12" OnClick="btnNuevo_Click" runat="server" Text="Nuevo personal" />
+                                                <asp:Button ID="btnNuevo" class="btn btn-green btn-sm col-6" OnClick="btnNuevo_Click" runat="server" Text="AGREGAR NUEVO" />
 												<%--<input type="text" name="Ruta" placeholder="" class="form-control" />--%>
 											</div>
 										</div>
@@ -161,9 +161,9 @@
 																<td><asp:Label ID="lblSucursal1" runat="server" Text='<%# Eval("DESC_SUPERVISOR_INMEDIATO") %>'></asp:Label></td>
 															<td><asp:Label ID="lblArea" runat="server" Text='<%# Eval("DESC_ESTADO") %>'></asp:Label></td>
 															<td>
-																<asp:Button ID="btnEditar" class="btn btn-success btn-sm"  CommandArgument='<%# Eval("COD_PERSONAL") %>' OnClick="btnEditar_Click" runat="server" Text="Editar" ToolTip="Editar" />
-																<asp:Button ID="btnEliminar" class="btn btn-success btn-sm" CommandArgument='<%# Eval("COD_PERSONAL") + "|" + Eval("DESC_ESTADO") %>' OnClick="btnEliminar_Click" OnClientClick="return confirm('Seguro que desea eliminar el registro???')" runat="server" Text="Activar/Deactivar" ToolTip="Borrar registro" />
-																<asp:Button ID="btnUsuarios" class="btn btn-success btn-sm" CommandArgument='<%# Eval("COD_PERSONAL") %>' OnClick="btnUsuarios_Click" runat="server" Text="Ver usuario" ToolTip="Usuario del personal" />
+																<asp:Button ID="btnEditar" style="color:blue" class="btn btn-success btn-sm"  CommandArgument='<%# Eval("COD_PERSONAL") %>' OnClick="btnEditar_Click" runat="server" Text="Editar" ToolTip="Editar" />
+																<asp:Button ID="btnEliminar" style="color:blue" class="btn btn-danger btn-sm" CommandArgument='<%# Eval("COD_PERSONAL") + "|" + Eval("DESC_ESTADO") %>' OnClick="btnEliminar_Click" OnClientClick="return confirm('Seguro que desea eliminar el registro???')" runat="server" Text="Activar/Deactivar" ToolTip="Borrar registro" />
+																<asp:Button ID="btnUsuarios" style="color:blue" class="btn btn-success btn-sm" CommandArgument='<%# Eval("COD_PERSONAL") %>' OnClick="btnUsuarios_Click" runat="server" Text="Ver usuario" ToolTip="Usuario del personal" />
 															</td>
 															
 															
@@ -345,8 +345,8 @@
 					</div>
 					<!-- end form-group row -->
 						<div class="btn-toolbar mr-2 sw-btn-group float-right" role="group">
-							<asp:Button ID="btnGuardar" CssClass="btn btn-success" runat="server" OnClientClick="recuperarFechaSalida()" OnClick="btnGuardar_Click" Text="Guardar" />
-							<asp:Button ID="btnVolverAlta" CssClass="btn btn-success"  runat="server" CausesValidation="false" OnClick="btnVolverAlta_Click" Text="Cancelar" />
+							<asp:Button ID="btnGuardar" CssClass="btn btn-info" runat="server" OnClientClick="recuperarFechaSalida()" OnClick="btnGuardar_Click" Text="Guardar" />
+							<asp:Button ID="btnVolverAlta" CssClass="btn btn-default"  runat="server" CausesValidation="false" OnClick="btnVolverAlta_Click" Text="Cancelar" />
 						</div>
 					</div>
 				</div>				
@@ -358,7 +358,7 @@
 										<div class="form-group row m-b-10">
 											
 											<div class="col-md-6">
-                                                <asp:Button ID="btnVolverUsuarios" class="btn-sm btn-info btn-block" OnClick="btnVolverUsuarios_Click" runat="server" Text="Volver a personal" />
+                                                <asp:Button ID="btnVolverUsuarios" class="btn-sm btn-green btn-block" OnClick="btnVolverUsuarios_Click" runat="server" Text="Volver a personal" />
 												<%--<input type="text" name="Ruta" placeholder="" class="form-control" />--%>
 											</div>
 										</div>
@@ -415,8 +415,8 @@
 																<td><asp:Label ID="lblTipoDoc" runat="server" Text='<%# Eval("DESCRIPCION") %>'></asp:Label></td>
 															<td><asp:Label ID="lblArea" runat="server" Text='<%# Eval("DESC_ESTADO") %>'></asp:Label></td>
 															<td>
-																<asp:Button ID="btnResetear" class="btn btn-success btn-sm" CommandArgument='<%# Eval("USUARIO") %>' OnClick="btnResetear_Click" OnClientClick="return confirm('Seguro que desea resetear su password???')" runat="server" Text="Resetear Password" ToolTip="Su nuevo password sera 123" />
-																<asp:Button ID="btnCambiarPassword" class="btn btn-success btn-sm" CommandArgument='<%# Eval("USUARIO") %>' OnClick="btnCambiarPassword_Click" runat="server" Text="Cambiar Password" ToolTip="Cambiar password actual" />
+																<asp:Button ID="btnResetear" style="color:blue" class="btn btn-danger btn-sm" CommandArgument='<%# Eval("USUARIO") %>' OnClick="btnResetear_Click" OnClientClick="return confirm('Seguro que desea resetear su password???')" runat="server" Text="Resetear Password" ToolTip="Su nuevo password sera 123" />
+																<asp:Button ID="btnCambiarPassword" style="color:blue" class="btn btn-success btn-sm" CommandArgument='<%# Eval("USUARIO") %>' OnClick="btnCambiarPassword_Click" runat="server" Text="Cambiar Password" ToolTip="Cambiar password actual" />
 															</td>
 															
 															
@@ -462,8 +462,8 @@
 					<!-- end form-group row -->
 					<!-- end form-group row -->
 						<div class="btn-toolbar mr-2 sw-btn-group float-right" role="group">
-							<asp:Button ID="btnGuardar2" CssClass="btn btn-success" runat="server"  OnClick="btnGuardar2_Click" Text="Guardar" />
-							<asp:Button ID="btnCancelar2" CssClass="btn btn-success"  runat="server" CausesValidation="false" OnClick="btnCancelar2_Click" Text="Cancelar" />
+							<asp:Button ID="btnGuardar2" CssClass="btn btn-info" runat="server"  OnClick="btnGuardar2_Click" Text="Guardar" />
+							<asp:Button ID="btnCancelar2" CssClass="btn btn-default"  runat="server" CausesValidation="false" OnClick="btnCancelar2_Click" Text="Cancelar" />
 						</div>
 					</div>
 				</div>				

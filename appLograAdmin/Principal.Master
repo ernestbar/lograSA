@@ -67,6 +67,7 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
+				
 			</div>
 			<!-- end navbar-header -->
 			
@@ -80,7 +81,7 @@
 						</div>
 					</form>
 				</li>--%>
-	
+				
 				<li class="dropdown navbar-user">
 					<a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
 						<img src="assets/img/user/user-13.jpg" alt="" /> 
@@ -101,12 +102,18 @@
 		<!-- end #header -->
 		<!-- begin #sidebar -->
 		<div id="sidebar" class="sidebar">
+			
 			<!-- begin sidebar scrollbar -->
 			<div data-scrollbar="true" style="background-color:#2B3C82;" data-height="100%">
+				<br /><br />
+					<div style="text-align:center">
+					<asp:Label ID="lblServidor" ForeColor="Yellow" Font-Size="Larger" runat="server" Text="Servidor: Santa Cruz"></asp:Label>
+				</div>
 				<!-- begin sidebar user -->
 				<!-- end sidebar user -->
 				<!-- begin sidebar nav -->
 				<ul class="nav">
+				
 					<li class="nav-header">Navigación</li>
 					<asp:ObjectDataSource ID="odsMenuPadre" runat="server" SelectMethod="PR_SEG_GET_MENUS_PADRE_ROL" TypeName="appLograAdmin.Clases.Utilitarios">
                     <SelectParameters>

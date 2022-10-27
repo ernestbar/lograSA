@@ -40,7 +40,7 @@
 			<div class="news-feed">
 				<div class="news-image" style="background-image: url(assets/img/login-bg/fondo_login.jpg)"></div>
 				<div class="news-caption">
-					<h4 class="caption-title"><b>Logra</b>SA</h4>
+					<h4 class="caption-title"><b>LOGRA</b> S.A.</h4>
 					<p>
 						Logistica Integral de Carga.
 					</p>
@@ -53,7 +53,7 @@
 				<div class="login-header">
 					<div>
                         <img src="assets/img/logo/logo-admin.png" width="400" />
-						<h1><span class="logo"></span> <b>Ingreso</b> Logra SA</h1>
+						<%--<h1><span class="logo"></span> <b>Ingreso</b> Logra SA</h1>--%>
 						<%--<small>responsive bootstrap 3 admin template</small>--%>
 					</div>
 					<div class="icon">
@@ -61,26 +61,36 @@
 					</div>
 				</div>
 				<!-- end login-header -->
+				<asp:ObjectDataSource ID="odsServidores" runat="server" SelectMethod="PR_PAR_GET_DOMINIOS" TypeName="appLograAdmin.Clases.Dominios">
+					<SelectParameters>
+						<asp:Parameter Name="pV_DOMINIO" DefaultValue="SERVIDORES" />
+					</SelectParameters>
+				</asp:ObjectDataSource>
 				<!-- begin login-content -->
 				<div class="login-content">
 						<div class="form-group m-b-15">
-                            <asp:TextBox ID="txtUsuario" class="form-control form-control-lg" placeholder="Nombre usuario" required runat="server"></asp:TextBox>
+						<div class="form-group m-b-15">
+                            	<asp:DropDownList ID="ddlServidor" class="form-control col-md-12"  style="border-color:#0a3147"  DataSourceID="odsServidores" DataTextField="descripcion" DataValueField="codigo" OnDataBound="ddlServidor_DataBound" runat="server"></asp:DropDownList>
+								<asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="* Seleccione el servidor" ForeColor="Red" ControlToValidate="ddlServidor" InitialValue="SERVIDOR"  Font-Bold="True"></asp:RequiredFieldValidator>
+							<%--<input type="text" class="form-control form-control-lg" placeholder="Email Address" required />--%>
+						</div>
+                            <asp:TextBox ID="txtUsuario" class="form-control form-control-lg" BorderColor="#0a3147" placeholder="Nombre usuario" required runat="server"></asp:TextBox>
 							<%--<input type="text" class="form-control form-control-lg" placeholder="Email Address" required />--%>
 						</div>
 						<div class="form-group m-b-15">
-                            <asp:TextBox ID="txtPassword" runat="server" TextMode="Password" class="form-control form-control-lg" placeholder="Password" ></asp:TextBox>
+                            <asp:TextBox ID="txtPassword" runat="server" TextMode="Password" BorderColor="#0a3147" class="form-control form-control-lg" placeholder="Password" ></asp:TextBox>
 							<%--<input type="password" class="form-control form-control-lg" placeholder="Password" required />--%>
 						</div>
 						
 						<div class="login-buttons">
-                            <asp:Button ID="btnIngresar" OnClick="btnIngresar_Click" class="btn btn-success btn-block btn-lg" runat="server" Text="Ingresar" />
+                            <asp:Button ID="btnIngresar" OnClick="btnIngresar_Click" class="btn btn-info btn-block btn-lg" runat="server" Text="Ingresar" />
 							<%--<button type="submit" class="btn btn-success btn-block btn-lg">Sign me in</button>--%>
 						</div>
 						<div class="form-group m-b-15">
                             <asp:Label ID="lblAviso" runat="server" ForeColor="Red" Text=""></asp:Label>
 						</div><br />
 					<div class="login-buttons">
-                            <asp:Button ID="btnReset" OnClick="btnReset_Click" class="btn btn-default btn-block btn-lg" OnClientClick="return confirm('Seguro que desea resetera su password??? de ser asi el nuevo password se le enviara a su correo electronico')" runat="server" Text="Resetear password" />
+                            <asp:Button ID="btnReset" OnClick="btnReset_Click" class="btn btn-default btn-block btn-lg" OnClientClick="return confirm('Seguro que desea resetera su password??? de ser asi el nuevo password se le enviara a su correo electronico')" runat="server" Text="Olvide la Contraseña" />
 							<%--<button type="submit" class="btn btn-success btn-block btn-lg">Sign me in</button>--%>
 						</div>
 						<%--<div class="m-t-20 m-b-40 p-b-40 text-inverse">
@@ -88,7 +98,7 @@
 						</div>--%>
 						<hr />
 						<p class="text-center text-grey-darker">
-							&copy; Logra SA All Right Reserved 2022
+							&copy; LOGRA SA All Right Reserved 2022
 						</p>
 					
 				</div>
@@ -98,116 +108,7 @@
 		</div>
 		<!-- end login -->
 
-		<!-- begin theme-panel -->
-		<div class="theme-panel theme-panel-lg">
-			<a href="javascript:;" data-click="theme-panel-expand" class="theme-collapse-btn"><i class="fa fa-cog"></i></a>
-			<div class="theme-panel-content">
-				<h5 class="m-t-0">Color Theme</h5>
-				<ul class="theme-list clearfix">
-					<li><a href="javascript:;" class="bg-red" data-theme="red" data-theme-file="assets/css/default/theme/red.css" data-click="theme-selector" data-toggle="tooltip" data-trigger="hover" data-container="body" data-title="Red">&nbsp;</a></li>
-					<li><a href="javascript:;" class="bg-pink" data-theme="pink" data-theme-file="assets/css/default/theme/pink.css" data-click="theme-selector" data-toggle="tooltip" data-trigger="hover" data-container="body" data-title="Pink">&nbsp;</a></li>
-					<li><a href="javascript:;" class="bg-orange" data-theme="orange" data-theme-file="assets/css/default/theme/orange.css" data-click="theme-selector" data-toggle="tooltip" data-trigger="hover" data-container="body" data-title="Orange">&nbsp;</a></li>
-					<li><a href="javascript:;" class="bg-yellow" data-theme="yellow" data-theme-file="assets/css/default/theme/yellow.css" data-click="theme-selector" data-toggle="tooltip" data-trigger="hover" data-container="body" data-title="Yellow">&nbsp;</a></li>
-					<li><a href="javascript:;" class="bg-lime" data-theme="lime" data-theme-file="assets/css/default/theme/lime.css" data-click="theme-selector" data-toggle="tooltip" data-trigger="hover" data-container="body" data-title="Lime">&nbsp;</a></li>
-					<li><a href="javascript:;" class="bg-green" data-theme="green" data-theme-file="assets/css/default/theme/green.css" data-click="theme-selector" data-toggle="tooltip" data-trigger="hover" data-container="body" data-title="Green">&nbsp;</a></li>
-					<li><a href="javascript:;" class="bg-teal" data-theme="default" data-theme-file="assets/css/default/theme/default.css" data-click="theme-selector" data-toggle="tooltip" data-trigger="hover" data-container="body" data-title="Default">&nbsp;</a></li>
-					<li><a href="javascript:;" class="bg-aqua" data-theme="aqua" data-theme-file="assets/css/default/theme/aqua.css" data-click="theme-selector" data-toggle="tooltip" data-trigger="hover" data-container="body" data-title="Aqua">&nbsp;</a></li>
-					<li><a href="javascript:;" class="bg-blue" data-theme="blue" data-theme-file="assets/css/default/theme/blue.css" data-click="theme-selector" data-toggle="tooltip" data-trigger="hover" data-container="body" data-title="Blue">&nbsp;</a></li>
-					<li><a href="javascript:;" class="bg-purple" data-theme="purple" data-theme-file="assets/css/default/theme/purple.css" data-click="theme-selector" data-toggle="tooltip" data-trigger="hover" data-container="body" data-title="Purple">&nbsp;</a></li>
-					<li><a href="javascript:;" class="bg-indigo" data-theme="indigo" data-theme-file="assets/css/default/theme/indigo.css" data-click="theme-selector" data-toggle="tooltip" data-trigger="hover" data-container="body" data-title="Indigo">&nbsp;</a></li>
-					<li><a href="javascript:;" class="bg-black" data-theme="black" data-theme-file="assets/css/default/theme/black.css" data-click="theme-selector" data-toggle="tooltip" data-trigger="hover" data-container="body" data-title="Black">&nbsp;</a></li>
-				</ul>
-				<div class="divider"></div>
-				<div class="row m-t-10">
-					<div class="col-md-6 control-label text-inverse f-w-600">Header Styling</div>
-					<div class="col-md-6">
-						<select name="header-styling" class="form-control form-control-sm">
-							<option value="1">default</option>
-							<option value="2">inverse</option>
-						</select>
-					</div>
-				</div>
-				<div class="row m-t-10">
-					<div class="col-md-6 control-label text-inverse f-w-600">Header</div>
-					<div class="col-md-6">
-						<select name="header-fixed" class="form-control form-control-sm">
-							<option value="1">fixed</option>
-							<option value="2">default</option>
-						</select>
-					</div>
-				</div>
-				<div class="row m-t-10">
-					<div class="col-md-6 control-label text-inverse f-w-600">Sidebar Styling</div>
-					<div class="col-md-6">
-						<select name="sidebar-styling" class="form-control form-control-sm">
-							<option value="1">default</option>
-							<option value="2">grid</option>
-						</select>
-					</div>
-				</div>
-				<div class="row m-t-10">
-					<div class="col-md-6 control-label text-inverse f-w-600">Sidebar</div>
-					<div class="col-md-6">
-						<select name="sidebar-fixed" class="form-control form-control-sm">
-							<option value="1">fixed</option>
-							<option value="2">default</option>
-						</select>
-					</div>
-				</div>
-				<div class="row m-t-10">
-					<div class="col-md-6 control-label text-inverse f-w-600">Sidebar Gradient</div>
-					<div class="col-md-6">
-						<select name="content-gradient" class="form-control form-control-sm">
-							<option value="1">disabled</option>
-							<option value="2">enabled</option>
-						</select>
-					</div>
-				</div>
-				<div class="row m-t-10">
-					<div class="col-md-6 control-label text-inverse f-w-600">Content Styling</div>
-					<div class="col-md-6">
-						<select name="content-styling" class="form-control form-control-sm">
-							<option value="1">default</option>
-							<option value="2">black</option>
-						</select>
-					</div>
-				</div>
-				<div class="row m-t-10">
-					<div class="col-md-6 control-label text-inverse f-w-600">Direction</div>
-					<div class="col-md-6">
-						<select name="direction" class="form-control form-control-sm">
-							<option value="1">LTR</option>
-							<option value="2">RTL</option>
-						</select>
-					</div>
-				</div>
-				<div class="divider"></div>
-				<h5>THEME VERSION</h5>
-				<div class="theme-version">
-					<a href="../template_html/index_v2.html" class="active">
-						<span style="background-image: url(assets/img/theme/default.jpg);"></span>
-					</a>
-					<a href="../template_transparent/index_v2.html">
-						<span style="background-image: url(assets/img/theme/transparent.jpg);"></span>
-					</a>
-				</div>
-				<div class="theme-version">
-					<a href="../template_apple/index_v2.html">
-						<span style="background-image: url(assets/img/theme/apple.jpg);"></span>
-					</a>
-					<a href="../template_material/index_v2.html">
-						<span style="background-image: url(assets/img/theme/material.jpg);"></span>
-					</a>
-				</div>
-				<div class="divider"></div>
-				<div class="row m-t-10">
-					<div class="col-md-12">
-						<a href="javascript:;" class="btn btn-inverse btn-block btn-rounded" data-click="reset-local-storage"><b>Reset Local Storage</b></a>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- end theme-panel -->
+		
 	</div>
 	<!-- end page container -->
 	

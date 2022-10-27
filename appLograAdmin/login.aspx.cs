@@ -89,5 +89,10 @@ namespace appLograAdmin
             lblAviso.Text ="Te enviamos un correo con tu password temporal para ingresar, muchas gracias!!!!";
             //Response.Redirect("login.aspx?tipo=R");
         }
+
+        protected void ddlServidor_DataBound(object sender, EventArgs e)
+        {
+            ddlServidor.Items.Insert(0, "SERVIDOR");
+        }
     }
 }

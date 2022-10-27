@@ -31,8 +31,8 @@
 					<!-- end form-group row -->
 					<!-- end form-group row -->
 						<div class="btn-toolbar mr-2 sw-btn-group float-right" role="group">
-							<asp:Button ID="btnGuardar2" CssClass="btn btn-success" runat="server"  OnClick="btnGuardar2_Click" Text="Guardar" />
-							<asp:Button ID="btnCancelar2" CssClass="btn btn-success"  runat="server" CausesValidation="false" OnClick="btnCancelar2_Click" Text="Cancelar" />
+							<asp:Button ID="btnGuardar2" CssClass="btn btn-info" runat="server" OnClick="btnGuardar2_Click" Text="Guardar" />
+							<asp:Button ID="btnCancelar2" CssClass="btn btn-default"  runat="server" CausesValidation="false" OnClick="btnCancelar2_Click" Text="Cancelar" />
 						</div>
 					</div>
 				</div>				

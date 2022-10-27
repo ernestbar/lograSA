@@ -363,5 +363,35 @@ namespace appLograAdmin
             limpiar_controles();
             MultiView1.ActiveViewIndex = 0;
         }
+
+        protected void btnSICIExtra_Click(object sender, EventArgs e)
+        {
+         
+
+            try
+            {
+                lblAviso.Text = "";
+                limpiar_controles();
+                Button obj = (Button)sender;
+                string[] id = obj.CommandArgument.ToString().Split('|');
+
+                lblCodServidor.Text = id[0];
+                lblCodCliente.Text = id[1];
+                GridView1.DataSource = Clases.Cliente_servidor_extra.PR_GET_CLIENTE_SERVIDOR_EXTRA(lblCodCliente.Text, lblCodServidor.Text);
+                GridView1.DataBind();
+                MultiView1.ActiveViewIndex = 4;
+
+            }
+            catch (Exception ex)
+            {
+                string nombre_archivo = "error_clientes_" + DateTime.Now.Day.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Year.ToString() + DateTime.Now.Hour.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Second.ToString() + ".txt";
+                string directorio2 = Server.MapPath("~/Logs");
+                StreamWriter writer5 = new StreamWriter(directorio2 + "\\" + nombre_archivo, true, Encoding.Unicode);
+                writer5.WriteLine(ex.ToString());
+                writer5.Close();
+                lblAviso.Text = "Tenemos algunos problemas consulte con el administrador.";
+            }
+
+        }
     }
 }

@@ -134,7 +134,7 @@
 																			<tr class="gradeA">
 																				<td><asp:Label ID="lblRazonSocial" runat="server" Text='<%# Eval("DESCRIPCION") %>'></asp:Label></td>
 																				<td>
-																					<asp:Button ID="btnQuitar" class="btn btn-success btn-sm"  CommandArgument='<%# Eval("ROL_OPCION")+ "|"  + Eval("OPCION") %>' OnClick="btnQuitar_Click" runat="server" Text="Quitar" ToolTip="Eliminar menu asignado" />
+																					<asp:Button ID="btnQuitar" style="color:blue" class="btn btn-danger btn-sm"  CommandArgument='<%# Eval("ROL_OPCION")+ "|"  + Eval("OPCION") %>' OnClick="btnQuitar_Click" runat="server" Text="Quitar" ToolTip="Eliminar menu asignado" />
 																				</td>
 																			</tr>
 																		</ItemTemplate>
@@ -156,7 +156,7 @@
 																			<tr class="gradeA">
 																				<td><asp:Label ID="lblRazonSocial" runat="server" Text='<%# Eval("DESCRIPCION") %>'></asp:Label></td>
 																				<td>
-																					<asp:Button ID="btnAgregar" class="btn btn-success btn-sm"  CommandArgument='<%# Eval("OPCION") %>' OnClick="btnAgregar_Click" runat="server" Text="Agregar" ToolTip="Asignar menu" />
+																					<asp:Button ID="btnAgregar" style="color:blue" class="btn btn-success btn-sm"  CommandArgument='<%# Eval("OPCION") %>' OnClick="btnAgregar_Click" runat="server" Text="Agregar" ToolTip="Asignar menu" />
 																				</td>
 																			</tr>
 																		</ItemTemplate>
