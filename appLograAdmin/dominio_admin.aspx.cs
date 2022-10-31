@@ -22,7 +22,7 @@ namespace appLograAdmin
                 }
                 else
                 {
-
+                    lblCodServidor.Text = Session["cod_servidor"].ToString();
                     lblUsuario.Text = Session["usuario"].ToString();
                     btnNuevo.Visible = false;
                     lblCodMenuRol.Text = Request.QueryString["RME"].ToString();

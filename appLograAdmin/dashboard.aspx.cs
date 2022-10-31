@@ -17,6 +17,7 @@ namespace appLograAdmin
                 { Response.Redirect("login.aspx"); }
                 else
                 {
+                    lblCodServidor.Text = Session["cod_servidor"].ToString();
                     lblUsuario.Text = Session["usuario"].ToString();
                 }
             }

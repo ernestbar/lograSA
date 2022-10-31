@@ -61,6 +61,7 @@
 			<asp:Label ID="lblCodCliente" runat="server" Text="3" Visible="false"></asp:Label>
 			<asp:Label ID="lblAviso" runat="server" ForeColor="Blue" Font-Size="Medium" Text=""></asp:Label>
 			 <asp:Label ID="lblCodMenuRol" runat="server" Visible="false" Text=""></asp:Label>
+			<asp:Label ID="Label1" Visible="false" ForeColor="Yellow" Font-Size="Larger" runat="server" Text=""></asp:Label>
     <asp:MultiView ID="MultiView1" runat="server">
         <asp:View ID="View1" runat="server">
 			<!-- begin form-group row -->

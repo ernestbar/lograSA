@@ -58,6 +58,7 @@
     </script>
 	<!-- begin #content -->
 		<div id="content" class="content">
+			<asp:Label ID="lblCodServidor" Visible="false" ForeColor="Yellow" Font-Size="Larger" runat="server" Text=""></asp:Label>
 			<asp:Label ID="lblUsuario" runat="server" Visible="false" Text=""></asp:Label> 
 			<asp:Label ID="lblCodMenu" runat="server" Text="" Visible="false"></asp:Label>
 			<asp:Label ID="lblAviso" runat="server" ForeColor="Blue" Font-Size="Medium" Text=""></asp:Label>

@@ -21,6 +21,7 @@ namespace appLograAdmin
                 }
                 else
                 {
+                    lblCodServidor.Text = Session["cod_servidor"].ToString();
                     lblUsuario.Text = Session["usuario"].ToString();
                     string temporal= Request.QueryString["temp"].ToString();
                     if (temporal == "1")

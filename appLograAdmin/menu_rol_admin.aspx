@@ -57,6 +57,7 @@
 			<asp:Label ID="lblCodMenu" runat="server" Text="" Visible="false"></asp:Label>
 			<asp:Label ID="lblAviso" runat="server" ForeColor="Blue" Font-Size="Medium" Text=""></asp:Label>
             <asp:Label ID="lblCodMenuRol" runat="server" Visible="false" Text=""></asp:Label>
+			<asp:Label ID="lblCodServidor" Visible="false" ForeColor="Yellow" Font-Size="Larger" runat="server" Text=""></asp:Label>
 			<!-- begin form-group row -->
 										<div class="form-group row m-b-10">
 											

@@ -1,24 +1,22 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Principal.Master" AutoEventWireup="true" CodeBehind="opciones_admin.aspx.cs" Inherits="appLograAdmin.opciones_admin" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Principal.Master" AutoEventWireup="true" CodeBehind="contenedores_admin.aspx.cs" Inherits="appLograAdmin.contenedores_admin" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-   
-	
-	<asp:ObjectDataSource ID="odsMenus" runat="server" SelectMethod="PR_SEG_GET_MENUS" TypeName="appLograAdmin.Clases.Menus">
-		<SelectParameters>
-            <asp:ControlParameter ControlID="ddlSistema" Name="pV_SISTEMA" DefaultValue="" />
-        </SelectParameters>
-	</asp:ObjectDataSource>
-	<asp:ObjectDataSource ID="odsSistema" runat="server" SelectMethod="PR_PAR_GET_DOMINIOS" TypeName="appLograAdmin.Clases.Dominios">
+    		<asp:ObjectDataSource ID="odsContenedores" runat="server" SelectMethod="PR_PAR_GET_CONTENEDORES" TypeName="appLograAdmin.Clases.Contenedores">
+		 </asp:ObjectDataSource>
+	<asp:ObjectDataSource ID="odsEnvase" runat="server" SelectMethod="PR_PAR_GET_DOMINIOS" TypeName="appLograAdmin.Clases.Dominios">
 			<SelectParameters>
-				<asp:Parameter DefaultValue="SISTEMA" Name="PV_DOMINIO" Type="String" />
+				<asp:Parameter DefaultValue="ENVASE" Name="PV_DOMINIO" Type="String" />
 			</SelectParameters>
 		 </asp:ObjectDataSource>
-
-	<asp:ObjectDataSource ID="odsOpciones" runat="server" SelectMethod="PR_SEG_GET_OPCIONES" TypeName="appLograAdmin.Clases.Opciones">
-		<SelectParameters>
-            <asp:ControlParameter ControlID="ddlMenuPadre" Name="PD_MEN_COD_MENU" Type="String" />
-        </SelectParameters>
-		</asp:ObjectDataSource>
-	
+	<asp:ObjectDataSource ID="odsClase" runat="server" SelectMethod="PR_PAR_GET_DOMINIOS" TypeName="appLograAdmin.Clases.Dominios">
+			<SelectParameters>
+				<asp:Parameter DefaultValue="CLASE" Name="PV_DOMINIO" Type="String" />
+			</SelectParameters>
+		 </asp:ObjectDataSource>
+	<asp:ObjectDataSource ID="odsClaseLabel" runat="server" SelectMethod="PR_PAR_GET_DOMINIOS" TypeName="appLograAdmin.Clases.Dominios">
+			<SelectParameters>
+				<asp:Parameter DefaultValue="CLASE LABEL" Name="PV_DOMINIO" Type="String" />
+			</SelectParameters>
+		 </asp:ObjectDataSource>
 	<style type="text/css">
         body
         {
@@ -52,7 +50,7 @@
 	<!-- begin #content -->
 		<div id="content" class="content">
 			<asp:Label ID="lblUsuario" runat="server" Visible="false" Text=""></asp:Label> 
-			<asp:Label ID="lblCodOpcion" runat="server" Text="" Visible="false"></asp:Label>
+			<asp:Label ID="lblCodContenedor" runat="server" Text="" Visible="false"></asp:Label>
 			<asp:Label ID="lblAviso" runat="server" ForeColor="Blue" Font-Size="Medium" Text=""></asp:Label>
             <asp:Label ID="lblCodMenuRol" runat="server" Visible="false" Text=""></asp:Label>
 			<asp:Label ID="lblCodServidor" Visible="false" ForeColor="Yellow" Font-Size="Larger" runat="server" Text=""></asp:Label>
@@ -69,14 +67,10 @@
 										<!-- end form-group row -->
 									
 										<!-- begin page-header -->
-											<h1 class="page-header">Administración de opciones <small></small></h1>
-											Sistema:
-											<asp:DropDownList ID="ddlSistema" class="form-control col-md-6" DataSourceID="odsSistema" AutoPostBack="true" OnSelectedIndexChanged="ddlSistema_SelectedIndexChanged" DataTextField="descripcion" DataValueField="codigo" OnDataBound="ddlSistema_DataBound" runat="server"></asp:DropDownList>
-											<asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="*" ForeColor="Red" ControlToValidate="ddlSistema" InitialValue="SELECCIONAR"  Font-Bold="True"></asp:RequiredFieldValidator>	
-											Menú:
-											<asp:DropDownList ID="ddlMenuPadre" class="form-control col-md-6" AutoPostBack="true" OnSelectedIndexChanged="ddlMenuPadre_SelectedIndexChanged" DataSourceID="odsMenus" DataTextField="descripcion" DataValueField="cod_menu" OnDataBound="ddlMenuPadre_DataBound" runat="server"></asp:DropDownList>
-											<asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ErrorMessage="*" ForeColor="Red" ControlToValidate="ddlMenuPadre" InitialValue="SELECCIONAR"  Font-Bold="True"></asp:RequiredFieldValidator>	
+											<h1 class="page-header">Administración de contenedores <small></small></h1>
+										
 										<!-- end page-header -->
+									
 											<!-- begin panel -->
 											<div class="panel panel-inverse">
 												<!-- begin panel-heading -->
@@ -98,29 +92,29 @@
 												<table id="data-table-default" class="table table-striped table-bordered">
 													<thead>
 														<tr>
-															<th class="text-wrap">OPCION</th>
-															<th class="text-nowrap">MENU</th>
-																<th class="text-nowrap">DESCRIPCION</th>
-																<th class="text-nowrap">DETALLE</th>
+															<th class="text-wrap">ENVASE</th>
+															<th class="text-nowrap">TAMANO</th>
+																<th class="text-nowrap">CLASE</th>
+																<th class="text-nowrap">CLASE LABEL</th>
 																<th class="text-nowrap">ESTADO</th>
 															<th class="text-nowrap" data-orderable="false">OPCIONES</th>
 															
 															</tr>
 													</thead>
 													<tbody>
-                                                        <asp:Repeater ID="Repeater1" DataSourceID="odsOpciones" OnItemDataBound="Repeater1_ItemDataBound" runat="server">
+                                                        <asp:Repeater ID="Repeater1" DataSourceID="odsContenedores"  runat="server">
 														<ItemTemplate>
 															<tr class="gradeA">
 																
 															<%--<td><asp:Image ID="Image1" Height="50px" runat="server" ImageUrl='<%# @"Logos\" + Eval("CLI_ID_CLIENTE") + @"\" +  Eval("CLI_LOGO") %>' /></td>--%>
-															<td><asp:Label ID="lblEsPrincipal" runat="server" Text='<%# Eval("OPCION") %>'></asp:Label></td>
-															<td><asp:Label ID="lblRazonSocial" runat="server" Text='<%# Eval("COD_MENU") %>'></asp:Label></td>
-																<td><asp:Label ID="Label2" runat="server" Text='<%# Eval("DESCRIPCION") %>'></asp:Label></td>
-																<td><asp:Label ID="Label4" runat="server" Text='<%# Eval("DETALLE") %>'></asp:Label></td>
-																<td><asp:Label ID="Label5" runat="server" Text='<%# Eval("DESC_ESTADO") %>'></asp:Label></td>
+															<td><asp:Label ID="lblEsPrincipal" runat="server" Text='<%# Eval("ENBASE") %>'></asp:Label></td>
+															<td><asp:Label ID="lblRazonSocial" runat="server" Text='<%# Eval("TAMANO") %>'></asp:Label></td>
+																<td><asp:Label ID="Label1" runat="server" Text='<%# Eval("CLASE") %>'></asp:Label></td>
+																<td><asp:Label ID="Label2" runat="server" Text='<%# Eval("CLASE_LABEL") %>'></asp:Label></td>
+																<td><asp:Label ID="Label3" runat="server" Text='<%# Eval("DESC_ESTADO") %>'></asp:Label></td>
 															<td>
-																<asp:Button ID="btnEditar" style="color:blue" class="btn btn-success btn-sm"  CommandArgument='<%# Eval("OPCION") %>' OnClick="btnEditar_Click" runat="server" Text="Editar" ToolTip="Editar" />
-																<asp:Button ID="btnEliminar" style="color:blue" class="btn btn-danger btn-sm" CommandArgument='<%# Eval("OPCION")+ "|"+Eval("DESC_ESTADO") %>' OnClick="btnEliminar_Click"  runat="server" Text="Activar/Desactivar" ToolTip="Activar o desactivar registro" />
+																<asp:Button ID="btnEditar" style="color:blue" class="btn btn-success btn-sm"  CommandArgument='<%# Eval("CONTENEDOR") %>' OnClick="btnEditar_Click" runat="server" Text="Editar" ToolTip="Editar" />
+																<asp:Button ID="btnEliminar" style="color:blue" class="btn btn-danger btn-sm" CommandArgument='<%# Eval("CONTENEDOR")+"|"+Eval("DESC_ESTADO") %>' OnClick="btnEliminar_Click"  runat="server" Text="Activar/Descativar" ToolTip="Activa o descativa registro" />
                                                                 
 																<%--<asp:Button ID="btnActivar" class="btn btn-success btn-sm" CommandArgument='<%# Eval("CLI_ID_CLIENTE") %>' OnClick="btnActivar_Click" runat="server" Text="Nuevo" ToolTip="Nueva simulacion" />--%>
 															</td>
@@ -144,32 +138,39 @@
 				<!-- begin col-8 -->
 				<div class="col-md-6 offset-md-2">
 					
-					<legend class="no-border f-w-700 p-b-0 m-t-0 m-b-20 f-s-16 text-inverse">Datos Opciones</legend>
-					
-					
+					<legend class="no-border f-w-700 p-b-0 m-t-0 m-b-20 f-s-16 text-inverse">Datos contenedor</legend>
 					<!-- begin form-group row -->
 					<div class="form-group row m-b-10">
-						<label class="col-md-3 text-md-right col-form-label">Menú:</label>
+						<label class="col-md-3 text-md-right col-form-label">Envase:</label>
 						<div class="col-md-6">
-                             <asp:TextBox ID="txtMenu" ReadOnly="true" class="form-control" runat="server"></asp:TextBox>
-						</div>
-					</div>
-					<!-- end form-group row -->
-				<!-- begin form-group row -->
-					<div class="form-group row m-b-10">
-						<label class="col-md-3 text-md-right col-form-label">Descripción:</label>
-						<div class="col-md-6">
-                             <asp:TextBox ID="txtDescripcion" class="form-control" runat="server"></asp:TextBox>
-							<asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ErrorMessage="*" ForeColor="Red" ControlToValidate="txtDescripcion" Font-Bold="True"></asp:RequiredFieldValidator>
+                             <asp:DropDownList ID="ddlEnvase" class="form-control col-md-6" DataSourceID="odsEnvase" DataTextField="descripcion" DataValueField="codigo" OnDataBound="ddlEnvase_DataBound" runat="server"></asp:DropDownList>
+							<asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="*" ForeColor="Red" ControlToValidate="ddlEnvase" InitialValue="SELECCIONAR" Font-Bold="True"></asp:RequiredFieldValidator>
 						</div>
 					</div>
 					<!-- end form-group row -->
 					<!-- begin form-group row -->
 					<div class="form-group row m-b-10">
-						<label class="col-md-3 text-md-right col-form-label">Detalle:</label>
+						<label class="col-md-3 text-md-right col-form-label">Tamaño:</label>
 						<div class="col-md-6">
-                             <asp:TextBox ID="txtDetalle" class="form-control" runat="server"></asp:TextBox>
-							<asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ErrorMessage="*" ForeColor="Red" ControlToValidate="txtDetalle" Font-Bold="True"></asp:RequiredFieldValidator>
+                             <asp:TextBox ID="txtTamaño" class="form-control" runat="server"></asp:TextBox>
+						</div>
+					</div>
+					<!-- end form-group row -->
+					<!-- begin form-group row -->
+					<div class="form-group row m-b-10">
+						<label class="col-md-3 text-md-right col-form-label">Clase:</label>
+						<div class="col-md-6">
+                            <asp:DropDownList ID="ddlClase" class="form-control col-md-6" DataSourceID="odsClase" DataTextField="descripcion" DataValueField="codigo" OnDataBound="ddlClase_DataBound" runat="server"></asp:DropDownList>
+							<asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ErrorMessage="*" ForeColor="Red" ControlToValidate="ddlClase" InitialValue="SELECCIONAR" Font-Bold="True"></asp:RequiredFieldValidator>
+						</div>
+					</div>
+					<!-- end form-group row -->
+					<!-- begin form-group row -->
+					<div class="form-group row m-b-10">
+						<label class="col-md-3 text-md-right col-form-label">Clase Label:</label>
+						<div class="col-md-6">
+                               <asp:DropDownList ID="ddlClaseLabel" class="form-control col-md-6" DataSourceID="odsClaseLabel" DataTextField="descripcion" DataValueField="codigo" OnDataBound="ddlClaseLabel_DataBound" runat="server"></asp:DropDownList>
+							<asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ErrorMessage="*" ForeColor="Red" ControlToValidate="ddlClaseLabel" InitialValue="SELECCIONAR" Font-Bold="True"></asp:RequiredFieldValidator>
 						</div>
 					</div>
 					<!-- end form-group row -->
@@ -183,8 +184,8 @@
 				</div>				
 				<!-- end col-8 -->
 			
-        </asp:View>
-    </asp:MultiView>
+			</asp:View>
+		</asp:MultiView>
 	
 			
 		</div>

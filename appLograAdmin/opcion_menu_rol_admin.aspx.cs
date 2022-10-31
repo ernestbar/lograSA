@@ -22,7 +22,7 @@ namespace appLograAdmin
                 }
                 else
                 {
-
+                    lblCodServidor.Text = Session["cod_servidor"].ToString();
                     lblUsuario.Text = Session["usuario"].ToString();
                     lblCodMenuRol.Text = Request.QueryString["RME"].ToString();
                 }
@@ -108,42 +108,42 @@ namespace appLograAdmin
 
         protected void Repeater1_ItemDataBound(object sender, RepeaterItemEventArgs e)
         {
-            if (e.Item.ItemType == ListItemType.Item ||
-               e.Item.ItemType == ListItemType.AlternatingItem)
-            {
-                Button bQuitar = (Button)e.Item.FindControl("btnQuitar");
-                bQuitar.Visible = false;
-                DataTable dt = Clases.Utilitarios.PR_SEG_GET_OPCIONES_ROLES(lblUsuario.Text, lblCodMenuRol.Text);
-                if (dt.Rows.Count > 0)
-                {
-                    foreach (DataRow dr in dt.Rows)
-                    {
-                        if (dr["DESCRIPCION"].ToString().ToUpper() == "QUITAR")
-                            bQuitar.Visible = true;
-                    }
+            //if (e.Item.ItemType == ListItemType.Item ||
+            //   e.Item.ItemType == ListItemType.AlternatingItem)
+            //{
+            //    Button bQuitar = (Button)e.Item.FindControl("btnQuitar");
+            //    bQuitar.Visible = false;
+            //    DataTable dt = Clases.Utilitarios.PR_SEG_GET_OPCIONES_ROLES(lblUsuario.Text, lblCodMenuRol.Text);
+            //    if (dt.Rows.Count > 0)
+            //    {
+            //        foreach (DataRow dr in dt.Rows)
+            //        {
+            //            if (dr["DESCRIPCION"].ToString().ToUpper() == "QUITAR")
+            //                bQuitar.Visible = true;
+            //        }
 
-                }
-            }
+            //    }
+            //}
         }
 
         protected void Repeater2_ItemDataBound(object sender, RepeaterItemEventArgs e)
         {
-            if (e.Item.ItemType == ListItemType.Item ||
-               e.Item.ItemType == ListItemType.AlternatingItem)
-            {
-                Button bAgregar = (Button)e.Item.FindControl("btnAgregar");
-                bAgregar.Visible = false;
-                DataTable dt = Clases.Utilitarios.PR_SEG_GET_OPCIONES_ROLES(lblUsuario.Text, lblCodMenuRol.Text);
-                if (dt.Rows.Count > 0)
-                {
-                    foreach (DataRow dr in dt.Rows)
-                    {
-                        if (dr["DESCRIPCION"].ToString().ToUpper() == "AGREGAR")
-                            bAgregar.Visible = true;
-                    }
+            //if (e.Item.ItemType == ListItemType.Item ||
+            //   e.Item.ItemType == ListItemType.AlternatingItem)
+            //{
+            //    Button bAgregar = (Button)e.Item.FindControl("btnAgregar");
+            //    bAgregar.Visible = false;
+            //    DataTable dt = Clases.Utilitarios.PR_SEG_GET_OPCIONES_ROLES(lblUsuario.Text, lblCodMenuRol.Text);
+            //    if (dt.Rows.Count > 0)
+            //    {
+            //        foreach (DataRow dr in dt.Rows)
+            //        {
+            //            if (dr["DESCRIPCION"].ToString().ToUpper() == "AGREGAR")
+            //                bAgregar.Visible = true;
+            //        }
 
-                }
-            }
+            //    }
+            //}
         }
 
         protected void ddlSistema_SelectedIndexChanged(object sender, EventArgs e)
