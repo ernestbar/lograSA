@@ -159,24 +159,6 @@ namespace appLograAdmin
         protected global::System.Web.UI.WebControls.Button btnConsultar;
 
         /// <summary>
-        /// btnExportarPDF control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnExportarPDF;
-
-        /// <summary>
-        /// btnExportarExcel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnExportarExcel;
-
-        /// <summary>
         /// GridView2 control.
         /// </summary>
         /// <remarks>
@@ -186,13 +168,13 @@ namespace appLograAdmin
         protected global::System.Web.UI.WebControls.GridView GridView2;
 
         /// <summary>
-        /// GridView1 control.
+        /// Repeater1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView GridView1;
+        protected global::System.Web.UI.WebControls.Repeater Repeater1;
 
         /// <summary>
         /// View2 control.

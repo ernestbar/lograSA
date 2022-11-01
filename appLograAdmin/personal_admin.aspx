@@ -260,8 +260,8 @@
 					<div class="form-group row m-b-10">
 						<label class="col-md-3 text-md-right col-form-label">Telefono Celular:</label>
 						<div class="col-md-6">
-                             <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ErrorMessage="*" ForeColor="Red" ControlToValidate="txtCelular" Font-Bold="True"></asp:RequiredFieldValidator>
-						     <asp:TextBox ID="txtCelular" ForeColor="Black" class="form-control" runat="server" ></asp:TextBox>
+                             <asp:RequiredFieldValidator ID="RequiredFieldValidator6"  runat="server" ErrorMessage="*" ForeColor="Red" ControlToValidate="txtCelular" Font-Bold="True"></asp:RequiredFieldValidator>
+						     <asp:TextBox ID="txtCelular" ForeColor="Black" TextMode="Number" class="form-control" runat="server" ></asp:TextBox>
 						</div>
 					</div>
 					<!-- end form-group row -->
@@ -269,7 +269,7 @@
 					<div class="form-group row m-b-10">
 						<label class="col-md-3 text-md-right col-form-label">Telefono Fijo:</label>
 						<div class="col-md-6">
-						     <asp:TextBox ID="txtFijo" ForeColor="Black" class="form-control" runat="server" ></asp:TextBox>
+						     <asp:TextBox ID="txtFijo" ForeColor="Black" TextMode="Number" class="form-control" runat="server" ></asp:TextBox>
 						</div>
 					</div>
 					<!-- end form-group row -->
@@ -277,7 +277,7 @@
 					<div class="form-group row m-b-10">
 						<label class="col-md-3 text-md-right col-form-label">Interno:</label>
 						<div class="col-md-6">
-						     <asp:TextBox ID="txtInterno" ForeColor="Black" class="form-control" runat="server" ></asp:TextBox>
+						     <asp:TextBox ID="txtInterno" ForeColor="Black" TextMode="Number" class="form-control" runat="server" ></asp:TextBox>
 						</div>
 					</div>
 					<!-- end form-group row -->
@@ -287,18 +287,18 @@
 						<div class="col-md-6">
 							                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator15" runat="server" ErrorMessage="*" ForeColor="Red" ControlToValidate="txtEmail" Font-Bold="True"></asp:RequiredFieldValidator>
 						                <asp:TextBox ID="txtEmail" ForeColor="Black" class="form-control" runat="server"  placeholder="Correo Electronico"></asp:TextBox>
+							 <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ControlToValidate="txtEmail" Display="Dynamic" ErrorMessage="* Email incorrecto" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*"></asp:RegularExpressionValidator>
 						</div>
 					</div>
 					<!-- end form-group row -->
 					<!-- begin form-group row -->
-					<div class="form-group row m-b-10">
+					<%--<div class="form-group row m-b-10">
 						<label class="col-md-3 text-md-right col-form-label">Nombre usuario:</label>
 						<div class="col-md-6">
-                            <%--<asp:CheckBox ID="cbPadre"  class="form-control" AutoPostBack="true" Text="SI/NO" OnCheckedChanged="cbPadre_CheckedChanged" Checked="true" runat="server" />--%>
 							 <asp:RequiredFieldValidator ID="RequiredFieldValidator10" runat="server" ErrorMessage="*" ForeColor="Red" ControlToValidate="txtUsuario" Font-Bold="True"></asp:RequiredFieldValidator>
                              <asp:TextBox ID="txtUsuario" runat="server" class="form-control" ForeColor="Black" placeholder="NOMBRE USUARIO"></asp:TextBox>
 						</div>
-					</div>
+					</div>--%>
 					<!-- end form-group row -->
 					<!-- begin form-group row -->
 					<%--<div class="form-group row m-b-10">

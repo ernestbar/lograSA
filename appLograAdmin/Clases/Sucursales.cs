@@ -11,7 +11,7 @@ namespace appLograAdmin.Clases
     public class Sucursales
     {
         //Base de datos
-        private static OracleConnection Conexion = new OracleConnection("User Id=seguridad;Password=segu123;Data Source=200.12.254.22:1521/XE");
+        private static OracleConnection Conexion = new OracleConnection("User Id=sigal;Password=siga123;Data Source=200.12.254.22:1521/XE");
 
         #region Propiedades
         //Propiedades privadas
@@ -73,7 +73,7 @@ namespace appLograAdmin.Clases
                 if (Conexion.State.ToString().ToUpper() == "CLOSED")
                     Conexion.Open();
 
-                OracleCommand cmd = new OracleCommand("PAQ_CLI_SUCURSALES.PR_PAR_GET_SUCURSALES", Conexion);
+                OracleCommand cmd = new OracleCommand("PAQ_CLI_SUCURSALES_SIGAL.PR_PAR_GET_SUCURSALES", Conexion);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("PV_COD_CLIENTE", OracleDbType.Varchar2, ParameterDirection.Input).Value = pV_COD_CLIENTE;
                 cmd.Parameters.Add("po_tabla", OracleDbType.RefCursor, ParameterDirection.Output);
@@ -104,7 +104,7 @@ namespace appLograAdmin.Clases
                 if (Conexion.State.ToString().ToUpper() == "CLOSED")
                     Conexion.Open();
 
-                OracleCommand cmd = new OracleCommand("PAQ_CLI_SUCURSALES.PR_PAR_GET_SUCURSALES_IND", Conexion);
+                OracleCommand cmd = new OracleCommand("PAQ_CLI_SUCURSALES_SIGAL.PR_PAR_GET_SUCURSALES_IND", Conexion);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("PV_COD_SUCURSAL", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PV_COD_SUCURSAL;
                 cmd.Parameters.Add("po_tabla", OracleDbType.RefCursor, ParameterDirection.Output);
@@ -159,7 +159,7 @@ namespace appLograAdmin.Clases
 
                 if (Conexion.State.ToString().ToUpper() == "CLOSED")
                     Conexion.Open();
-                OracleCommand cmd = new OracleCommand("PAQ_CLI_SUCURSALES.PR_I_SUCURSALES", Conexion);
+                OracleCommand cmd = new OracleCommand("PAQ_CLI_SUCURSALES_SIGAL.PR_I_SUCURSALES", Conexion);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("PV_COD_CLIENTE", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PV_COD_CLIENTE;
                 cmd.Parameters.Add("PV_NOMBRE_SUCURSAL", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PV_NOMBRE_SUCURSAL;
@@ -209,7 +209,7 @@ namespace appLograAdmin.Clases
             {
                 if (Conexion.State.ToString().ToUpper() == "CLOSED")
                     Conexion.Open();
-                OracleCommand cmd = new OracleCommand("PAQ_CLI_SUCURSALES.PR_U_SUCURSALES", Conexion);
+                OracleCommand cmd = new OracleCommand("PAQ_CLI_SUCURSALES_SIGAL.PR_U_SUCURSALES", Conexion);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("PV_COD_SUCURSAL", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PV_COD_SUCURSAL;
                 cmd.Parameters.Add("PV_COD_CLIENTE", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PV_COD_CLIENTE;
@@ -260,7 +260,7 @@ namespace appLograAdmin.Clases
             {
                 if (Conexion.State.ToString().ToUpper() == "CLOSED")
                     Conexion.Open();
-                OracleCommand cmd = new OracleCommand("PAQ_CLI_SUCURSALES.PR_D_SUCURSALES", Conexion);
+                OracleCommand cmd = new OracleCommand("PAQ_CLI_SUCURSALES_SIGAL.PR_D_SUCURSALES", Conexion);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("PV_COD_SUCURSAL", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PV_COD_SUCURSAL;
                 cmd.Parameters.Add("PV_USUARIO", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PV_USUARIO;
@@ -304,7 +304,7 @@ namespace appLograAdmin.Clases
             {
                 if (Conexion.State.ToString().ToUpper() == "CLOSED")
                     Conexion.Open();
-                OracleCommand cmd = new OracleCommand("PAQ_CLI_SUCURSALES.PR_A_SUCURSALES", Conexion);
+                OracleCommand cmd = new OracleCommand("PAQ_CLI_SUCURSALES_SIGAL.PR_A_SUCURSALES", Conexion);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("PV_COD_SUCURSAL", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PV_COD_SUCURSAL;
                 cmd.Parameters.Add("PV_USUARIO", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PV_USUARIO;

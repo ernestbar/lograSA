@@ -58,7 +58,7 @@ namespace appLograAdmin.Clases
                 if (Conexion.State.ToString().ToUpper() == "CLOSED")
                     Conexion.Open();
 
-                OracleCommand cmd = new OracleCommand("PAQ_CLI_CAMPOS_CLIENTES.PR_GET_CAMPO_A_ASIGNAR_CLIENTE", Conexion);
+                OracleCommand cmd = new OracleCommand("PAQ_CLI_CAMPOS_CLIENTES_SIGAL.PR_GET_CAMPO_A_ASIGNAR_CLIENTE", Conexion);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("PV_COD_CLIENTE", OracleDbType.Varchar2, ParameterDirection.Input).Value = pV_COD_CLIENTE;
                 cmd.Parameters.Add("PV_TIPO_REPORTE", OracleDbType.Varchar2, ParameterDirection.Input).Value = pV_COD_REPORTE;
@@ -86,7 +86,7 @@ namespace appLograAdmin.Clases
                 if (Conexion.State.ToString().ToUpper() == "CLOSED")
                     Conexion.Open();
 
-                OracleCommand cmd = new OracleCommand("PAQ_CLI_CAMPOS_CLIENTES.PR_GET_CAMPO_ASIGNADO_CLIENTE", Conexion);
+                OracleCommand cmd = new OracleCommand("PAQ_CLI_CAMPOS_CLIENTES_SIGAL.PR_GET_CAMPO_ASIGNADO_CLIENTE", Conexion);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("PV_COD_CLIENTE", OracleDbType.Varchar2, ParameterDirection.Input).Value = pV_COD_CLIENTE;
                 cmd.Parameters.Add("PV_TIPO_REPORTE", OracleDbType.Varchar2, ParameterDirection.Input).Value = pV_COD_REPORTE;
@@ -176,7 +176,7 @@ namespace appLograAdmin.Clases
 
                 if (Conexion.State.ToString().ToUpper() == "CLOSED")
                     Conexion.Open();
-                OracleCommand cmd = new OracleCommand("PAQ_CLI_CAMPOS_CLIENTES.PR_I_CAMPOS_CLIENTE", Conexion);
+                OracleCommand cmd = new OracleCommand("PAQ_CLI_CAMPOS_CLIENTES_SIGAL.PR_I_CAMPOS_CLIENTE", Conexion);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("PV_COD_REPORTE", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PV_COD_REPORTE;
                 cmd.Parameters.Add("PV_COD_CLIENTE", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PV_COD_CLIENTE;
@@ -221,7 +221,7 @@ namespace appLograAdmin.Clases
 
                 if (Conexion.State.ToString().ToUpper() == "CLOSED")
                     Conexion.Open();
-                OracleCommand cmd = new OracleCommand("PAQ_CLI_CAMPOS_CLIENTES.PR_D_CAMPOS_CLIENTE", Conexion);
+                OracleCommand cmd = new OracleCommand("PAQ_CLI_CAMPOS_CLIENTES_SIGAL.PR_D_CAMPOS_CLIENTE", Conexion);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("PV_COD_REPORTE", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PV_COD_REPORTE;
                 cmd.Parameters.Add("PV_COD_CLIENTE", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PV_COD_CLIENTE;

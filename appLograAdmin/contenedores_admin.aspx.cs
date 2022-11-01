@@ -142,14 +142,14 @@ namespace appLograAdmin
                
                 if (lblCodContenedor.Text == "")
                 {
-                    Clases.Contenedores obj = new Clases.Contenedores("", ddlEnvase.SelectedValue, Int64.Parse(txtTamaño.Text), ddlClaseLabel.SelectedValue,ddlClaseLabel.SelectedValue, lblUsuario.Text);
+                    Clases.Contenedores obj = new Clases.Contenedores("", ddlEnvase.SelectedValue, Int64.Parse(txtTamaño.Text), ddlClase.SelectedValue,ddlClaseLabel.SelectedValue, lblUsuario.Text);
                     lblAviso.Text = obj.ABM_I().Replace("0", "").Replace("|", "").Replace("1", "").Replace("null", "");
                     MultiView1.ActiveViewIndex = 0;
                     Repeater1.DataBind();
                 }
                 else
                 {
-                    Clases.Contenedores obj = new Clases.Contenedores(lblCodContenedor.Text, ddlEnvase.SelectedValue, Int64.Parse(txtTamaño.Text), ddlClaseLabel.SelectedValue, ddlClaseLabel.SelectedValue, lblUsuario.Text);
+                    Clases.Contenedores obj = new Clases.Contenedores(lblCodContenedor.Text, ddlEnvase.SelectedValue, Int64.Parse(txtTamaño.Text), ddlClase.SelectedValue, ddlClaseLabel.SelectedValue, lblUsuario.Text);
                     lblAviso.Text = obj.ABM_U().Replace("0", "").Replace("|", "").Replace("1", "").Replace("null", "");
                     MultiView1.ActiveViewIndex = 0;
                     Repeater1.DataBind();

@@ -66,7 +66,7 @@
 											<asp:DropDownList ID="ddlServidor" class="form-control col-md-6"  DataSourceID="odsServidores" DataTextField="detalle" DataValueField="cod_cliente_sici" OnDataBound="ddlServidor_DataBound" runat="server"></asp:DropDownList>
 											<asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="*" ForeColor="Red" ControlToValidate="ddlServidor" InitialValue="SELECCIONAR"  Font-Bold="True"></asp:RequiredFieldValidator>
 											Fecha:
-											<input id="fecha_salida" class="form-control col-12 col-md-2"  style="background:#ecf1fa" required type="date"><asp:HiddenField ID="hfFechaSalida" runat="server" />
+											<input id="fecha_salida" class="form-control col-12 col-md-2" onfocus="bloquear();" style="background:#ecf1fa" required type="date"><asp:HiddenField ID="hfFechaSalida" runat="server" />
 											
 											<!-- end page-header -->
 			<br />
@@ -103,7 +103,7 @@
 														<asp:GridView runat="server" ID="GridView1" AutoGenerateColumns="true" OnPreRender="GridView_PreRender" CssClass="table table-striped" OnRowDataBound="GridView1_RowDataBound">
 
 														</asp:GridView>
-												<%--<table id="data-table-buttons" class="table table-striped table-bordered">
+												<table id="data-table-buttons" class="table table-striped table-bordered">
 													<thead>
 														<tr>
 															<th class="text-wrap">RECINTO</th>
@@ -120,8 +120,6 @@
 															<th class="text-nowrap">UBIC_COD</th>
 															<th class="text-nowrap">UBIC_DET</th>
 															<th class="text-nowrap">SKU</th>
-														
-															
 															</tr>
 													</thead>
 													<tbody>
@@ -148,7 +146,7 @@
 														
 													
 													</tbody>
-												</table>--%>
+												</table>
 											</div>
 											<!-- end table-responsive -->
 													</div>
@@ -171,6 +169,25 @@
 		function setearFechaSalida() {
 
             document.getElementById('fecha_salida').value = document.getElementById('<%=hfFechaSalida.ClientID%>').value;
+		}
+
+        function bloquear() {
+            var today = new Date();
+            var dd = today.getDate();
+            var mm = today.getMonth() + 1; //January is 0!
+            var yyyy = today.getFullYear();
+
+            if (dd < 10) {
+                dd = '0' + dd;
+            }
+
+            if (mm < 10) {
+                mm = '0' + mm;
+            }
+
+            today = yyyy + '-' + mm + '-' + dd;
+            document.getElementById("fecha_salida").setAttribute("max", today);
+
         }
     </script>
 

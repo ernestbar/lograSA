@@ -82,13 +82,14 @@ namespace appLograAdmin
             txtEmail.Text = "";
             txtNombres.Text = "";
             txtNumeroDocumento.Text = "";
-            txtUsuario.Text = "";
+            //txtUsuario.Text = "";
+            txtCelular.Text = "0";
             lblFechaDesde.Text = "";
             lblFechaHasta.Text = "";
             txtPassword.Text = "";
             txtPasswordAnterior.Text = "";
-            txtInterno.Text = "";
-            txtFijo.Text = "";
+            txtInterno.Text = "0";
+            txtFijo.Text = "0";
             txtDescripcion.Text = "";
             ddlExpedido.DataBind();
             ddlTipoDocumento.DataBind();
@@ -140,7 +141,7 @@ namespace appLograAdmin
                     foreach (DataRow dr in dt.Rows)
                     {
                         lblCodUsuarioI.Text = dr["usuario"].ToString();
-                        txtUsuario.Text = dr["usuario"].ToString();
+                        //txtUsuario.Text = dr["usuario"].ToString();
                         txtDescripcion.Text = dr["descripcion"].ToString();
                         if (dr["fecha_desde"].ToString() == "")
                         {
@@ -300,7 +301,7 @@ namespace appLograAdmin
                     Clases.Personal per = new Clases.Personal(ddlClientes.SelectedValue, "", ddlSupervisor.SelectedValue, ddlSucursal.SelectedValue, txtNombres.Text,
                         ddlTipoDocumento.SelectedValue, txtNumeroDocumento.Text, ddlExpedido.SelectedValue,
                         ddlCargo.SelectedValue, int.Parse(txtCelular.Text), Int64.Parse(txtFijo.Text), Int64.Parse(txtInterno.Text),
-                        txtEmail.Text, txtUsuario.Text, "", "", txtDescripcion.Text, DateTime.Parse(fecha_salida), DateTime.Parse(fecha_retorno), ddlRol.SelectedValue, lblUsuario.Text);
+                        txtEmail.Text, txtEmail.Text, "", "", txtDescripcion.Text, DateTime.Parse(fecha_salida), DateTime.Parse(fecha_retorno), ddlRol.SelectedValue, lblUsuario.Text);
                     aux = per.ABM_I();
                     Clases.enviar_correo objC = new Clases.enviar_correo();
                     string resultado2 = objC.enviar(txtEmail.Text, "Registro de usario " + txtEmail.Text, "Bienvenido estimado usuario:" + txtEmail.Text + "<br/><br/> Su password temporal es el 123: <br/><br/>" + " <br/><br/> Ahora debe ingresar al sistema del siguiente link: <br/><br/>" + "https://200.105.209.42:5554" + "<br/><br/>Saludos coordiales.", "");
@@ -326,7 +327,7 @@ namespace appLograAdmin
                     Clases.Personal per = new Clases.Personal(ddlClientes.SelectedValue, lblCodPersonal.Text, ddlSupervisor.SelectedValue, ddlSucursal.SelectedValue, txtNombres.Text,
                          ddlTipoDocumento.SelectedValue, txtNumeroDocumento.Text, ddlExpedido.SelectedValue,
                          ddlCargo.SelectedValue, int.Parse(txtCelular.Text), Int64.Parse(txtFijo.Text), Int64.Parse(txtInterno.Text),
-                         txtEmail.Text, txtUsuario.Text, "", "", txtDescripcion.Text, DateTime.Parse(fecha_salida), DateTime.Parse(fecha_retorno), ddlRol.SelectedValue, lblUsuario.Text);
+                         txtEmail.Text, txtEmail.Text, "", "", txtDescripcion.Text, DateTime.Parse(fecha_salida), DateTime.Parse(fecha_retorno), ddlRol.SelectedValue, lblUsuario.Text);
                     aux = per.ABM_U();
                 }
 
@@ -418,7 +419,7 @@ namespace appLograAdmin
                         "", id, "", "", "", DateTime.Now, DateTime.Now, "", lblUsuario.Text);
                 lblAviso.Text = per.ABM_R().Replace("|", "").Replace("0", "").Replace("null", "") + ", POR FAVOR REVISE SU CORREO.";
                 Clases.enviar_correo objC = new Clases.enviar_correo();
-                string resultado2 = objC.enviar(txtUsuario.Text, "Reseteo de contraseña del usuario " + txtUsuario.Text, "Estimado usuario :" + "<br/><br/> Su password temporal es el 123: <br/><br/>" + " <br/><br/> Ahora debe ingresar al sistema del siguiente link: <br/><br/>" + "https://200.105.209.42:5554" + "<br/><br/>Saludos coordiales.", "");
+                string resultado2 = objC.enviar(id, "Reseteo de contraseña del usuario " + id, "Estimado usuario :" + "<br/><br/> Su password temporal es el 123: <br/><br/>" + " <br/><br/> Ahora debe ingresar al sistema del siguiente link: <br/><br/>" + "https://200.105.209.42:5554" + "<br/><br/>Saludos coordiales.", "");
                 //if (datos[2] == "PASSWORD CORRECTAMENTE RESETEADO")
                 //{
                 //    ScriptManager.RegisterStartupScript(this, GetType(), "showalert", "alert('Su password se reseteo correctamente a 123');", true);

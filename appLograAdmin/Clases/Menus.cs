@@ -13,7 +13,7 @@ namespace appLograAdmin.Clases
     {
         //Base de datos
         //private static Database db1 = DatabaseFactory.CreateDatabase(ConfigurationManager.AppSettings["conn"]);
-        private static OracleConnection Conexion = new OracleConnection("User Id=seguridad;Password=segu123;Data Source=200.12.254.22:1521/XE");
+        private static OracleConnection Conexion = new OracleConnection("User Id=sigal;Password=siga123;Data Source=200.12.254.22:1521/XE");
 
         #region Propiedades
         //Propiedades privadas
@@ -66,7 +66,7 @@ namespace appLograAdmin.Clases
                 if (Conexion.State.ToString().ToUpper() == "CLOSED")
                     Conexion.Open();
 
-                OracleCommand cmd = new OracleCommand("PAQ_CLI_MENUS.PR_SEG_GET_MENUS", Conexion);
+                OracleCommand cmd = new OracleCommand("PAQ_CLI_MENUS_SIGAL.PR_SEG_GET_MENUS", Conexion);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("PV_SISTEMA", OracleDbType.Varchar2, ParameterDirection.Input).Value = pV_SISTEMA;
                 cmd.Parameters.Add("po_tabla", OracleDbType.RefCursor, ParameterDirection.Output);
@@ -99,7 +99,7 @@ namespace appLograAdmin.Clases
                 if (Conexion.State.ToString().ToUpper() == "CLOSED")
                     Conexion.Open();
 
-                OracleCommand cmd = new OracleCommand("PAQ_CLI_MENUS.PR_SEG_GET_MENUS_IND", Conexion);
+                OracleCommand cmd = new OracleCommand("PAQ_CLI_MENUS_SIGAL.PR_SEG_GET_MENUS_IND", Conexion);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("PV_COD_MENU", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PV_COD_MENU;
                 cmd.Parameters.Add("po_tabla", OracleDbType.RefCursor, ParameterDirection.Output);
@@ -147,7 +147,7 @@ namespace appLograAdmin.Clases
 
                 if (Conexion.State.ToString().ToUpper() == "CLOSED")
                     Conexion.Open();
-                OracleCommand cmd = new OracleCommand("PAQ_CLI_MENUS.PR_I_MENUS", Conexion);
+                OracleCommand cmd = new OracleCommand("PAQ_CLI_MENUS_SIGAL.PR_I_MENUS", Conexion);
                 cmd.CommandType = CommandType.StoredProcedure;
                 if(_PV_COD_MENU_PADRE=="")
                     cmd.Parameters.Add("PV_COD_MENU", OracleDbType.Varchar2, ParameterDirection.Input).Value = null;
@@ -197,7 +197,7 @@ namespace appLograAdmin.Clases
             {
                 if (Conexion.State.ToString().ToUpper() == "CLOSED")
                     Conexion.Open();
-                OracleCommand cmd = new OracleCommand("PAQ_CLI_MENUS.PR_U_MENUS", Conexion);
+                OracleCommand cmd = new OracleCommand("PAQ_CLI_MENUS_SIGAL.PR_U_MENUS", Conexion);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("PB_COD_MENU", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PV_COD_MENU;
                 cmd.Parameters.Add("PB_COD_MENU_PADRE", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PV_COD_MENU_PADRE;
@@ -245,7 +245,7 @@ namespace appLograAdmin.Clases
             {
                 if (Conexion.State.ToString().ToUpper() == "CLOSED")
                     Conexion.Open();
-                OracleCommand cmd = new OracleCommand("PAQ_CLI_MENUS.PR_D_MENUS", Conexion);
+                OracleCommand cmd = new OracleCommand("PAQ_CLI_MENUS_SIGAL.PR_D_MENUS", Conexion);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("PB_COD_MENU", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PV_COD_MENU;
                 cmd.Parameters.Add("PV_USUARIO", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PV_USUARIO;
@@ -289,7 +289,7 @@ namespace appLograAdmin.Clases
             {
                 if (Conexion.State.ToString().ToUpper() == "CLOSED")
                     Conexion.Open();
-                OracleCommand cmd = new OracleCommand("PAQ_CLI_MENUS.PR_A_MENUS", Conexion);
+                OracleCommand cmd = new OracleCommand("PAQ_CLI_MENUS_SIGAL.PR_A_MENUS", Conexion);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("PB_COD_MENU", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PV_COD_MENU;
                 cmd.Parameters.Add("PV_USUARIO", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PV_USUARIO;

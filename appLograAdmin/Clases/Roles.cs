@@ -13,7 +13,7 @@ namespace appLograAdmin.Clases
     {
         //Base de datos
         //private static Database db1 = DatabaseFactory.CreateDatabase(ConfigurationManager.AppSettings["conn"]);
-        private static OracleConnection Conexion = new OracleConnection("User Id=seguridad;Password=segu123;Data Source=200.12.254.22:1521/XE");
+        private static OracleConnection Conexion = new OracleConnection("User Id=sigal;Password=siga123;Data Source=200.12.254.22:1521/XE");
 
         #region Propiedades
         //Propiedades privadas
@@ -57,7 +57,7 @@ namespace appLograAdmin.Clases
                 if (Conexion.State.ToString().ToUpper() == "CLOSED")
                     Conexion.Open();
 
-                OracleCommand cmd = new OracleCommand("PAQ_CLI_ROLES.PR_GET_ROLES", Conexion);
+                OracleCommand cmd = new OracleCommand("PAQ_CLI_ROLES_SIGAL.PR_GET_ROLES", Conexion);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("po_tabla", OracleDbType.RefCursor, ParameterDirection.Output);
                 cmd.ExecuteNonQuery();
@@ -89,7 +89,7 @@ namespace appLograAdmin.Clases
                 if (Conexion.State.ToString().ToUpper() == "CLOSED")
                     Conexion.Open();
 
-                OracleCommand cmd = new OracleCommand("PAQ_CLI_ROLES.PR_GET_ROLES_IND", Conexion);
+                OracleCommand cmd = new OracleCommand("PAQ_CLI_ROLES_SIGAL.PR_GET_ROLES_IND", Conexion);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("PV_COD_ROL", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PV_ROL;
                 cmd.Parameters.Add("po_tabla", OracleDbType.RefCursor, ParameterDirection.Output);
@@ -124,7 +124,7 @@ namespace appLograAdmin.Clases
 
                 if (Conexion.State.ToString().ToUpper() == "CLOSED")
                     Conexion.Open();
-                OracleCommand cmd = new OracleCommand("PAQ_CLI_ROLES.PR_I_ROLES", Conexion);
+                OracleCommand cmd = new OracleCommand("PAQ_CLI_ROLES_SIGAL.PR_I_ROLES", Conexion);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("PV_ROL", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PV_ROL;
                 cmd.Parameters.Add("PV_NOMBRE_ROL", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PV_NOMBRE_ROL;
@@ -169,7 +169,7 @@ namespace appLograAdmin.Clases
             {
                 if (Conexion.State.ToString().ToUpper() == "CLOSED")
                     Conexion.Open();
-                OracleCommand cmd = new OracleCommand("PAQ_CLI_ROLES.PR_U_ROLES", Conexion);
+                OracleCommand cmd = new OracleCommand("PAQ_CLI_ROLES_SIGAL.PR_U_ROLES", Conexion);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("PV_ROL", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PV_ROL;
                 cmd.Parameters.Add("PV_NOMBRE_ROL", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PV_NOMBRE_ROL;
@@ -214,7 +214,7 @@ namespace appLograAdmin.Clases
             {
                 if (Conexion.State.ToString().ToUpper() == "CLOSED")
                     Conexion.Open();
-                OracleCommand cmd = new OracleCommand("PAQ_CLI_ROLES.PR_D_ROLES", Conexion);
+                OracleCommand cmd = new OracleCommand("PAQ_CLI_ROLES_SIGAL.PR_D_ROLES", Conexion);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("PV_ROL", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PV_ROL;
                 cmd.Parameters.Add("PV_USUARIO", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PV_USUARIO;
@@ -258,7 +258,7 @@ namespace appLograAdmin.Clases
             {
                 if (Conexion.State.ToString().ToUpper() == "CLOSED")
                     Conexion.Open();
-                OracleCommand cmd = new OracleCommand("PAQ_CLI_ROLES.PR_A_ROLES", Conexion);
+                OracleCommand cmd = new OracleCommand("PAQ_CLI_ROLES_SIGAL.PR_A_ROLES", Conexion);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("PV_ROL", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PV_ROL;
                 cmd.Parameters.Add("PV_USUARIO", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PV_USUARIO;

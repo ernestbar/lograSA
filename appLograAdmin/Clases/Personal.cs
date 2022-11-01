@@ -115,7 +115,7 @@ namespace appLograAdmin.Clases
                 if (Conexion.State.ToString().ToUpper() == "CLOSED")
                     Conexion.Open();
 
-                OracleCommand cmd = new OracleCommand("PAQ_CLI_PERSONAL.PR_PAR_GET_PERSONAL", Conexion);
+                OracleCommand cmd = new OracleCommand("PAQ_CLI_PERSONAL_SIGAL.PR_PAR_GET_PERSONAL", Conexion);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("PV_COD_CLIENTE", OracleDbType.Varchar2, ParameterDirection.Input).Value = pV_COD_CLIENTE;
                 cmd.Parameters.Add("po_tabla", OracleDbType.RefCursor, ParameterDirection.Output);
@@ -141,7 +141,7 @@ namespace appLograAdmin.Clases
                 if (Conexion.State.ToString().ToUpper() == "CLOSED")
                     Conexion.Open();
 
-                OracleCommand cmd = new OracleCommand("PAQ_CLI_PERSONAL.PR_PAR_GET_USUARIOS", Conexion);
+                OracleCommand cmd = new OracleCommand("PAQ_CLI_PERSONAL_SIGAL.PR_PAR_GET_USUARIOS", Conexion);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("PV_COD_PERSONAL", OracleDbType.Varchar2, ParameterDirection.Input).Value = pV_COD_PERSONAL;
                 cmd.Parameters.Add("po_tabla", OracleDbType.RefCursor, ParameterDirection.Output);
@@ -173,7 +173,7 @@ namespace appLograAdmin.Clases
                     if (Conexion.State.ToString().ToUpper() == "CLOSED")
                         Conexion.Open();
 
-                    OracleCommand cmd = new OracleCommand("PAQ_CLI_PERSONAL.PR_PAR_GET_USUARIOS_IND", Conexion);
+                    OracleCommand cmd = new OracleCommand("PAQ_CLI_PERSONAL_SIGAL.PR_PAR_GET_USUARIOS_IND", Conexion);
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add("PV_USUARIO", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PV_USUARIO;
                     cmd.Parameters.Add("po_tabla", OracleDbType.RefCursor, ParameterDirection.Output);
@@ -203,7 +203,7 @@ namespace appLograAdmin.Clases
                     if (Conexion.State.ToString().ToUpper() == "CLOSED")
                         Conexion.Open();
 
-                    OracleCommand cmd = new OracleCommand("PAQ_CLI_PERSONAL.PR_PAR_GET_PERSONAL_IND", Conexion);
+                    OracleCommand cmd = new OracleCommand("PAQ_CLI_PERSONAL_SIGAL.PR_PAR_GET_PERSONAL_IND", Conexion);
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add("PV_COD_PERSONAL", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PV_COD_PERSONAL;
                     cmd.Parameters.Add("po_tabla", OracleDbType.RefCursor, ParameterDirection.Output);
@@ -258,7 +258,7 @@ namespace appLograAdmin.Clases
 
                 if (Conexion.State.ToString().ToUpper() == "CLOSED")
                     Conexion.Open();
-                OracleCommand cmd = new OracleCommand("PAQ_CLI_PERSONAL.PR_I_PERSONAL", Conexion);
+                OracleCommand cmd = new OracleCommand("PAQ_CLI_PERSONAL_SIGAL.PR_I_PERSONAL", Conexion);
                 cmd.CommandType = CommandType.StoredProcedure;
                 if (_PV_SUPERVISOR_INMEDIATO == "SELECCIONAR")
                     cmd.Parameters.Add("PV_SUPERVISOR_INMEDIATO", OracleDbType.Varchar2, ParameterDirection.Input).Value = null;
@@ -311,7 +311,7 @@ namespace appLograAdmin.Clases
                 else
                     PV_EMAILOUT = cmd.Parameters["PV_EMAILOUT"].Value.ToString();
                 Conexion.Close();
-                resultado = PV_ESTADOPR + "|" + PV_DESCRIPCIONPR + "|" + PV_ERROR + "|" + PV_EMAILOUT;
+                resultado = PV_ESTADOPR + "|" + PV_DESCRIPCIONPR + "|" + PV_ERROR + "| Su Usuario es:" + PV_EMAILOUT;
                 return resultado;
             }
             catch (Exception ex)
@@ -329,7 +329,7 @@ namespace appLograAdmin.Clases
             {
                 if (Conexion.State.ToString().ToUpper() == "CLOSED")
                     Conexion.Open();
-                OracleCommand cmd = new OracleCommand("PAQ_CLI_PERSONAL.PR_U_PERSONAL", Conexion);
+                OracleCommand cmd = new OracleCommand("PAQ_CLI_PERSONAL_SIGAL.PR_U_PERSONAL", Conexion);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("PV_COD_PERSONAL", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PV_COD_PERSONAL;
                 if (_PV_SUPERVISOR_INMEDIATO == "SELECCIONAR")
@@ -393,7 +393,7 @@ namespace appLograAdmin.Clases
             {
                 if (Conexion.State.ToString().ToUpper() == "CLOSED")
                     Conexion.Open();
-                OracleCommand cmd = new OracleCommand("PAQ_CLI_PERSONAL.PR_D_PERSONAL", Conexion);
+                OracleCommand cmd = new OracleCommand("PAQ_CLI_PERSONAL_SIGAL.PR_D_PERSONAL", Conexion);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("PV_COD_PERSONAL", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PV_COD_PERSONAL;
                 cmd.Parameters.Add("PV_USUARIO", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PV_USUARIO;
@@ -437,7 +437,7 @@ namespace appLograAdmin.Clases
             {
                 if (Conexion.State.ToString().ToUpper() == "CLOSED")
                     Conexion.Open();
-                OracleCommand cmd = new OracleCommand("PAQ_CLI_PERSONAL.PR_A_PERSONAL", Conexion);
+                OracleCommand cmd = new OracleCommand("PAQ_CLI_PERSONAL_SIGAL.PR_A_PERSONAL", Conexion);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("PV_COD_PERSONAL", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PV_COD_PERSONAL;
                 cmd.Parameters.Add("PV_USUARIO", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PV_USUARIO;
@@ -481,7 +481,7 @@ namespace appLograAdmin.Clases
             {
                 if (Conexion.State.ToString().ToUpper() == "CLOSED")
                     Conexion.Open();
-                OracleCommand cmd = new OracleCommand("PAQ_CLI_PERSONAL.PR_C_PERSONAL", Conexion);
+                OracleCommand cmd = new OracleCommand("PAQ_CLI_PERSONAL_SIGAL.PR_C_PERSONAL", Conexion);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("PV_USUARIOI", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PV_USUARIOI;
                 cmd.Parameters.Add("PV_PASSWORD_ANTERIOR", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PV_PASSWORD_ANTERIOR;
@@ -527,7 +527,7 @@ namespace appLograAdmin.Clases
             {
                 if (Conexion.State.ToString().ToUpper() == "CLOSED")
                     Conexion.Open();
-                OracleCommand cmd = new OracleCommand("PAQ_CLI_PERSONAL.PR_R_PERSONAL", Conexion);
+                OracleCommand cmd = new OracleCommand("PAQ_CLI_PERSONAL_SIGAL.PR_R_PERSONAL", Conexion);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("PV_USUARIOI", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PV_USUARIOI;
                 cmd.Parameters.Add("PV_USUARIO", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PV_USUARIO;

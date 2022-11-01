@@ -60,7 +60,7 @@ namespace appLograAdmin.Clases
                 if (Conexion.State.ToString().ToUpper() == "CLOSED")
                     Conexion.Open();
 
-                OracleCommand cmd = new OracleCommand("PAQ_CLI_MENUS_ROLES.PR_SEG_GET_MENUS_A_ASIGNAR", Conexion);
+                OracleCommand cmd = new OracleCommand("PAQ_CLI_MENUS_ROLES_SEGAL.PR_SEG_GET_MENUS_A_ASIGNAR", Conexion);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("PB_ROL_ID_ROL", OracleDbType.Varchar2, ParameterDirection.Input).Value = pB_ROL_ID_ROL;
                 cmd.Parameters.Add("PV_SISTEMA", OracleDbType.Varchar2, ParameterDirection.Input).Value = pV_SISTEMA;
@@ -89,7 +89,7 @@ namespace appLograAdmin.Clases
                 if (Conexion.State.ToString().ToUpper() == "CLOSED")
                     Conexion.Open();
 
-                OracleCommand cmd = new OracleCommand("PAQ_CLI_MENUS_ROLES.PR_SEG_GET_MENUS_ASIGNADOS", Conexion);
+                OracleCommand cmd = new OracleCommand("PAQ_CLI_MENUS_ROLES_SEGAL.PR_SEG_GET_MENUS_ASIGNADOS", Conexion);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("PB_ROL_ID_ROL", OracleDbType.Varchar2, ParameterDirection.Input).Value = pB_ROL_ID_ROL;
                 cmd.Parameters.Add("PV_SISTEMA", OracleDbType.Varchar2, ParameterDirection.Input).Value = pV_SISTEMA;
@@ -179,7 +179,7 @@ namespace appLograAdmin.Clases
 
                 if (Conexion.State.ToString().ToUpper() == "CLOSED")
                     Conexion.Open();
-                OracleCommand cmd = new OracleCommand("PAQ_CLI_MENUS_ROLES.PR_I_MENUS_ROLES", Conexion);
+                OracleCommand cmd = new OracleCommand("PAQ_CLI_MENUS_ROLES_SEGAL.PR_I_MENUS_ROLES", Conexion);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("PB_ID_ROL", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PB_ID_ROL;
                 cmd.Parameters.Add("PB_COD_MENU", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PB_COD_MENU;
@@ -224,7 +224,7 @@ namespace appLograAdmin.Clases
 
                 if (Conexion.State.ToString().ToUpper() == "CLOSED")
                     Conexion.Open();
-                OracleCommand cmd = new OracleCommand("PAQ_CLI_MENUS_ROLES.PR_D_MENUS_ROLES", Conexion);
+                OracleCommand cmd = new OracleCommand("PAQ_CLI_MENUS_ROLES_SEGAL.PR_D_MENUS_ROLES", Conexion);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("PB_ROL_MENU", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PB_ROL_MENU;
                 cmd.Parameters.Add("PV_USUARIO", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PV_USUARIO;

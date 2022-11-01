@@ -21,6 +21,7 @@ namespace appLograAdmin
                 }
                 else
                 {
+                    lblUsuario.Text = Session["usuario"].ToString();
                     DateTime fecha1 = DateTime.Now;
                     string dia = "";
                     string mes = "";

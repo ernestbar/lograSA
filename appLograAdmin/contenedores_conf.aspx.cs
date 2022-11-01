@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -21,6 +22,7 @@ namespace appLograAdmin
                 }
                 else
                 {
+                    lblUsuario.Text = Session["usuario"].ToString();
                     DateTime fecha1 = DateTime.Now;
                     string dia = "";
                     string mes = "";
@@ -62,8 +64,8 @@ namespace appLograAdmin
             if (hfFechaSalida.Value != "")
                 fecha_ini = hfFechaSalida.Value;
 
-            GridView1.DataSource = Clases.Contenedores.PR_PAR_GET_CONTENEDORES_LOGRA(DateTime.Parse(fecha_ini), lblCodServidor.Text, ddlServidor.SelectedValue, lblUsuario.Text);
-            GridView1.DataBind();
+            Repeater1.DataSource = Clases.Contenedores.PR_PAR_GET_CONTENEDORES_LOGRA(DateTime.Parse(fecha_ini), lblCodServidor.Text, ddlServidor.SelectedValue, lblUsuario.Text);
+            Repeater1.DataBind();
             ScriptManager.RegisterStartupScript(this, this.Page.GetType(), "myFuncionAlerta", "setearFechaSalida();", true);
         }
 
@@ -126,62 +128,94 @@ namespace appLograAdmin
 
         protected void btnExportarPDF_Click(object sender, EventArgs e)
         {
-            string logoCliente;
-            string nombreReporte = "ReporteInventario.pdf";
+            //string logoCliente;
+            //string nombreReporte = "ReporteInventario.pdf";
 
-            Clases.Clientes cli = new Clases.Clientes(ddlClientes.SelectedValue);
-            if (cli.PV_LOGO == "")
-            {
-                logoCliente = Server.MapPath("~") + "/ClienteLogos/sin_logo.png";
-            }
-            else
-            {
-                logoCliente = Server.MapPath("~") + "/ClienteLogos/" + cli.PV_COD_CLIENTE + "/" + cli.PV_LOGO;
-            }
+            //Clases.Clientes cli = new Clases.Clientes(ddlClientes.SelectedValue);
+            //if (cli.PV_LOGO == "")
+            //{
+            //    logoCliente = Server.MapPath("~") + "/ClienteLogos/sin_logo.png";
+            //}
+            //else
+            //{
+            //    logoCliente = Server.MapPath("~") + "/ClienteLogos/" + cli.PV_COD_CLIENTE + "/" + cli.PV_LOGO;
+            //}
 
-            byte[] buffer = Reportes.ExportarPDF(GridView1, logoCliente, "Reporte Inventario Existencias");
+            //byte[] buffer = Reportes.ExportarPDF(GridView1, logoCliente, "Reporte Inventario Existencias");
 
-            Response.Clear();
-            Response.Charset = "";
-            Response.ContentType = "application/pdf";
-            Response.AppendHeader("Content-Disposition", "attachment; filename=" + nombreReporte);
-            Response.BinaryWrite(buffer);
-            Response.Flush();
-            Response.End();
-            Response.ClearContent();
+            //Response.Clear();
+            //Response.Charset = "";
+            //Response.ContentType = "application/pdf";
+            //Response.AppendHeader("Content-Disposition", "attachment; filename=" + nombreReporte);
+            //Response.BinaryWrite(buffer);
+            //Response.Flush();
+            //Response.End();
+            //Response.ClearContent();
         }
 
         protected void btnExportarExcel_Click(object sender, EventArgs e)
         {
-            string logoCliente;
-            string nombreReporte = "ReporteInventario.xlsx";
+            //string logoCliente;
+            //string nombreReporte = "ReporteInventario.xlsx";
 
-            Clases.Clientes cli = new Clases.Clientes(ddlClientes.SelectedValue);
-            if (cli.PV_LOGO == "")
-            {
-                logoCliente = Server.MapPath("~") + "/ClienteLogos/sin_logo.png";
-            }
-            else
-            {
-                logoCliente = Server.MapPath("~") + "/ClienteLogos/" + cli.PV_COD_CLIENTE + "/" + cli.PV_LOGO;
-            }
+            //Clases.Clientes cli = new Clases.Clientes(ddlClientes.SelectedValue);
+            //if (cli.PV_LOGO == "")
+            //{
+            //    logoCliente = Server.MapPath("~") + "/ClienteLogos/sin_logo.png";
+            //}
+            //else
+            //{
+            //    logoCliente = Server.MapPath("~") + "/ClienteLogos/" + cli.PV_COD_CLIENTE + "/" + cli.PV_LOGO;
+            //}
 
-            FileInfo infoLogo = new FileInfo(logoCliente);
-            byte[] buffer = Reportes.ExportarExcel(GridView1, infoLogo, "Reporte Inventario Existencias");
+            //FileInfo infoLogo = new FileInfo(logoCliente);
+            //byte[] buffer = Reportes.ExportarExcel(GridView1, infoLogo, "Reporte Inventario Existencias");
 
-            Response.Clear();
-            Response.Charset = "";
-            Response.ContentType = "application/vnd.ms-excel";
-            Response.AppendHeader("Content-Disposition", "attachment; filename=" + nombreReporte);
-            Response.BinaryWrite(buffer);
-            Response.Flush();
-            Response.End();
-            Response.ClearContent();
+            //Response.Clear();
+            //Response.Charset = "";
+            //Response.ContentType = "application/vnd.ms-excel";
+            //Response.AppendHeader("Content-Disposition", "attachment; filename=" + nombreReporte);
+            //Response.BinaryWrite(buffer);
+            //Response.Flush();
+            //Response.End();
+            //Response.ClearContent();
         }
 
         protected void ddlClientes_SelectedIndexChanged(object sender, EventArgs e)
         {
             ScriptManager.RegisterStartupScript(this, this.Page.GetType(), "myFuncionAlerta", "setearFechaSalida();", true);
+        }
+
+        protected void btnActualizar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                lblAviso.Text = "";
+                string id = "";
+                Button obj = (Button)sender;
+                id = obj.CommandArgument.ToString();
+                RepeaterItem item = (sender as Button).NamingContainer as RepeaterItem;
+                string cantidad =  (item.FindControl("TextBox1") as TextBox).Text;
+                //TextBox lb = (TextBox)Repeater1.Items[0].FindControl("TextBox1");
+                lblAviso.Text= Clases.Contenedores.PR_PAR_SET_CONTENEDORES_LOGRA(id,Int32.Parse(cantidad),lblUsuario.Text).Replace("0", "").Replace("|", "").Replace("1", "").Replace("null", "");
+                string fecha_ini = DateTime.Now.Year.ToString() + "/" + DateTime.Now.Month.ToString() + "/" + DateTime.Now.Day.ToString();
+                if (hfFechaSalida.Value != "")
+                    fecha_ini = hfFechaSalida.Value;
+                Repeater1.DataSource = Clases.Contenedores.PR_PAR_GET_CONTENEDORES_LOGRA(DateTime.Parse(fecha_ini), lblCodServidor.Text, ddlServidor.SelectedValue, lblUsuario.Text);
+                Repeater1.DataBind();
+                ScriptManager.RegisterStartupScript(this, this.Page.GetType(), "myFuncionAlerta", "setearFechaSalida();", true);
+
+
+            }
+            catch (Exception ex)
+            {
+                string nombre_archivo = "error_contenedores_conf" + DateTime.Now.Day.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Year.ToString() + DateTime.Now.Hour.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Second.ToString() + ".txt";
+                string directorio2 = Server.MapPath("~/Logs");
+                StreamWriter writer5 = new StreamWriter(directorio2 + "\\" + nombre_archivo, true, Encoding.Unicode);
+                writer5.WriteLine(ex.ToString());
+                writer5.Close();
+                lblAviso.Text = "Tenemos algunos problemas consulte con el administrador.";
+            }
         }
     }
 }

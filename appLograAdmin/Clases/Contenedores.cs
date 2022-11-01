@@ -95,9 +95,9 @@ namespace appLograAdmin.Clases
                 if (Conexion.State.ToString().ToUpper() == "CLOSED")
                     Conexion.Open();
 
-                OracleCommand cmd = new OracleCommand("PAQ_ADM_CONTENEDORES_SIGAL.PR_PAR_GET_CONTENEDORES", Conexion);
+                OracleCommand cmd = new OracleCommand("PAQ_ADM_CONTENEDORES_SIGAL.PR_PAR_GET_CONTENEDORES_LOGRA", Conexion);
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.Add("pd_fecha", OracleDbType.Varchar2, ParameterDirection.Input).Value = Pd_fecha;
+                cmd.Parameters.Add("pd_fecha", OracleDbType.Date, ParameterDirection.Input).Value = Pd_fecha;
                 cmd.Parameters.Add("PV_SERVIDOR", OracleDbType.Varchar2, ParameterDirection.Input).Value = pV_SERVIDOR;
                 cmd.Parameters.Add("PV_CODIGO_SICI", OracleDbType.Varchar2, ParameterDirection.Input).Value = pV_CODIGO_SICI;
                 cmd.Parameters.Add("PV_USUARIO", OracleDbType.Varchar2, ParameterDirection.Input).Value = pV_USUARIO;
@@ -128,7 +128,7 @@ namespace appLograAdmin.Clases
 
                 OracleCommand cmd = new OracleCommand("PAQ_ADM_CONTENEDORES_SIGAL.PR_PAR_GET_CONTENEDORES_SICI", Conexion);
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.Add("pd_fecha", OracleDbType.Varchar2, ParameterDirection.Input).Value = Pd_fecha;
+                cmd.Parameters.Add("pd_fecha", OracleDbType.Date, ParameterDirection.Input).Value = Pd_fecha;
                 cmd.Parameters.Add("PV_SERVIDOR", OracleDbType.Varchar2, ParameterDirection.Input).Value = pV_SERVIDOR;
                 cmd.Parameters.Add("PV_CODIGO_SICI", OracleDbType.Varchar2, ParameterDirection.Input).Value = pV_CODIGO_SICI;
                 cmd.Parameters.Add("PV_USUARIO", OracleDbType.Varchar2, ParameterDirection.Input).Value = pV_USUARIO;
@@ -150,33 +150,54 @@ namespace appLograAdmin.Clases
             }
 
         }
-        public static DataTable PR_PAR_SET_CONTENEDORES_LOGRA(DateTime PV_contenedor_sici, string PN_cantidad_generada,string pV_USUARIO)
+        public static string PR_PAR_SET_CONTENEDORES_LOGRA(string PV_contenedor_sici, Int32 PN_cantidad_generada,string pV_USUARIO)
         {
             try
             {
+                string resultado = "";
                 if (Conexion.State.ToString().ToUpper() == "CLOSED")
                     Conexion.Open();
 
                 OracleCommand cmd = new OracleCommand("PAQ_ADM_CONTENEDORES_SIGAL.PR_PAR_SET_CONTENEDORES_LOGRA", Conexion);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("PV_contenedor_sici", OracleDbType.Varchar2, ParameterDirection.Input).Value = PV_contenedor_sici;
-                cmd.Parameters.Add("PN_cantidad_generada", OracleDbType.Varchar2, ParameterDirection.Input).Value = PN_cantidad_generada;
+                cmd.Parameters.Add("PN_cantidad_generada", OracleDbType.Int32, ParameterDirection.Input).Value = PN_cantidad_generada;
+                
                 cmd.Parameters.Add("PV_USUARIO", OracleDbType.Varchar2, ParameterDirection.Input).Value = pV_USUARIO;
-                cmd.Parameters.Add("po_tabla", OracleDbType.RefCursor, ParameterDirection.Output);
+                cmd.Parameters.Add("PV_ESTADOPR", OracleDbType.Varchar2, 32767).Direction = ParameterDirection.Output;
+                cmd.Parameters.Add("PV_DESCRIPCIONPR", OracleDbType.Varchar2, 32767).Direction = ParameterDirection.Output;
+                cmd.Parameters.Add("PV_ERROR", OracleDbType.Varchar2, 32767).Direction = ParameterDirection.Output;
                 cmd.ExecuteNonQuery();
-                DataSet ds = new DataSet();
-                OracleDataAdapter da = new OracleDataAdapter(cmd);
-                da.Fill(ds);
+
+                string PV_ESTADOPR, PV_DESCRIPCIONPR, PV_ERROR;
+
+                if (String.IsNullOrEmpty(cmd.Parameters["PV_ESTADOPR"].Value.ToString()))
+                    PV_ESTADOPR = "";
+                else
+                    PV_ESTADOPR = cmd.Parameters["PV_ESTADOPR"].Value.ToString();
+
+                if (String.IsNullOrEmpty(cmd.Parameters["PV_DESCRIPCIONPR"].Value.ToString()))
+                    PV_DESCRIPCIONPR = "";
+                else
+                    PV_DESCRIPCIONPR = cmd.Parameters["PV_DESCRIPCIONPR"].Value.ToString();
+
+                if (String.IsNullOrEmpty(cmd.Parameters["PV_ERROR"].Value.ToString()))
+                    PV_ERROR = "";
+                else
+                    PV_ERROR = cmd.Parameters["PV_ERROR"].Value.ToString();
+
                 Conexion.Close();
-                return ds.Tables[0];
+
+                resultado = PV_ESTADOPR + "|" + PV_DESCRIPCIONPR + " ID: |" + PV_ERROR;
+                return resultado;
 
             }
             catch (Exception ex)
             {
                 Conexion.Close();
-                ex.ToString();
-                DataTable dt = new DataTable();
-                return dt;
+
+
+                return ex.ToString();
             }
 
         }

@@ -62,7 +62,7 @@ namespace appLograAdmin.Clases
                 if (Conexion.State.ToString().ToUpper() == "CLOSED")
                     Conexion.Open();
 
-                OracleCommand cmd = new OracleCommand("PAQ_CLI_OPCIONES.PR_SEG_GET_OPCIONES", Conexion);
+                OracleCommand cmd = new OracleCommand("PAQ_CLI_OPCIONES_SIGAL.PR_SEG_GET_OPCIONES", Conexion);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("PD_MEN_COD_MENU", OracleDbType.Varchar2, ParameterDirection.Input).Value = pD_MEN_COD_MENU;
                 cmd.Parameters.Add("po_tabla", OracleDbType.RefCursor, ParameterDirection.Output);
@@ -96,7 +96,7 @@ namespace appLograAdmin.Clases
                 if (Conexion.State.ToString().ToUpper() == "CLOSED")
                     Conexion.Open();
 
-                OracleCommand cmd = new OracleCommand("PAQ_CLI_OPCIONES.PR_SEG_GET_OPCIONES_IND", Conexion);
+                OracleCommand cmd = new OracleCommand("PAQ_CLI_OPCIONES_SIGAL.PR_SEG_GET_OPCIONES_IND", Conexion);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("PD_OPC_OPCION", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PB_COD_OPCION;
                 cmd.Parameters.Add("po_tabla", OracleDbType.RefCursor, ParameterDirection.Output);
@@ -143,7 +143,7 @@ namespace appLograAdmin.Clases
 
                 if (Conexion.State.ToString().ToUpper() == "CLOSED")
                     Conexion.Open();
-                OracleCommand cmd = new OracleCommand("PAQ_CLI_OPCIONES.PR_I_OPCION", Conexion);
+                OracleCommand cmd = new OracleCommand("PAQ_CLI_OPCIONES_SIGAL.PR_I_OPCION", Conexion);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("PB_COD_MENU", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PB_COD_MENU;
                 cmd.Parameters.Add("PV_DESCRIPCIONMEN", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PV_DESCRIPCIONMEN;
@@ -189,7 +189,7 @@ namespace appLograAdmin.Clases
             {
                 if (Conexion.State.ToString().ToUpper() == "CLOSED")
                     Conexion.Open();
-                OracleCommand cmd = new OracleCommand("PAQ_CLI_OPCIONES.PR_U_OPCION", Conexion);
+                OracleCommand cmd = new OracleCommand("PAQ_CLI_OPCIONES_SIGAL.PR_U_OPCION", Conexion);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("PB_COD_OPCION", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PB_COD_OPCION;
                 cmd.Parameters.Add("PB_COD_MENU", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PB_COD_MENU;
@@ -236,7 +236,7 @@ namespace appLograAdmin.Clases
             {
                 if (Conexion.State.ToString().ToUpper() == "CLOSED")
                     Conexion.Open();
-                OracleCommand cmd = new OracleCommand("PAQ_CLI_OPCIONES.PR_D_OPCION", Conexion);
+                OracleCommand cmd = new OracleCommand("PAQ_CLI_OPCIONES_SIGAL.PR_D_OPCION", Conexion);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("PB_COD_OPCION", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PB_COD_OPCION;
                 cmd.Parameters.Add("PV_USUARIO", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PV_USUARIO;
@@ -280,7 +280,7 @@ namespace appLograAdmin.Clases
             {
                 if (Conexion.State.ToString().ToUpper() == "CLOSED")
                     Conexion.Open();
-                OracleCommand cmd = new OracleCommand("PAQ_CLI_OPCIONES.PR_A_OPCION", Conexion);
+                OracleCommand cmd = new OracleCommand("PAQ_CLI_OPCIONES_SIGAL.PR_A_OPCION", Conexion);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("PB_COD_OPCION", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PB_COD_OPCION;
                 cmd.Parameters.Add("PV_USUARIO", OracleDbType.Varchar2, ParameterDirection.Input).Value = _PV_USUARIO;
