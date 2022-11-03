@@ -125,7 +125,7 @@
 																<td><asp:Label ID="Label4" runat="server" Text='<%# Eval("CANTIDAD_OBTENIDA") %>'></asp:Label></td>
 																<td><asp:Label ID="Label5" runat="server" Text='<%# Eval("SALDO") %>'></asp:Label></td>
 																<td>
-																	  <div class="tube offset-1">
+																	  <div class="tube offset-1" style="--tube-percentage: 20%;--tube-title: '<%# Eval("SALDO") + "%" %>';--tube-color: #ff0000;">
                                                                       <div class="shine"></div>
                                                                       <div class="body">
                                                                         <div class="liquid">
