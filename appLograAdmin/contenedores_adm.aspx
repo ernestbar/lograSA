@@ -108,8 +108,8 @@
 															<th class="text-wrap">ENVASE</th>
 															<th class="text-nowrap">TAMAÑO</th>
 															<th class="text-nowrap">CLASE</th>
-															<th class="text-nowrap">CANTIDAD GENERADA</th>
-															<th class="text-nowrap">CANTIDAD OBTENIDA</th>
+															<th class="text-nowrap">porcentaje</th>
+															<th class="text-nowrap">color</th>
 															<th class="text-nowrap">SALDO</th>
 															<th class="text-nowrap"></th>
 															</tr>
@@ -121,11 +121,11 @@
 															<td><asp:Label ID="lblcampo1" runat="server" Text='<%# Eval("ENBASE") %>'></asp:Label></td>
 															<td><asp:Label ID="Label1" runat="server" Text='<%# Eval("TAMANO") %>'></asp:Label></td>
 																<td><asp:Label ID="Label2" runat="server" Text='<%# Eval("CLASE") %>'></asp:Label></td>
-																<td><asp:Label ID="Label3" runat="server" Text='<%# Eval("CANTIDAD_GENERADA") %>'></asp:Label></td>
-																<td><asp:Label ID="Label4" runat="server" Text='<%# Eval("CANTIDAD_OBTENIDA") %>'></asp:Label></td>
+																<td><asp:Label ID="Label3" runat="server" Text='<%# Eval("pocentaje") %>'></asp:Label></td>
+																<td><asp:Label ID="Label4" runat="server" Text='<%# Eval("color") %>'></asp:Label></td>
 																<td><asp:Label ID="Label5" runat="server" Text='<%# Eval("SALDO") %>'></asp:Label></td>
 																<td>
-																	  <div class="tube offset-1" style="--tube-percentage: 20%;--tube-title: '<%# Eval("SALDO") + "%" %>';--tube-color: #ff0000;">
+																	  <div class="tube offset-1" style="--tube-percentage: 50%;--tube-title: '<%# Eval("pocentaje") + "%" %>';--tube-color:'<%# SetColor("color") %>;'">
                                                                       <div class="shine"></div>
                                                                       <div class="body">
                                                                         <div class="liquid">
