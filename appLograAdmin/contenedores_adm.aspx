@@ -106,11 +106,11 @@
 													<thead>
 														<tr>
 															<th class="text-wrap">ENVASE</th>
-														<%--	<th class="text-nowrap">TAMAÑO</th>
+															<th class="text-nowrap">TAMAÑO</th>
 															<th class="text-nowrap">CLASE</th>
 															<th class="text-nowrap">CANTIDAD GENERADA</th>
 															<th class="text-nowrap">CANTIDAD OBTENIDA</th>
-															<th class="text-nowrap">SALDO</th>--%>
+															<th class="text-nowrap">SALDO</th>
 															<th class="text-nowrap"></th>
 															</tr>
 													</thead>
@@ -119,19 +119,19 @@
 														<ItemTemplate>
 															<tr class="gradeA">
 															<td><asp:Label ID="lblcampo1" runat="server" Text='<%# Eval("ENBASE") %>'></asp:Label></td>
-															<%--<td><asp:Label ID="Label1" runat="server" Text='<%# Eval("TAMANO") %>'></asp:Label></td>
+															<td><asp:Label ID="Label1" runat="server" Text='<%# Eval("TAMANO") %>'></asp:Label></td>
 																<td><asp:Label ID="Label2" runat="server" Text='<%# Eval("CLASE") %>'></asp:Label></td>
 																<td><asp:Label ID="Label3" runat="server" Text='<%# Eval("CANTIDAD_GENERADA") %>'></asp:Label></td>
 																<td><asp:Label ID="Label4" runat="server" Text='<%# Eval("CANTIDAD_OBTENIDA") %>'></asp:Label></td>
-																<td><asp:Label ID="Label5" runat="server" Text='<%# Eval("SALDO") %>'></asp:Label></td>--%>
+																<td><asp:Label ID="Label5" runat="server" Text='<%# Eval("SALDO") %>'></asp:Label></td>
 																<td>
-																	 <div class="tube">
+																	  <div class="tube offset-1">
                                                                       <div class="shine"></div>
-                                                                      
+                                                                      <div class="body">
                                                                         <div class="liquid">
                                                                           <div class="percentage"></div>
                                                                         </div>
-                                                                     
+                                                                      </div>
                                                                       <div class="meter">
                                                                         <div>100</div>
                                                                         <div>80</div>

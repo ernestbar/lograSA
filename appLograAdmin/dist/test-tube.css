@@ -1,12 +1,12 @@
 body {
-    background-color: #fff;
-    display: flow;
-    align-items: start;
-    justify-content: stretch;
-    height: 100vh;
-    padding: 0;
-    margin: 0;
-    font-family: sans-serif;
+  background-color: #fff;
+  display: flow;
+  align-items: initial;
+  justify-content: stretch;
+  height: 100vh;
+  padding: 0;
+  margin: 0;
+  font-family: sans-serif;
 }
 
 :root {
