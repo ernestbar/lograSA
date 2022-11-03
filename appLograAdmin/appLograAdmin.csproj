@@ -3444,6 +3444,7 @@
     <Content Include="contenedores_admin.aspx" />
     <Content Include="contenedores_conf.aspx" />
     <Content Include="dashboard.aspx" />
+    <Content Include="dist\test-tube.css" />
     <Content Include="dominio_admin.aspx" />
     <Content Include="Global.asax" />
     <Content Include="inventario_existecias.aspx" />
@@ -3457,7 +3458,9 @@
     <Content Include="reporte_ingresos.aspx" />
     <Content Include="reporte_salidas.aspx" />
     <Content Include="roles_admin.aspx" />
+    <Content Include="src\test-tube.css.gif" />
     <Content Include="sucursal_admin.aspx" />
+    <Content Include="testAni.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -3623,6 +3626,13 @@
     </Compile>
     <Compile Include="sucursal_admin.aspx.designer.cs">
       <DependentUpon>sucursal_admin.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="testAni.aspx.cs">
+      <DependentUpon>testAni.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="testAni.aspx.designer.cs">
+      <DependentUpon>testAni.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

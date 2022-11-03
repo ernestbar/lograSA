@@ -63,8 +63,8 @@ namespace appLograAdmin
             if (hfFechaSalida.Value != "")
                 fecha_ini = hfFechaSalida.Value;
            
-            GridView1.DataSource = Clases.Contenedores.PR_PAR_GET_CONTENEDORES_SICI(DateTime.Parse(fecha_ini), lblCodServidor.Text, ddlServidor.SelectedValue,lblUsuario.Text);
-            GridView1.DataBind();
+            Repeater1.DataSource = Clases.Contenedores.PR_PAR_GET_CONTENEDORES_SICI(DateTime.Parse(fecha_ini), lblCodServidor.Text, ddlServidor.SelectedValue,lblUsuario.Text);
+            Repeater1.DataBind();
             ScriptManager.RegisterStartupScript(this, this.Page.GetType(), "myFuncionAlerta", "setearFechaSalida();", true);
         }
 
@@ -90,18 +90,18 @@ namespace appLograAdmin
             /* Verifies that the control is rendered */
         }
 
-        protected void GridView1_RowDataBound(object sender, GridViewRowEventArgs e)
-        {
-            if (e.Row.RowType == DataControlRowType.Header)
-            {
-                e.Row.BackColor = System.Drawing.ColorTranslator.FromHtml("#0a3147");
-                foreach (TableCell celda in e.Row.Cells)
-                {
-                    celda.Font.Size = 9;
-                    celda.ForeColor = System.Drawing.Color.White;
-                }
-            }
-        }
+        //protected void GridView1_RowDataBound(object sender, GridViewRowEventArgs e)
+        //{
+        //    if (e.Row.RowType == DataControlRowType.Header)
+        //    {
+        //        e.Row.BackColor = System.Drawing.ColorTranslator.FromHtml("#0a3147");
+        //        foreach (TableCell celda in e.Row.Cells)
+        //        {
+        //            celda.Font.Size = 9;
+        //            celda.ForeColor = System.Drawing.Color.White;
+        //        }
+        //    }
+        //}
 
         //protected void btnExportarPDF_Click(object sender, EventArgs e)
         //{
@@ -125,60 +125,60 @@ namespace appLograAdmin
         //    Response.End();
         //}
 
-        protected void btnExportarPDF_Click(object sender, EventArgs e)
-        {
-            string logoCliente;
-            string nombreReporte = "ReporteInventario.pdf";
+        //protected void btnExportarPDF_Click(object sender, EventArgs e)
+        //{
+        //    string logoCliente;
+        //    string nombreReporte = "ReporteInventario.pdf";
 
-            Clases.Clientes cli = new Clases.Clientes(ddlClientes.SelectedValue);
-            if (cli.PV_LOGO == "")
-            {
-                logoCliente = Server.MapPath("~") + "/ClienteLogos/sin_logo.png";
-            }
-            else
-            {
-                logoCliente = Server.MapPath("~") + "/ClienteLogos/" + cli.PV_COD_CLIENTE + "/" + cli.PV_LOGO;
-            }
+        //    Clases.Clientes cli = new Clases.Clientes(ddlClientes.SelectedValue);
+        //    if (cli.PV_LOGO == "")
+        //    {
+        //        logoCliente = Server.MapPath("~") + "/ClienteLogos/sin_logo.png";
+        //    }
+        //    else
+        //    {
+        //        logoCliente = Server.MapPath("~") + "/ClienteLogos/" + cli.PV_COD_CLIENTE + "/" + cli.PV_LOGO;
+        //    }
 
-            byte[] buffer = Reportes.ExportarPDF(GridView1, logoCliente, "Reporte Inventario Existencias");
+        //    byte[] buffer = Reportes.ExportarPDF(GridView1, logoCliente, "Reporte Inventario Existencias");
 
-            Response.Clear();
-            Response.Charset = "";
-            Response.ContentType = "application/pdf";
-            Response.AppendHeader("Content-Disposition", "attachment; filename=" + nombreReporte);
-            Response.BinaryWrite(buffer);
-            Response.Flush();
-            Response.End();
-            Response.ClearContent();
-        }
+        //    Response.Clear();
+        //    Response.Charset = "";
+        //    Response.ContentType = "application/pdf";
+        //    Response.AppendHeader("Content-Disposition", "attachment; filename=" + nombreReporte);
+        //    Response.BinaryWrite(buffer);
+        //    Response.Flush();
+        //    Response.End();
+        //    Response.ClearContent();
+        //}
 
-        protected void btnExportarExcel_Click(object sender, EventArgs e)
-        {
-            string logoCliente;
-            string nombreReporte = "ReporteInventario.xlsx";
+        //protected void btnExportarExcel_Click(object sender, EventArgs e)
+        //{
+        //    string logoCliente;
+        //    string nombreReporte = "ReporteInventario.xlsx";
 
-            Clases.Clientes cli = new Clases.Clientes(ddlClientes.SelectedValue);
-            if (cli.PV_LOGO == "")
-            {
-                logoCliente = Server.MapPath("~") + "/ClienteLogos/sin_logo.png";
-            }
-            else
-            {
-                logoCliente = Server.MapPath("~") + "/ClienteLogos/" + cli.PV_COD_CLIENTE + "/" + cli.PV_LOGO;
-            }
+        //    Clases.Clientes cli = new Clases.Clientes(ddlClientes.SelectedValue);
+        //    if (cli.PV_LOGO == "")
+        //    {
+        //        logoCliente = Server.MapPath("~") + "/ClienteLogos/sin_logo.png";
+        //    }
+        //    else
+        //    {
+        //        logoCliente = Server.MapPath("~") + "/ClienteLogos/" + cli.PV_COD_CLIENTE + "/" + cli.PV_LOGO;
+        //    }
 
-            FileInfo infoLogo = new FileInfo(logoCliente);
-            byte[] buffer = Reportes.ExportarExcel(GridView1, infoLogo, "Reporte Inventario Existencias");
+        //    FileInfo infoLogo = new FileInfo(logoCliente);
+        //    byte[] buffer = Reportes.ExportarExcel(GridView1, infoLogo, "Reporte Inventario Existencias");
 
-            Response.Clear();
-            Response.Charset = "";
-            Response.ContentType = "application/vnd.ms-excel";
-            Response.AppendHeader("Content-Disposition", "attachment; filename=" + nombreReporte);
-            Response.BinaryWrite(buffer);
-            Response.Flush();
-            Response.End();
-            Response.ClearContent();
-        }
+        //    Response.Clear();
+        //    Response.Charset = "";
+        //    Response.ContentType = "application/vnd.ms-excel";
+        //    Response.AppendHeader("Content-Disposition", "attachment; filename=" + nombreReporte);
+        //    Response.BinaryWrite(buffer);
+        //    Response.Flush();
+        //    Response.End();
+        //    Response.ClearContent();
+        //}
 
         protected void ddlClientes_SelectedIndexChanged(object sender, EventArgs e)
         {

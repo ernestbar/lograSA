@@ -120,7 +120,9 @@
 															<td><asp:Label ID="lblcampo1" runat="server" Text='<%# Eval("ENBASE") %>'></asp:Label></td>
 															<td><asp:Label ID="Label1" runat="server" Text='<%# Eval("TAMANO") %>'></asp:Label></td>
 																<td><asp:Label ID="Label2" runat="server" Text='<%# Eval("CLASE") %>'></asp:Label></td>
-																<td><asp:TextBox ID="TextBox1" CssClass="form-control" Width="100" Text='<%# Eval("CANTIDAD_GENERADA") %>' TextMode="Number" runat="server"></asp:TextBox><asp:Button ID="btnActualizar" style="color:blue" class="btn btn-success btn-sm"  CommandArgument='<%# Eval("contenedor_sici") %>' OnClick="btnActualizar_Click"  runat="server" Text="+" ToolTip="Detalle SICI" /> </td>
+																<td><asp:TextBox ID="TextBox1" CssClass="form-control" Width="100" Text='<%# Eval("CANTIDAD_GENERADA") %>' TextMode="Number" runat="server"></asp:TextBox>
+                                                                    <asp:Button ID="btnActualizar" style="color:blue" class="btn btn-success btn-sm"  CommandArgument='<%# Eval("contenedor_sici") %>' OnClick="btnActualizar_Click"  runat="server" Text="Actualizar" ToolTip="Detalle SICI" />
+																</td>
 																<%--<td><asp:Label ID="Label3" runat="server" Text='<%# Eval("CANTIDAD_GENERADA") %>'></asp:Label></td>--%>
 																<td><asp:Label ID="Label4" runat="server" Text='<%# Eval("CANTIDAD_OBTENIDA") %>'></asp:Label></td>
 																<td><asp:Label ID="Label5" runat="server" Text='<%# Eval("SALDO") %>'></asp:Label></td>

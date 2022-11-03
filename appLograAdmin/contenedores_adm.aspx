@@ -1,5 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Principal.Master" AutoEventWireup="true" CodeBehind="contenedores_adm.aspx.cs" Inherits="appLograAdmin.contenedores_adm" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <link rel="stylesheet" href="dist/test-tube.css" />
     <%--<asp:ObjectDataSource ID="odsReporte" runat="server" SelectMethod="PR_INGRESOS" TypeName="appLograAdmin.Clases.Reportes">
         <SelectParameters>
             <asp:ControlParameter ControlID="ddlDominio" Name="PV_DOMINIO" Type="String" />
@@ -74,9 +75,9 @@
 											<div class="form-group row m-b-10">
 											
 												<div class="col-md-6">
-													<asp:Button ID="btnConsultar" class="btn btn-default btn-sm" OnClientClick="recuperarFechaSalida()" OnClick="btnConsultar_Click" runat="server" Text="Generar Reporte" />
-													<asp:Button ID="btnExportarPDF" class="btn btn-default btn-sm" runat="server" Text="Exportar PDF" OnClick="btnExportarPDF_Click" />
-													<asp:Button ID="btnExportarExcel" class="btn btn-default btn-sm" runat="server" Text="Exportar Excel" OnClick="btnExportarExcel_Click" />
+													<asp:Button ID="btnConsultar" class="btn btn-default btn-sm" OnClientClick="recuperarFechaSalida()" OnClick="btnConsultar_Click" runat="server" Text="Consultar" />
+													<%--<asp:Button ID="btnExportarPDF" class="btn btn-default btn-sm" runat="server" Text="Exportar PDF" OnClick="btnExportarPDF_Click" />
+													<asp:Button ID="btnExportarExcel" class="btn btn-default btn-sm" runat="server" Text="Exportar Excel" OnClick="btnExportarExcel_Click" />--%>
 													<%--<input type="text" name="Ruta" placeholder="" class="form-control" />--%>
 												</div>
 											</div>
@@ -99,47 +100,54 @@
 												<div class="table-responsive">
 												<!-- begin panel-body -->
 												<div class="panel-body">
-										<%--<div class="table-responsive">--%>
-														<asp:GridView runat="server" ID="GridView1" AutoGenerateColumns="true" OnPreRender="GridView_PreRender" CssClass="table table-striped" OnRowDataBound="GridView1_RowDataBound">
-
-														</asp:GridView>
+										<div class="table-responsive">
+														
 												<table id="data-table-buttons" class="table table-striped table-bordered">
 													<thead>
 														<tr>
-															<th class="text-wrap">RECINTO</th>
-															<th class="text-nowrap">NRO_INGRESO</th>
-															<th class="text-nowrap">LOTE_MUNDO</th>
-															<th class="text-nowrap">FECHA_INGRESO</th>
-															<th class="text-nowrap">DESCRIPCION</th>
-															<th class="text-nowrap">ENVASE</th>
-															<th class="text-nowrap">UNIDAD_MEDIDA</th>
-															<th class="text-nowrap">PESO</th>
-															<th class="text-nowrap">CANTIDAD</th>
-															<th class="text-nowrap">PESO_KG</th>
-															<th class="text-nowrap">UNIDAD</th>
-															<th class="text-nowrap">UBIC_COD</th>
-															<th class="text-nowrap">UBIC_DET</th>
-															<th class="text-nowrap">SKU</th>
+															<th class="text-wrap">ENVASE</th>
+														<%--	<th class="text-nowrap">TAMAÑO</th>
+															<th class="text-nowrap">CLASE</th>
+															<th class="text-nowrap">CANTIDAD GENERADA</th>
+															<th class="text-nowrap">CANTIDAD OBTENIDA</th>
+															<th class="text-nowrap">SALDO</th>--%>
+															<th class="text-nowrap"></th>
 															</tr>
 													</thead>
 													<tbody>
                                                         <asp:Repeater ID="Repeater1" runat="server">
 														<ItemTemplate>
 															<tr class="gradeA">
-															<td><asp:Label ID="lblcampo1" runat="server" Text='<%# Eval("RECINTO") %>'></asp:Label></td>
-															<td><asp:Label ID="Label1" runat="server" Text='<%# Eval("NRO_INGRESO") %>'></asp:Label></td>
-																<td><asp:Label ID="Label2" runat="server" Text='<%# Eval("LOTE_MUNDO") %>'></asp:Label></td>
-																<td><asp:Label ID="Label3" runat="server" Text='<%# Eval("FECHA_INGRESO") %>'></asp:Label></td>
-																<td><asp:Label ID="Label4" runat="server" Text='<%# Eval("DESCRIPCION") %>'></asp:Label></td>
-																<td><asp:Label ID="Label5" runat="server" Text='<%# Eval("ENVASE") %>'></asp:Label></td>
-																<td><asp:Label ID="Label6" runat="server" Text='<%# Eval("UNIDAD_MEDIDA") %>'></asp:Label></td>
-																<td><asp:Label ID="Label7" runat="server" Text='<%# Eval("PESO") %>'></asp:Label></td>
-																<td><asp:Label ID="Label11" runat="server" Text='<%# Eval("CANTIDAD") %>'></asp:Label></td>
-																<td><asp:Label ID="Label10" runat="server" Text='<%# Eval("PESO_KG") %>'></asp:Label></td>
-																<td><asp:Label ID="Label9" runat="server" Text='<%# Eval("UNIDAD") %>'></asp:Label></td>
-																<td><asp:Label ID="Label8" runat="server" Text='<%# Eval("UBIC_COD") %>'></asp:Label></td>
-																<td><asp:Label ID="Label12" runat="server" Text='<%# Eval("UBIC_DET") %>'></asp:Label></td>
-																<td><asp:Label ID="Label13" runat="server" Text='<%# Eval("SKU") %>'></asp:Label></td>
+															<td><asp:Label ID="lblcampo1" runat="server" Text='<%# Eval("ENBASE") %>'></asp:Label></td>
+															<%--<td><asp:Label ID="Label1" runat="server" Text='<%# Eval("TAMANO") %>'></asp:Label></td>
+																<td><asp:Label ID="Label2" runat="server" Text='<%# Eval("CLASE") %>'></asp:Label></td>
+																<td><asp:Label ID="Label3" runat="server" Text='<%# Eval("CANTIDAD_GENERADA") %>'></asp:Label></td>
+																<td><asp:Label ID="Label4" runat="server" Text='<%# Eval("CANTIDAD_OBTENIDA") %>'></asp:Label></td>
+																<td><asp:Label ID="Label5" runat="server" Text='<%# Eval("SALDO") %>'></asp:Label></td>--%>
+																<td>
+																	 <div class="tube">
+                                                                      <div class="shine"></div>
+                                                                      
+                                                                        <div class="liquid">
+                                                                          <div class="percentage"></div>
+                                                                        </div>
+                                                                     
+                                                                      <div class="meter">
+                                                                        <div>100</div>
+                                                                        <div>80</div>
+                                                                        <div>60</div>
+                                                                        <div>40</div>
+                                                                        <div>20</div>
+                                                                      </div>
+                                                                      <div class="bubbles">
+                                                                        <div></div>
+                                                                        <div></div>
+                                                                        <div></div>
+                                                                        <div></div>
+                                                                        <div></div>
+                                                                      </div>
+                                                                    </div>
+																</td>
 														</tr>
 														</ItemTemplate>
 														</asp:Repeater>
@@ -192,7 +200,7 @@
     </script>
 
    <!-- pace -->
-    <script>
+    <%--<script>
         var handleDataTableButtons = function () {
             "use strict";
             0 !== $('#<%= GridView1.ClientID %>').length &&
@@ -231,7 +239,7 @@
             $('#<%= GridView1.ClientID %>').dataTable();
         });
         TableManageButtons.init();
-    </script>
+    </script>--%>
 			
 		</div>
 		<!-- end #content -->
