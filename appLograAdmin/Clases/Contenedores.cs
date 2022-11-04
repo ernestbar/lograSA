@@ -150,6 +150,34 @@ namespace appLograAdmin.Clases
             }
 
         }
+        public static DataTable PR_PAR_GET_CONTENEDORES_CHOFER(string pV_SERVIDOR)
+        {
+            try
+            {
+                if (Conexion.State.ToString().ToUpper() == "CLOSED")
+                    Conexion.Open();
+
+                OracleCommand cmd = new OracleCommand("PAQ_ADM_CONTENEDORES_SIGAL.PR_PAR_GET_CONTENEDORES_CHOFER", Conexion);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("PV_SERVIDOR", OracleDbType.Varchar2, ParameterDirection.Input).Value = pV_SERVIDOR;
+                cmd.Parameters.Add("po_tabla", OracleDbType.RefCursor, ParameterDirection.Output);
+                cmd.ExecuteNonQuery();
+                DataSet ds = new DataSet();
+                OracleDataAdapter da = new OracleDataAdapter(cmd);
+                da.Fill(ds);
+                Conexion.Close();
+                return ds.Tables[0];
+
+            }
+            catch (Exception ex)
+            {
+                Conexion.Close();
+                ex.ToString();
+                DataTable dt = new DataTable();
+                return dt;
+            }
+
+        }
         public static string PR_PAR_SET_CONTENEDORES_LOGRA(string PV_contenedor_sici, Int32 PN_cantidad_generada,string pV_USUARIO)
         {
             try

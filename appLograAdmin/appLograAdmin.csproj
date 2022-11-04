@@ -3443,6 +3443,7 @@
     <Content Include="contenedores_adm.aspx" />
     <Content Include="contenedores_admin.aspx" />
     <Content Include="contenedores_conf.aspx" />
+    <Content Include="contenedores_driver.aspx" />
     <Content Include="dashboard.aspx" />
     <Content Include="dist\test-tube.css" />
     <Content Include="dominio_admin.aspx" />
@@ -3524,6 +3525,13 @@
     </Compile>
     <Compile Include="contenedores_conf.aspx.designer.cs">
       <DependentUpon>contenedores_conf.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="contenedores_driver.aspx.cs">
+      <DependentUpon>contenedores_driver.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="contenedores_driver.aspx.designer.cs">
+      <DependentUpon>contenedores_driver.aspx</DependentUpon>
     </Compile>
     <Compile Include="dashboard.aspx.cs">
       <DependentUpon>dashboard.aspx</DependentUpon>
