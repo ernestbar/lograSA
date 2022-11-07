@@ -57,6 +57,7 @@
 	<!-- end #page-loader -->
 	<!-- begin #page-container -->
 	<div id="page-container" class="fade page-sidebar-fixed page-header-fixed">
+		 
 		<!-- begin #header -->
 		<div id="header" class="header navbar-default" style="background-color:#0a3147">
 			<!-- begin navbar-header -->
@@ -114,7 +115,7 @@
 
     <asp:MultiView ID="MultiView1" runat="server">
         <asp:View ID="View1" runat="server">
-										
+										<img src="assets/img/logo/logo-admin.png" width="400" />
 									
 										<!-- begin page-header -->
 											<h1 class="page-header">Contenedores conductores</h1>
@@ -146,13 +147,8 @@
 											<!-- begin panel -->
 											<div class="panel panel-inverse">
 												<!-- begin panel-heading -->
-												<div class="panel-heading">
-													<div class="panel-heading-btn">
-														<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
-														<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-redo"></i></a>
-														<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
-														<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>
-													</div>
+												<div class="panel-heading>
+													
 													<h4 class="panel-title">Registros</h4>
 												</div>
 												<!-- end panel-heading -->
@@ -162,15 +158,15 @@
 												<div class="panel-body">
 										<div class="table-responsive">
 														
-												<table id="data-table-buttons" class="table table-striped table-bordered">
+												<table id="data-table-default" class="table table-striped table-bordered">
 													<thead>
 														<tr>
 															<th class="text-wrap">ENVASE</th>
-															<th class="text-nowrap">TAMAÑO</th>
-															<th class="text-nowrap">CLASE</th>
+														<%--	<th class="text-nowrap">TAMAÑO</th>
+															<th class="text-nowrap">CLASE</th>--%>
 														<%--	<th class="text-nowrap">porcentaje</th>
 															<th class="text-nowrap">color</th>--%>
-															<th class="text-nowrap">SALDO</th>
+														<%--	<th class="text-nowrap">SALDO</th>--%>
 															<th class="text-nowrap"></th>
 															</tr>
 													</thead>
@@ -178,12 +174,12 @@
                                                         <asp:Repeater ID="Repeater1" runat="server">
 														<ItemTemplate>
 															<tr class="gradeA">
-															<td><asp:Label ID="lblcampo1" runat="server" Text='<%# Eval("ENBASE") %>'></asp:Label></td>
-															<td><asp:Label ID="Label1" runat="server" Text='<%# Eval("TAMANO") %>'></asp:Label></td>
-																<td><asp:Label ID="Label2" runat="server" Text='<%# Eval("CLASE") %>'></asp:Label></td>
+															<td><asp:Label ID="lblcampo1" runat="server" Text='<%# "ENV.:" +Eval("ENBASE") + " TAM.:" + Eval("TAMANO") + " CLASE:" + Eval("CLASE") + " SALDO:" + Eval("SALDO") %>'></asp:Label></td>
+														<%--	<td><asp:Label ID="Label1" runat="server" Text='<%# Eval("TAMANO") %>'></asp:Label></td>
+																<td><asp:Label ID="Label2" runat="server" Text='<%# Eval("CLASE") %>'></asp:Label></td>--%>
 															<%--	<td><asp:Label ID="Label3" runat="server" Text='<%# Eval("pocentaje") %>'></asp:Label></td>
 																<td><asp:Label ID="Label4" runat="server" Text='<%# Eval("color") %>'></asp:Label></td>--%>
-																<td><asp:Label ID="Label5" runat="server" Text='<%# Eval("SALDO") %>'></asp:Label></td>
+																<%--<td><asp:Label ID="Label5" runat="server" Text='<%# Eval("SALDO") %>'></asp:Label></td>--%>
 																<td>
 																	  <div class="tube offset-1" style='<%# Eval("test") %>'>
                                                                       <div class="shine"></div>
@@ -228,7 +224,7 @@
     </asp:MultiView>
 		
 		</div>
-
+		</div>
 	<!-- ================== BEGIN BASE JS ================== -->
 	<script src="assets/plugins/jquery/jquery-3.3.1.min.js"></script>
 	<script src="assets/plugins/jquery-ui/jquery-ui.min.js"></script>
