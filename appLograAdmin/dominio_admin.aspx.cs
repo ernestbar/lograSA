@@ -193,6 +193,7 @@ namespace appLograAdmin
             lblAviso.Text = "";
             txtValorCaracter.Text = "";
             txtValorNmerico.Text = "";
+            txtValorNmerico.Text = "0";
             hfFechaSalida.Value = "";
             txtCodigo.Enabled = true;
 

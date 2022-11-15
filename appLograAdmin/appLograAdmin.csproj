@@ -3445,6 +3445,7 @@
     <Content Include="contenedores_conf.aspx" />
     <Content Include="contenedores_driver.aspx" />
     <Content Include="dashboard.aspx" />
+    <Content Include="dashboard_reportes.aspx" />
     <Content Include="dist\test-tube.css" />
     <Content Include="dominio_admin.aspx" />
     <Content Include="Global.asax" />
@@ -3539,6 +3540,13 @@
     </Compile>
     <Compile Include="dashboard.aspx.designer.cs">
       <DependentUpon>dashboard.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="dashboard_reportes.aspx.cs">
+      <DependentUpon>dashboard_reportes.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="dashboard_reportes.aspx.designer.cs">
+      <DependentUpon>dashboard_reportes.aspx</DependentUpon>
     </Compile>
     <Compile Include="dominio_admin.aspx.cs">
       <DependentUpon>dominio_admin.aspx</DependentUpon>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -9,6 +10,7 @@ namespace appLograAdmin
 {
     public partial class dashboard : System.Web.UI.Page
     {
+        string lista_proyectos = "";
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!Page.IsPostBack)
@@ -22,5 +24,6 @@ namespace appLograAdmin
                 }
             }
         }
+        
     }
 }

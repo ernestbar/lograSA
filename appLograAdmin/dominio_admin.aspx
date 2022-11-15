@@ -183,7 +183,8 @@
 					<div class="form-group row m-b-10">
 						<label class="col-md-3 text-md-right col-form-label">Valor numérico:</label>
 						<div class="col-md-6">
-                            <asp:TextBox ID="txtValorNmerico" class="form-control" runat="server"></asp:TextBox>
+                            <asp:TextBox ID="txtValorNmerico" class="form-control" Text="0" runat="server"></asp:TextBox>
+							<asp:RegularExpressionValidator ID="RegularExpressionValidator1" ControlToValidate="txtValorNmerico" runat="server" ErrorMessage="*Solo numeros" ForeColor="Red" ValidationExpression="\d*\.?\d*"></asp:RegularExpressionValidator>
 						</div>
                         
 					</div>
