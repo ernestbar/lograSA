@@ -23,10 +23,11 @@ namespace appLograAdmin.Clases
     public class Reportes
     {
         #region Métodos que NO requieren constructor
-        public static DataTable PR_DASHBOARD_EXISTENCIAS(string PV_GESTION, string PV_COD_CLIENTE, string PV_SERVIDOR)
+        public static String PR_DASHBOARD_EXISTENCIAS(string PV_GESTION, string PV_COD_CLIENTE, string PV_SERVIDOR)
         {
             try
             {
+                string resultado = "[";
                 OracleConnection Conexion = new OracleConnection("User Id=sigal;Password=siga123;Data Source=200.12.254.22:1521/XE");
                 if (Conexion.State.ToString().ToUpper() == "CLOSED")
                     Conexion.Open();
@@ -42,21 +43,34 @@ namespace appLograAdmin.Clases
                 OracleDataAdapter da = new OracleDataAdapter(cmd);
                 da.Fill(ds);
                 Conexion.Close();
-                return ds.Tables[0];
+                int x = 0;
+                string Comillas = "\"";
+                foreach (DataRow dr in ds.Tables[0].Rows)
+                {
+                    if (x == 0)
+                    {
+                        resultado = resultado + "{"+ Comillas+ "nombre"+ Comillas+":"+ Comillas + dr[1].ToString() + Comillas+","+ Comillas+"valor"+ Comillas+":" + dr[2].ToString() + "}";
+                    }
+                    else
+                    {
+                        resultado = resultado + ",{" + Comillas + "nombre" + Comillas + ":" + Comillas + dr[1].ToString() + Comillas + "," + Comillas + "valor" + Comillas + ":" + dr[2].ToString() + "}";
+                    }
+                    x++;
+                }
+                resultado = resultado + "]";
+                return resultado;
             }
             catch (Exception ex)
             {
-                //Conexion.Close();
-                ex.ToString();
-                DataTable dt = new DataTable();
-                return dt;
+               return ex.ToString();
             }
 
         }
-        public static DataTable PR_DASHBOARD_INGRESOS(string PV_GESTION, string PV_COD_CLIENTE, string PV_SERVIDOR)
+        public static string PR_DASHBOARD_INGRESOS(string PV_GESTION, string PV_COD_CLIENTE, string PV_SERVIDOR)
         {
             try
             {
+                string resultado = "[";
                 OracleConnection Conexion = new OracleConnection("User Id=sigal;Password=siga123;Data Source=200.12.254.22:1521/XE");
                 if (Conexion.State.ToString().ToUpper() == "CLOSED")
                     Conexion.Open();
@@ -66,28 +80,41 @@ namespace appLograAdmin.Clases
                 cmd.Parameters.Add("PV_GESTION", OracleDbType.Varchar2, ParameterDirection.Input).Value = PV_GESTION;
                 cmd.Parameters.Add("PV_COD_CLIENTE", OracleDbType.Varchar2, ParameterDirection.Input).Value = PV_COD_CLIENTE;
                 cmd.Parameters.Add("PV_SERVIDOR", OracleDbType.Varchar2, ParameterDirection.Input).Value = PV_SERVIDOR;
-                cmd.Parameters.Add("PV_QUERY", OracleDbType.Varchar2, 32767).Direction = ParameterDirection.Output;
                 cmd.Parameters.Add("po_tabla", OracleDbType.RefCursor, ParameterDirection.Output);
                 cmd.ExecuteNonQuery();
                 DataSet ds = new DataSet();
                 OracleDataAdapter da = new OracleDataAdapter(cmd);
                 da.Fill(ds);
                 Conexion.Close();
-                return ds.Tables[0];
+                int x = 0;
+                string Comillas = "\"";
+                foreach (DataRow dr in ds.Tables[0].Rows)
+                {
+                    if (x == 0)
+                    {
+                        resultado = resultado + "{" + Comillas + "nombre" + Comillas + ":" + Comillas + dr[1].ToString() + Comillas + "," + Comillas + "valor" + Comillas + ":" + dr[3].ToString() + "}";
+                    }
+                    else
+                    {
+                        resultado = resultado + ",{" + Comillas + "nombre" + Comillas + ":" + Comillas + dr[1].ToString() + Comillas + "," + Comillas + "valor" + Comillas + ":" + dr[3].ToString() + "}";
+                    }
+                    x++;
+                }
+                resultado = resultado + "]";
+                return resultado;
             }
             catch (Exception ex)
             {
                 //Conexion.Close();
-                ex.ToString();
-                DataTable dt = new DataTable();
-                return dt;
+                return ex.ToString();
             }
 
         }
-        public static DataTable PR_DASHBOARD_SALIDAS(string PV_GESTION, string PV_COD_CLIENTE, string PV_SERVIDOR)
+        public static string PR_DASHBOARD_SALIDAS(string PV_GESTION, string PV_COD_CLIENTE, string PV_SERVIDOR)
         {
             try
             {
+                string resultado = "";
                 OracleConnection Conexion = new OracleConnection("User Id=sigal;Password=siga123;Data Source=200.12.254.22:1521/XE");
                 if (Conexion.State.ToString().ToUpper() == "CLOSED")
                     Conexion.Open();
@@ -97,21 +124,34 @@ namespace appLograAdmin.Clases
                 cmd.Parameters.Add("PV_GESTION", OracleDbType.Varchar2, ParameterDirection.Input).Value = PV_GESTION;
                 cmd.Parameters.Add("PV_COD_CLIENTE", OracleDbType.Varchar2, ParameterDirection.Input).Value = PV_COD_CLIENTE;
                 cmd.Parameters.Add("PV_SERVIDOR", OracleDbType.Varchar2, ParameterDirection.Input).Value = PV_SERVIDOR;
-                cmd.Parameters.Add("PV_QUERY", OracleDbType.Varchar2, 32767).Direction = ParameterDirection.Output;
                 cmd.Parameters.Add("po_tabla", OracleDbType.RefCursor, ParameterDirection.Output);
                 cmd.ExecuteNonQuery();
                 DataSet ds = new DataSet();
                 OracleDataAdapter da = new OracleDataAdapter(cmd);
                 da.Fill(ds);
                 Conexion.Close();
-                return ds.Tables[0];
+                int x = 0;
+                string Comillas = "\"";
+                foreach (DataRow dr in ds.Tables[0].Rows)
+                {
+                    if (x == 0)
+                    {
+                        resultado = resultado + "{" + Comillas + "nombre" + Comillas + ":" + Comillas + dr[1].ToString() + Comillas + "," + Comillas + "valor" + Comillas + ":" + dr[3].ToString() + "}";
+                    }
+                    else
+                    {
+                        resultado = resultado + ",{" + Comillas + "nombre" + Comillas + ":" + Comillas + dr[1].ToString() + Comillas + "," + Comillas + "valor" + Comillas + ":" + dr[3].ToString() + "}";
+                    }
+                    x++;
+                }
+                resultado = resultado + "]";
+                return resultado;
             }
             catch (Exception ex)
             {
                 //Conexion.Close();
-                ex.ToString();
-                DataTable dt = new DataTable();
-                return dt;
+                return ex.ToString();
+                
             }
 
         }

@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
+using System.Web.Script.Serialization;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -19,19 +21,19 @@ namespace appLograAdmin
                 }
                 else
                 {
-                    DateTime fecha1 = DateTime.Now;
-                    string dia = "";
-                    string mes = "";
-                    if (fecha1.Day.ToString().Length == 1)
-                        dia = "0" + fecha1.Day.ToString();
-                    else
-                        dia = fecha1.Day.ToString();
-                    if (fecha1.Month.ToString().Length == 1)
-                        mes = "0" + fecha1.Month.ToString();
-                    else
-                        mes = fecha1.Month.ToString();
-                    hfFechaSalida.Value = fecha1.Year.ToString() + "-" + mes + "-" + dia;
-                    ScriptManager.RegisterStartupScript(this, this.Page.GetType(), "myFuncionAlerta", "setearFechaSalida();", true);
+                    //DateTime fecha1 = DateTime.Now;
+                    //string dia = "";
+                    //string mes = "";
+                    //if (fecha1.Day.ToString().Length == 1)
+                    //    dia = "0" + fecha1.Day.ToString();
+                    //else
+                    //    dia = fecha1.Day.ToString();
+                    //if (fecha1.Month.ToString().Length == 1)
+                    //    mes = "0" + fecha1.Month.ToString();
+                    //else
+                    //    mes = fecha1.Month.ToString();
+                    //hfFechaSalida.Value = fecha1.Year.ToString() + "-" + mes + "-" + dia;
+                    //ScriptManager.RegisterStartupScript(this, this.Page.GetType(), "myFuncionAlerta", "setearFechaSalida();", true);
 
                     if (Session["es_master"].ToString() != "S")
                     {
@@ -53,24 +55,73 @@ namespace appLograAdmin
 
         protected void btnConsultar_Click(object sender, EventArgs e)
         {
-            string fecha_ini = DateTime.Now.Year.ToString() + "/" + DateTime.Now.Month.ToString() + "/" + DateTime.Now.Day.ToString();
-            if (hfFechaSalida.Value != "")
-                fecha_ini = hfFechaSalida.Value;
-            if (rblTipoReporte.SelectedValue == "RESUMEN")
-            {
-                GridView1.DataSource = Clases.Reportes.PR_DASHBOARD_EXISTENCIAS(ddlGestion.SelectedValue, ddlClientes.SelectedValue, lblCodServidor.Text);
-                GridView1.DataBind();
+            
+            GridView1.DataSource = Clases.Reportes.PR_DASHBOARD_SALIDAS(ddlGestion.SelectedValue, ddlClientes.SelectedValue, lblCodServidor.Text);
+            GridView1.DataBind();
+           
+            //ScriptManager.RegisterStartupScript(this, this.Page.GetType(), "myFuncionAlerta", "setearFechaSalida();", true);
 
-            }
-            else
-            {
-                GridView1.DataSource = Clases.Reportes.PR_DASHBOARD_EXISTENCIAS(ddlGestion.SelectedValue, ddlClientes.SelectedValue, lblCodServidor.Text);
-                GridView1.DataBind();
+            pnlDashboard.Visible = true;
+            String Cadena = "";
+            String Cadena2 = "";
+            // DataTable obj;
 
-            }
-            ScriptManager.RegisterStartupScript(this, this.Page.GetType(), "myFuncionAlerta", "setearFechaSalida();", true);
+            // ********** Gráfico de Barras INGRESOS
+            Cadena = Clases.Reportes.PR_DASHBOARD_INGRESOS(ddlGestion.SelectedValue, ddlClientes.SelectedValue, lblCodServidor.Text);
+            hfgBarraSerie1.Value = Cadena;
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "graficoBarras", "graficoBarras();", true);
+            // ********** Gráfico de Barras SALIDAS
+            Cadena2 = Clases.Reportes.PR_DASHBOARD_SALIDAS(ddlGestion.SelectedValue, ddlClientes.SelectedValue, lblCodServidor.Text);
+            hfgBarraSerie2.Value = Cadena2;
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "graficoBarras2", "graficoBarras2();", true);
+
+            CodigoProyJSon();
+            NombreProyJSon();
+
+            // ********** Gráfico de Líneas
+            // Serie 1: Avance Financiero
+            //obj = new DataTable();
+            //obj = Clases.Reportes.PR_DASHBOARD_EXISTENCIAS(ddlGestion.SelectedValue, ddlClientes.SelectedValue, lblCodServidor.Text);
+            //Cadena = Clases.Reportes.PR_DASHBOARD_INGRESOS(ddlGestion.SelectedValue, ddlClientes.SelectedValue, lblCodServidor.Text);
+            //hfgLineaSerie1.Value = Cadena;
+            // Serie 2: Avance Técnico
+            //obj = new DataTable();
+            //obj = Clases.Reportes.PR_DASHBOARD_EXISTENCIAS(ddlGestion.SelectedValue, ddlClientes.SelectedValue, lblCodServidor.Text);
+            //Cadena = Clases.Reportes.PR_DASHBOARD_EXISTENCIAS(ddlGestion.SelectedValue, ddlClientes.SelectedValue, lblCodServidor.Text);
+            //hfgLineaSerie2.Value = Cadena;
+            //ScriptManager.RegisterStartupScript(this, this.GetType(), "graficoLineas", "graficoLineas();", true);
+            // Carga códigos y nombres de proyectos
+
+
+
+        }
+        public string CodigoProyJSon()
+        {
+            DataTable obj;
+            obj = new DataTable();
+            //obj = Clases.Reportes.PR_DASHBOARD_INGRESOS(ddlGestion.SelectedValue, ddlClientes.SelectedValue, lblCodServidor.Text);
+            //int[] codigoProyecto = new int[obj.Rows.Count];
+
+            //for (int i = 0; i < obj.Rows.Count; i++)
+            //{
+            //    codigoProyecto[i] = Convert.ToInt32(obj.Rows[i][2]);
+            //}
+            return (new JavaScriptSerializer()).Serialize("");
         }
 
+        public string NombreProyJSon()
+        {
+            DataTable obj;
+            obj = new DataTable();
+            //obj = Clases.Reportes.PR_DASHBOARD_INGRESOS(ddlGestion.SelectedValue, ddlClientes.SelectedValue, lblCodServidor.Text);
+            //string[] nombreProyecto = new string[obj.Rows.Count];
+
+            //for (int i = 0; i < obj.Rows.Count; i++)
+            //{
+            //    nombreProyecto[i] = obj.Rows[i][1].ToString();
+            //}
+            return (new JavaScriptSerializer()).Serialize("");
+        }
         protected void GridView_PreRender(object sender, EventArgs e)
         {
             GridView gv = (GridView)sender;
