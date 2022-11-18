@@ -114,7 +114,7 @@ namespace appLograAdmin.Clases
         {
             try
             {
-                string resultado = "";
+                string resultado = "[";
                 OracleConnection Conexion = new OracleConnection("User Id=sigal;Password=siga123;Data Source=200.12.254.22:1521/XE");
                 if (Conexion.State.ToString().ToUpper() == "CLOSED")
                     Conexion.Open();

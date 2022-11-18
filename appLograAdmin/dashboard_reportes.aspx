@@ -63,6 +63,7 @@
                     }).margin({ top: 30, right: 20, bottom: 50, left: 85 }) // Añadir CSS para el margen
                     .showControls(false) // Desactivar control conmutable
                     .stacked(false); // Forzar modo normal de barra
+                    
 
                 chart.xAxis.axisLabel('MESES'); // Etiqueta del eje horizontal
                 chart.yAxis.tickFormat(d3.format('0f')); // Redondear valores del eje Y
@@ -275,6 +276,7 @@
                 <!-- end col-10 -->
             </div>
             <!-- end row -->
+                <canvas id="densityChart" width="600" height="400"></canvas>
             <!-- begin row -->
             <div class="row">
                 <!-- begin col-10 -->
