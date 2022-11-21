@@ -16,7 +16,7 @@
         function graficoBarras() {
             var hfgBarraSerie1 = document.getElementById('<%=hfgBarraSerie1.ClientID%>');
             <%--var hfgBarraSerie2 = document.getElementById('<%=hfgBarraSerie2.ClientID%>');--%>
-            var datos = '[{ key: "Ingresos", "color": "#418CF0", values:' + hfgBarraSerie1.value +
+            var datos = '[{ key: "Ingresos", "color": "#008F39", values:' + hfgBarraSerie1.value +
                         ' }];';
 
             // Convertir cadena a objecto
