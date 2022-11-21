@@ -56,8 +56,8 @@ namespace appLograAdmin
         protected void btnConsultar_Click(object sender, EventArgs e)
         {
             
-            GridView1.DataSource = Clases.Reportes.PR_DASHBOARD_SALIDAS(ddlGestion.SelectedValue, ddlClientes.SelectedValue, lblCodServidor.Text);
-            GridView1.DataBind();
+            //GridView1.DataSource = Clases.Reportes.PR_DASHBOARD_SALIDAS(ddlGestion.SelectedValue, ddlClientes.SelectedValue, lblCodServidor.Text);
+            //GridView1.DataBind();
            
             //ScriptManager.RegisterStartupScript(this, this.Page.GetType(), "myFuncionAlerta", "setearFechaSalida();", true);
 

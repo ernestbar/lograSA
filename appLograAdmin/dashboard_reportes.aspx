@@ -80,49 +80,7 @@
                 return;
             });
         }
-        // Gráfico de Líneas
-        function graficoLineas() {
-            var hfgLineaSerie1 = document.getElementById('<%=hfgLineaSerie1.ClientID%>');
-            var datos = '[{ key: "Financiero", "color": "#418CF0", values:' + hfgLineaSerie1.value +
-                        ' }];';
-
-            var nombreProy =('<%= NombreProyJSon() %>');
-            var codigoProy =('<%= CodigoProyJSon() %>');
-
-            nombreProy = eval(nombreProy);
-            codigoProy = eval(codigoProy);
-
-            // Convertir cadena a objecto
-            datos = eval(datos);
-
-            nv.addGraph(function () {
-                var chart = nv.models.lineChart() // Inicializar objeto lineChart
-                    .useInteractiveGuideline(true) // Habilitar guía interactiva (tooltips) 
-                    .x(function (d) { return d.x })
-                    .y(function (d) { return d.y })
-                    .showLegend(true)
-                    .showYAxis(true)
-                    .showXAxis(true)
-                    .margin({ top: 30, right: 150, bottom: 200, left: 85 });
-                chart.xAxis
-                    .axisLabel('Proyecto') // Establecer la etiqueta del eje X (Vertical)
-                    .rotateLabels(-60) // Rotar etiquetas del eje X
-                    .tickValues(codigoProy)
-                    .tickFormat(function (d) {
-                        return nombreProy[d]
-                    });
-                chart.yAxis
-                    .axisLabel('Porcentaje') // Establecer la etiqueta  del eje Y (Vertical)
-                    .tickFormat(d3.format('.02f')); // Formato de número redondeado
-                d3.select('#graficoLineas svg') // Seleccionar el elemento HTML por su id
-                    .datum(datos) // Enviar datos JSON
-                    .transition().duration(500) // Velocidad de transición
-                    .style("font-size", "10px")
-                    .call(chart); // Llamar y renderizar
-                nv.utils.windowResize(chart.update); // Inicializar listener para cambio de tamaño de la ventana de manera que el gráfico responda y cambie su ancho
-                return;
-            });
-        }
+        
 
         // Gráfico de Barras Horizontales
         function graficoBarrasHorizontal() {
@@ -326,35 +284,7 @@
             </div>
             <!-- end row -->
 
-            <!-- begin row -->
-            <div class="row">
-                <!-- begin col-10 -->
-                <div class="col-lg-12">
-                    <div class="panel panel-inverse">
-                        <!-- begin panel-heading -->
-                        <div class="panel-heading">
-                            <div class="panel-heading-btn">
-                                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
-                                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-redo"></i></a>
-                                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
-                                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>
-                            </div>
-                            <h4 class="panel-title">Porcentaje de Avance Financiero - Técnico</h4>
-                            <asp:HiddenField ID="hfgLineaSerie1" runat="server" />
-                        </div>
-                        <!-- end panel-heading -->
-                        <!-- begin panel-body -->
-                        <div class="panel-body">
-                            <div id="graficoLineas" class='with-3d-shadow with-transitions graficoLineas'>
-                              <svg></svg>
-                            </div>
-                        </div>
-                        <!-- end panel-body -->
-                    </div>
-                </div>
-                <!-- end col-10 -->
-            </div>
-            <!-- end row -->
+           
 
             <!-- begin row -->
             <div class="row">
@@ -392,78 +322,7 @@
             </div>
 
          </asp:Panel>
-			<asp:GridView ID="GridView2" runat="server"></asp:GridView>
-											<!-- begin panel -->
-											<div class="panel panel-inverse">
-												<!-- begin panel-heading -->
-												<div class="panel-heading">
-													<div class="panel-heading-btn">
-														<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
-														<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-redo"></i></a>
-														<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
-														<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>
-													</div>
-													<h4 class="panel-title">Registros</h4>
-												</div>
-												<!-- end panel-heading -->
-												
-												<div class="table-responsive">
-												<!-- begin panel-body -->
-												<div class="panel-body">
-										<%--<div class="table-responsive">--%>
-														<asp:GridView runat="server" ID="GridView1" AutoGenerateColumns="true" OnPreRender="GridView_PreRender" CssClass="table table-striped" OnRowDataBound="GridView1_RowDataBound">
-
-														</asp:GridView>
-												<%--<table id="data-table-buttons" class="table table-striped table-bordered">
-													<thead>
-														<tr>
-															<th class="text-wrap">RECINTO</th>
-															<th class="text-nowrap">NRO_INGRESO</th>
-															<th class="text-nowrap">LOTE_MUNDO</th>
-															<th class="text-nowrap">FECHA_INGRESO</th>
-															<th class="text-nowrap">DESCRIPCION</th>
-															<th class="text-nowrap">ENVASE</th>
-															<th class="text-nowrap">UNIDAD_MEDIDA</th>
-															<th class="text-nowrap">PESO</th>
-															<th class="text-nowrap">CANTIDAD</th>
-															<th class="text-nowrap">PESO_KG</th>
-															<th class="text-nowrap">UNIDAD</th>
-															<th class="text-nowrap">UBIC_COD</th>
-															<th class="text-nowrap">UBIC_DET</th>
-															<th class="text-nowrap">SKU</th>
-														
-															
-															</tr>
-													</thead>
-													<tbody>
-                                                        <asp:Repeater ID="Repeater1" runat="server">
-														<ItemTemplate>
-															<tr class="gradeA">
-															<td><asp:Label ID="lblcampo1" runat="server" Text='<%# Eval("RECINTO") %>'></asp:Label></td>
-															<td><asp:Label ID="Label1" runat="server" Text='<%# Eval("NRO_INGRESO") %>'></asp:Label></td>
-																<td><asp:Label ID="Label2" runat="server" Text='<%# Eval("LOTE_MUNDO") %>'></asp:Label></td>
-																<td><asp:Label ID="Label3" runat="server" Text='<%# Eval("FECHA_INGRESO") %>'></asp:Label></td>
-																<td><asp:Label ID="Label4" runat="server" Text='<%# Eval("DESCRIPCION") %>'></asp:Label></td>
-																<td><asp:Label ID="Label5" runat="server" Text='<%# Eval("ENVASE") %>'></asp:Label></td>
-																<td><asp:Label ID="Label6" runat="server" Text='<%# Eval("UNIDAD_MEDIDA") %>'></asp:Label></td>
-																<td><asp:Label ID="Label7" runat="server" Text='<%# Eval("PESO") %>'></asp:Label></td>
-																<td><asp:Label ID="Label11" runat="server" Text='<%# Eval("CANTIDAD") %>'></asp:Label></td>
-																<td><asp:Label ID="Label10" runat="server" Text='<%# Eval("PESO_KG") %>'></asp:Label></td>
-																<td><asp:Label ID="Label9" runat="server" Text='<%# Eval("UNIDAD") %>'></asp:Label></td>
-																<td><asp:Label ID="Label8" runat="server" Text='<%# Eval("UBIC_COD") %>'></asp:Label></td>
-																<td><asp:Label ID="Label12" runat="server" Text='<%# Eval("UBIC_DET") %>'></asp:Label></td>
-																<td><asp:Label ID="Label13" runat="server" Text='<%# Eval("SKU") %>'></asp:Label></td>
-														</tr>
-														</ItemTemplate>
-														</asp:Repeater>
-														
-													
-													</tbody>
-												</table>--%>
-											</div>
-											<!-- end table-responsive -->
-													</div>
-										</div>
+			
         </asp:View>
 		 <asp:View ID="View2" runat="server">
 			
@@ -486,46 +345,7 @@
     </script>
 
    <!-- pace -->
-    <script>
-        var handleDataTableButtons = function () {
-            "use strict";
-            0 !== $('#<%= GridView1.ClientID %>').length &&
-                $('#<%= GridView1.ClientID %>').DataTable({
-            dom: "Bfrtip",
-            buttons: [{
-                extend: "copy",
-                className: "btn-sm"
-            }, {
-                extend: "csv",
-                className: "btn-sm"
-            }, {
-                extend: "excel",
-                className: "btn-sm"
-            }, {
-                extend: "pdf",
-                className: "btn-sm"
-            }, {
-                extend: "print",
-                className: "btn-sm"
-            }],
-            responsive: !0
-        })
-    },
-    TableManageButtons = function () {
-        "use strict";
-        return {
-            init: function () {
-                handleDataTableButtons()
-            }
-        }
-    }();
-    </script>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('#<%= GridView1.ClientID %>').dataTable();
-        });
-        TableManageButtons.init();
-    </script>
+   
 			
 		</div>
 		<!-- end #content -->
