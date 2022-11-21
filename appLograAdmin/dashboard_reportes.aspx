@@ -2,11 +2,13 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 	<!-- ================== BEGIN PAGE LEVEL STYLE ================== -->
     <link href='<%= Page.ResolveUrl("~/assets/plugins/nvd3/build/nv.d3.css")%>'" rel="stylesheet" />
-    <!-- ================== END PAGE LEVEL STYLE ================== -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato"
+>    <!-- ================== END PAGE LEVEL STYLE ================== -->
 
     <!-- ================== BEGIN PAGE LEVEL JS ================== -->
 	<script src='<%= Page.ResolveUrl("~/assets/plugins/d3/d3.min.js")%>'></script>
 	<script src='<%= Page.ResolveUrl("~/assets/plugins/nvd3/build/nv.d3.js")%>'></script>
+    <script src='<%= Page.ResolveUrl("~/assets/js/Chart.min.js")%>'></script>
     <!-- ================== END PAGE LEVEL JS ================== -->
 
     <script type="text/javascript">
@@ -121,6 +123,53 @@
                 return;
             });
         }
+
+        // Gráfico de Barras Horizontales
+        function graficoBarrasHorizontal() {
+            var hfgBarraHorEtiquetas = document.getElementById('<%=hfgBarraHorEtiquetas.ClientID%>').value;
+            var hfgBarraHorDatos = document.getElementById('<%=hfgBarraHorDatos.ClientID%>').value;
+            var hfgBarraHorColorFondo = document.getElementById('<%=hfgBarraHorColorFondo.ClientID%>').value;
+
+            var etiquetas = eval(hfgBarraHorEtiquetas);
+            var datos = eval(hfgBarraHorDatos);
+            var colorFondo = eval(hfgBarraHorColorFondo);
+
+            var densityCanvas = document.getElementById("densityChart");
+
+            Chart.defaults.global.defaultFontFamily = "Lato";
+            Chart.defaults.global.defaultFontSize = 18;
+
+            var densityData = {
+                label: 'Existencias a la Fecha',
+                data: datos,
+                backgroundColor: colorFondo,
+                borderWidth: 2,
+                hoverBorderWidth: 0
+            };
+
+            var chartOptions = {
+                scales: {
+                    yAxes: [{
+                        barPercentage: 0.5,
+                        barThickness: 20
+                    }]
+                },
+                elements: {
+                    rectangle: {
+                        borderSkipped: 'left',
+                    }
+                }
+            };
+
+            var barChart = new Chart(densityCanvas, {
+                type: 'horizontalBar',
+                data: {
+                    labels: etiquetas,
+                    datasets: [densityData],
+                },
+                options: chartOptions
+            });
+        };
     </script>
 
     <style type="text/css">
@@ -276,7 +325,7 @@
                 <!-- end col-10 -->
             </div>
             <!-- end row -->
-                <canvas id="densityChart" width="600" height="400"></canvas>
+
             <!-- begin row -->
             <div class="row">
                 <!-- begin col-10 -->
@@ -300,6 +349,34 @@
                               <svg></svg>
                             </div>
                         </div>
+                        <!-- end panel-body -->
+                    </div>
+                </div>
+                <!-- end col-10 -->
+            </div>
+            <!-- end row -->
+
+            <!-- begin row -->
+            <div class="row">
+                <!-- begin col-10 -->
+                <div class="col-lg-12">
+                    <div class="panel panel-inverse">
+                        <!-- begin panel-heading -->
+                        <div class="panel-heading">
+                            <div class="panel-heading-btn">
+                                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-redo"></i></a>
+                                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+                                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>
+                            </div>
+                            <h4 class="panel-title">EXISTENCIAS</h4>
+                            <asp:HiddenField ID="hfgBarraHorEtiquetas" runat="server" />
+                            <asp:HiddenField ID="hfgBarraHorDatos" runat="server" />
+                            <asp:HiddenField ID="hfgBarraHorColorFondo" runat="server" />
+                       </div>
+                        <!-- end panel-heading -->
+                        <!-- begin panel-body -->
+                        <canvas id="densityChart" width="600" height="400"></canvas>
                         <!-- end panel-body -->
                     </div>
                 </div>

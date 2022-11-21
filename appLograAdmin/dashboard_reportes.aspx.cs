@@ -64,6 +64,9 @@ namespace appLograAdmin
             pnlDashboard.Visible = true;
             String Cadena = "";
             String Cadena2 = "";
+            string gBarraHorEtiqueta = "";
+            string gBarraHorDatos = "";
+            string gBarraHorColorFondo = "";
             // DataTable obj;
 
             // ********** Gráfico de Barras INGRESOS
@@ -77,6 +80,12 @@ namespace appLograAdmin
 
             CodigoProyJSon();
             NombreProyJSon();
+
+            Clases.Reportes.PR_DASHBOARD_EXISTENCIAS2(ddlGestion.SelectedValue, ddlClientes.SelectedValue, lblCodServidor.Text, out gBarraHorEtiqueta, out gBarraHorDatos, out gBarraHorColorFondo);
+            hfgBarraHorEtiquetas.Value = gBarraHorEtiqueta;
+            hfgBarraHorDatos.Value = gBarraHorDatos;
+            hfgBarraHorColorFondo.Value = gBarraHorColorFondo;
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "graficoBarrasHorizontal", "graficoBarrasHorizontal();", true);
 
             // ********** Gráfico de Líneas
             // Serie 1: Avance Financiero

@@ -536,6 +536,7 @@
     <Content Include="assets\img\work\work-img-8.jpg" />
     <Content Include="assets\js\apps.js" />
     <Content Include="assets\js\apps.min.js" />
+    <Content Include="assets\js\Chart.min.js" />
     <Content Include="assets\js\demo\calendar.demo.js" />
     <Content Include="assets\js\demo\calendar.demo.min.js" />
     <Content Include="assets\js\demo\chart-d3.demo.js" />

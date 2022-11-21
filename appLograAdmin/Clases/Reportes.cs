@@ -17,6 +17,7 @@ using OfficeOpenXml.Style;
 using System.IO;
 using System.Web.UI.WebControls;
 using System.Net;
+using System.Web.Script.Serialization;
 
 namespace appLograAdmin.Clases
 {
@@ -66,6 +67,50 @@ namespace appLograAdmin.Clases
             }
 
         }
+
+        public static void PR_DASHBOARD_EXISTENCIAS2(string PV_GESTION, string PV_COD_CLIENTE, string PV_SERVIDOR, out string strEtiqueta, out string strDatos, out string strColorFondo)
+        {
+            strEtiqueta = "";
+            strDatos = "";
+            strColorFondo = "";
+
+            try
+            {
+                OracleConnection Conexion = new OracleConnection("User Id=sigal;Password=siga123;Data Source=200.12.254.22:1521/XE");
+                if (Conexion.State.ToString().ToUpper() == "CLOSED")
+                    Conexion.Open();
+
+                OracleCommand cmd = new OracleCommand("PAQ_REPORTES_SEGAL_SEGAL.PR_DASHBOARD_EXISTENCIAS", Conexion);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("PV_GESTION", OracleDbType.Varchar2, ParameterDirection.Input).Value = PV_GESTION;
+                cmd.Parameters.Add("PV_COD_CLIENTE", OracleDbType.Varchar2, ParameterDirection.Input).Value = PV_COD_CLIENTE;
+                cmd.Parameters.Add("PV_SERVIDOR", OracleDbType.Varchar2, ParameterDirection.Input).Value = PV_SERVIDOR;
+                cmd.Parameters.Add("po_tabla", OracleDbType.RefCursor, ParameterDirection.Output);
+                cmd.ExecuteNonQuery();
+                DataSet ds = new DataSet();
+                OracleDataAdapter da = new OracleDataAdapter(cmd);
+                da.Fill(ds);
+                Conexion.Close();
+                string[] etiquetas = new string[ds.Tables[0].Rows.Count];
+                string[] datos = new string[ds.Tables[0].Rows.Count];
+                string[] colorFondo = new string[ds.Tables[0].Rows.Count];
+                for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+                {
+                    etiquetas[i] = ds.Tables[0].Rows[i][1].ToString();
+                    datos[i] = ds.Tables[0].Rows[i][2].ToString();
+                    colorFondo[i] = "rgba(61, 109, 200, 0.6)";
+                }
+
+                strEtiqueta = (new JavaScriptSerializer()).Serialize(etiquetas);
+                strDatos = (new JavaScriptSerializer()).Serialize(datos);
+                strColorFondo = (new JavaScriptSerializer()).Serialize(colorFondo);
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+
         public static string PR_DASHBOARD_INGRESOS(string PV_GESTION, string PV_COD_CLIENTE, string PV_SERVIDOR)
         {
             try
