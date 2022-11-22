@@ -114,6 +114,15 @@ namespace appLograAdmin
         protected global::System.Web.UI.WebControls.View View1;
 
         /// <summary>
+        /// Control Panel_opciones.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel Panel_opciones;
+
+        /// <summary>
         /// Control ddlClientes.
         /// </summary>
         /// <remarks>
@@ -168,24 +177,6 @@ namespace appLograAdmin
         protected global::System.Web.UI.WebControls.Panel pnlDashboard;
 
         /// <summary>
-        /// Control hfgBarraSerie1.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hfgBarraSerie1;
-
-        /// <summary>
-        /// Control hfgBarraSerie2.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hfgBarraSerie2;
-
-        /// <summary>
         /// Control hfgBarraHorEtiquetas.
         /// </summary>
         /// <remarks>
@@ -211,6 +202,33 @@ namespace appLograAdmin
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hfgBarraHorColorFondo;
+
+        /// <summary>
+        /// Control hfgBarraSerie1.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hfgBarraSerie1;
+
+        /// <summary>
+        /// Control hfgBarraEticketas1.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hfgBarraEticketas1;
+
+        /// <summary>
+        /// Control hfgBarraSerie2.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hfgBarraSerie2;
 
         /// <summary>
         /// Control View2.

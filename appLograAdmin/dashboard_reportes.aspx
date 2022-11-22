@@ -15,7 +15,7 @@
         // Gráfico de Barras
         function graficoBarras() {
             var hfgBarraSerie1 = document.getElementById('<%=hfgBarraSerie1.ClientID%>');
-            <%--var hfgBarraSerie2 = document.getElementById('<%=hfgBarraSerie2.ClientID%>');--%>
+            var hfgBarraEtiquetas2 = document.getElementById('<%=hfgBarraEticketas1.ClientID%>');
             var datos = '[{ key: "Ingresos", "color": "#008F39", values:' + hfgBarraSerie1.value +
                         ' }];';
 
@@ -195,8 +195,8 @@
 									
 										<!-- begin page-header -->
 											<h1 class="page-header">DASHBOARD DEL SISTEMA</h1>
-											
-											Cliente:
+            <asp:Panel ID="Panel_opciones" runat="server">
+                							Cliente:
 											<asp:DropDownList ID="ddlClientes" class="form-control col-md-6"  OnDataBound="ddlClientes_DataBound" DataSourceID="odsClientesTodos" DataTextField="DESC_RAZONSOCIAL" DataValueField="cod_cliente" ForeColor="Black" runat="server"></asp:DropDownList>
 											<asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="*" ForeColor="Red" ControlToValidate="ddlClientes" InitialValue="SELECCIONAR" Font-Bold="True"></asp:RequiredFieldValidator>
 											Gestion:
@@ -222,7 +222,37 @@
 												</div>
 											</div>
 											<!-- end form-group row -->
+            </asp:Panel>
+				
             <asp:Panel ID="pnlDashboard" runat="server" Visible="false">
+
+                    <!-- begin row -->
+            <div class="row">
+                <!-- begin col-10 -->
+                <div class="col-lg-12">
+                    <div class="panel panel-inverse">
+                        <!-- begin panel-heading -->
+                        <div class="panel-heading">
+                            <div class="panel-heading-btn">
+                                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-redo"></i></a>
+                                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+                                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>
+                            </div>
+                            <h4 class="panel-title">EXISTENCIAS</h4>
+                            <asp:HiddenField ID="hfgBarraHorEtiquetas" runat="server" />
+                            <asp:HiddenField ID="hfgBarraHorDatos" runat="server" />
+                            <asp:HiddenField ID="hfgBarraHorColorFondo" runat="server" />
+                       </div>
+                        <!-- end panel-heading -->
+                        <!-- begin panel-body -->
+                        <canvas id="densityChart"   style="background-color:lightgray;" width="600" height="400"></canvas>
+                        <!-- end panel-body -->
+                    </div>
+                </div>
+                <!-- end col-10 -->
+            </div>
+            <!-- end row -->
             <!-- begin row -->
             <div class="row">
                 <!-- begin col-10 -->
@@ -238,6 +268,7 @@
                             </div>
                             <h4 class="panel-title">DASHBOARD INGRESOS</h4>
                             <asp:HiddenField ID="hfgBarraSerie1" runat="server" />
+                            <asp:HiddenField ID="hfgBarraEticketas1" runat="server" />
                            <%-- <asp:HiddenField ID="hfgBarraSerie2" runat="server" />--%>
                        </div>
                         <!-- end panel-heading -->
@@ -286,33 +317,7 @@
 
            
 
-            <!-- begin row -->
-            <div class="row">
-                <!-- begin col-10 -->
-                <div class="col-lg-12">
-                    <div class="panel panel-inverse">
-                        <!-- begin panel-heading -->
-                        <div class="panel-heading">
-                            <div class="panel-heading-btn">
-                                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
-                                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-redo"></i></a>
-                                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
-                                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>
-                            </div>
-                            <h4 class="panel-title">EXISTENCIAS</h4>
-                            <asp:HiddenField ID="hfgBarraHorEtiquetas" runat="server" />
-                            <asp:HiddenField ID="hfgBarraHorDatos" runat="server" />
-                            <asp:HiddenField ID="hfgBarraHorColorFondo" runat="server" />
-                       </div>
-                        <!-- end panel-heading -->
-                        <!-- begin panel-body -->
-                        <canvas id="densityChart" width="600" height="400"></canvas>
-                        <!-- end panel-body -->
-                    </div>
-                </div>
-                <!-- end col-10 -->
-            </div>
-            <!-- end row -->
+
 
             <hr style="background-color: lightgray; height: 2px; border: 0;" />
             <div class="row">

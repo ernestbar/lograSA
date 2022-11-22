@@ -39,6 +39,38 @@ namespace appLograAdmin
                     {
                         odsClientesTodos.FilterExpression = "COD_CLIENTE='" + Session["cod_cliente"] + "'";
                         ddlClientes.DataBind();
+                        Panel_opciones.Visible = false;
+                        pnlDashboard.Visible = true;
+                        String Cadena = "";
+                        String Cadena2 = "";
+                        string gBarraHorEtiqueta = "";
+                        string gBarraHorDatos = "";
+                        string gBarraHorColorFondo = "";
+
+
+                        // DataTable obj;
+
+                        // ********** Gráfico de Barras INGRESOS
+                        Cadena = Clases.Reportes.PR_DASHBOARD_INGRESOS(DateTime.Now.Year.ToString(), Session["cod_cliente"].ToString(), lblCodServidor.Text);
+                        hfgBarraSerie1.Value = Cadena;
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "graficoBarras", "graficoBarras();", true);
+                        // ********** Gráfico de Barras SALIDAS
+                        Cadena2 = Clases.Reportes.PR_DASHBOARD_SALIDAS(DateTime.Now.Year.ToString(), Session["cod_cliente"].ToString(), lblCodServidor.Text);
+                        hfgBarraSerie2.Value = Cadena2;
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "graficoBarras2", "graficoBarras2();", true);
+
+                        CodigoProyJSon();
+                        NombreProyJSon();
+
+                        Clases.Reportes.PR_DASHBOARD_EXISTENCIAS2(DateTime.Now.Year.ToString(), Session["cod_cliente"].ToString(), lblCodServidor.Text, out gBarraHorEtiqueta, out gBarraHorDatos, out gBarraHorColorFondo);
+                        hfgBarraHorEtiquetas.Value = gBarraHorEtiqueta;
+                        hfgBarraHorDatos.Value = gBarraHorDatos;
+                        hfgBarraHorColorFondo.Value = gBarraHorColorFondo;
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "graficoBarrasHorizontal", "graficoBarrasHorizontal();", true);
+                    }
+                    else
+                    {
+                        Panel_opciones.Visible = true;
                     }
                     lblCodServidor.Text = Session["cod_servidor"].ToString();
                     MultiView1.ActiveViewIndex = 0;
@@ -67,6 +99,8 @@ namespace appLograAdmin
             string gBarraHorEtiqueta = "";
             string gBarraHorDatos = "";
             string gBarraHorColorFondo = "";
+
+          
             // DataTable obj;
 
             // ********** Gráfico de Barras INGRESOS

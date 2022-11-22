@@ -152,7 +152,10 @@ namespace appLograAdmin.Clases
                 OracleCommand cmd = new OracleCommand("PAQ_UTILITARIOS_SIGAL.PR_INGRESO_APP", Conexion);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("pv_usuario", OracleDbType.Varchar2, ParameterDirection.Input).Value = pv_usuario;
-                cmd.Parameters.Add("pv_password", OracleDbType.Varchar2, ParameterDirection.Input).Value = pv_password;
+                if(pv_password=="")
+                    cmd.Parameters.Add("pv_password", OracleDbType.Varchar2, ParameterDirection.Input).Value = '1';
+                else
+                    cmd.Parameters.Add("pv_password", OracleDbType.Varchar2, ParameterDirection.Input).Value = pv_password;
                 cmd.Parameters.Add("PV_ESTADOPR", OracleDbType.Varchar2, 32767).Direction = ParameterDirection.Output;
                 cmd.Parameters.Add("PV_DESCRIPCIONPR", OracleDbType.Varchar2, 32767).Direction = ParameterDirection.Output;
                 cmd.Parameters.Add("PV_TEMPORAL", OracleDbType.Varchar2, 32767).Direction = ParameterDirection.Output;
