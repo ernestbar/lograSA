@@ -43,6 +43,7 @@ namespace appLograAdmin
                         ddlClientes.DataBind();
                         ddlClientes.SelectedValue = Session["cod_cliente"].ToString();
                         ddlGestion.SelectedValue = DateTime.Now.Year.ToString();
+                        //ddlGestion. = DateTime.Now.Year.ToString();
                         Panel_opciones.Visible = true;
                         pnlDashboard.Visible = true;
                         String Cadena = "";
