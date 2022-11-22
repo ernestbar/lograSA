@@ -21,6 +21,8 @@ namespace appLograAdmin
                 }
                 else
                 {
+                    MultiView1.ActiveViewIndex = 0;
+                    lblCodServidor.Text = Session["cod_servidor"].ToString();
                     //DateTime fecha1 = DateTime.Now;
                     //string dia = "";
                     //string mes = "";
@@ -39,7 +41,9 @@ namespace appLograAdmin
                     {
                         odsClientesTodos.FilterExpression = "COD_CLIENTE='" + Session["cod_cliente"] + "'";
                         ddlClientes.DataBind();
-                        Panel_opciones.Visible = false;
+                        ddlClientes.SelectedValue = Session["cod_cliente"].ToString();
+                        ddlGestion.SelectedValue = DateTime.Now.Year.ToString();
+                        Panel_opciones.Visible = true;
                         pnlDashboard.Visible = true;
                         String Cadena = "";
                         String Cadena2 = "";
@@ -72,8 +76,8 @@ namespace appLograAdmin
                     {
                         Panel_opciones.Visible = true;
                     }
-                    lblCodServidor.Text = Session["cod_servidor"].ToString();
-                    MultiView1.ActiveViewIndex = 0;
+                    
+                    
                 }
             }
         }
